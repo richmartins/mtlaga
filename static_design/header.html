@@ -1,9 +1,38 @@
 <head>
-  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Didact+Gothic" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="style/style.css">
+  <script src='https://api.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.js'></script>
+  <link href='https://api.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.css' rel='stylesheet' />
 </head>
 <header>
-  <div id="header_container">
+  <div id="header_style">
+    <div id="header_style_container" class="flex_container">
+
+      <div id="header_style_logo" class="header_style_items">
+        <img src="img/mtlaga_logo_2.png" alt="MTLAGA Logo">
+      </div>
+
+      <div id="header_style_menu" class="flex_container">
+        <div class="flex_container header_style_menu_items">
+          <p>Accueil</p>
+        </div>
+        <div class="flex_container header_style_menu_items">
+          <p>Info</p>
+        </div>
+        <div class="flex_container header_style_menu_items">
+          <p>Plans</p>
+        </div>
+      </div>
+
+      <div id="header_style_actions" class="flex_container header_style_items">
+        <div class="flex_container">
+          <input id="header_style_menu_search" type="search" placeholder="Recherche">
+        </div>
+        <div id="header_style_menu_connexion" class="flex_container" >
+          <img src="img/mtlaga_user.png" alt="Connexion">
+        </div>
+      </div>
+
+    </div>
   </div>
 </header>
