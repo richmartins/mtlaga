@@ -1,6 +1,6 @@
 <head>
   <title><?php echo $title; ?></title>
-  <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/style.css">
+  <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>public/css/style.css">
 </head>
 <header>
   <div id="header_container">
@@ -23,7 +23,7 @@
       </div>
     </div>
     <div id="footer_image">
-       <img src="img/mtlaga_logo.png" alt="MTLAGA Logo">
+       <img src="<?php echo base_url();?>public/pictures/logo/mtlaga_logo.png" alt="MTLAGA Logo">
     </div>
   </div>
   <div id="footer_copyright">
