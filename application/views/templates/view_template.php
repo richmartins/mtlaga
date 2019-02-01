@@ -23,7 +23,7 @@
       </div>
     </div>
     <div id="footer_image">
-       <img src="<?php echo base_url();?>public/pictures/logo/mtlaga_logo.png" alt="MTLAGA Logo">
+       <img src="<?php echo base_url();?>public/pictures/logo/mtlaga_logo_ex2_withoutbg.png" alt="MTLAGA Logo">
     </div>
   </div>
   <div id="footer_copyright">
