@@ -79,7 +79,6 @@ include("header.html");
         center: [6.6327025, 46.5218269],
         zoom: 12.0,
         boxZoom: false,
-
     });
 
     // adaptation CSS image header quand scroll
@@ -94,21 +93,6 @@ include("header.html");
         }
     }, false );
 
-    var arrow = document.getElementById("header_style_menu_actions_arrow");
-    var rectangle = document.getElementById("header_style_menu_actions_rectangle");
-
-    arrow.style.display = "none";
-    rectangle.style.display = "none";
-
-    document.getElementById("header_style_menu_connexion").onclick = function() {
-        if (arrow.style.display === "none") {
-            arrow.style.display = "block";
-            rectangle.style.display = "block";
-        } else {
-            arrow.style.display = "none";
-            rectangle.style.display = "none";
-        }
-    };
 
 
 </script>
