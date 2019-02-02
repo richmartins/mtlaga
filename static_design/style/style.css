@@ -1,11 +1,13 @@
 html {
-  	/*font-family: Open Sans; font-size: 24px; font-style: normal;*/
-    /*font-family: 'Roboto', sans-serif;*/
     font-family: 'Didact Gothic', sans-serif;
 }
 
 body {
   margin: 0;
+}
+
+body, html {
+  overflow: auto!important;
 }
 
 header {
@@ -197,10 +199,11 @@ header {
   color: #0083B3;
   font-weight: bold;
   font-size: 28px;
-  margin-bottom: 300px;
+
   width: 25%;
   height: auto;
   margin: 0 auto;
+  margin-top: 150px !important;
   background-color: #EBEBEB;
   border-radius: 25px;
 }
@@ -269,16 +272,6 @@ header {
   background-color: transparent !important;
 }
 
-
-
-  /*
-  .flex_container > div {
-    margin: 0;
-    line-height: 1.5;
-  }
-  */
-
-
 /* FOOTER */
 
 footer {
@@ -287,6 +280,7 @@ footer {
   height: 300px;
   background-color: #0083B3;
   color: #FFFFFF;
+  overflow: hidden
 }
 
 #footer_text > div > p {
@@ -318,8 +312,6 @@ footer {
   width: 30%;
 }
 
-
-
 #footer_image {
   width: 20%;
   padding: -20px;
@@ -348,6 +340,7 @@ footer {
 }
 
 /* Home */
+
 #home_container {
   /*border: 2px solid yellow;*/
   height: auto;
@@ -363,7 +356,6 @@ footer {
 .home_style_flexbox_head {
   margin: 5px;
   flex: 1 1 auto;
-  /*border: 2px solid green;*/
   background-color: #EBEBEB;
   border-radius: 25px;
   flex-direction: column;
@@ -373,7 +365,6 @@ footer {
 .home_style_flexbox_title_container {
   height: 40px;
   padding: 10px;
-  /*border: solid 2px black;*/
 }
 
 .home_style_flexbox_title_text {
@@ -393,7 +384,6 @@ footer {
 }
 
 #home_style_flexbox_container {
-  /*border: solid 2px black;*/
   width: 100%;
   flex-direction: column;
 }
@@ -447,4 +437,65 @@ footer {
 #home_style_flexbox_map {
   width: 100%;
   border-radius: 20px;
+}
+
+/* INFO */
+
+#info_sytle_bck {
+  height: auto;
+  width: 60%;
+  margin: 0 auto;
+  margin-top: 150px !important;
+  background-color: #EBEBEB;
+  border-radius: 25px;
+}
+
+#info_sytle_bck p {
+  margin: 0;
+  color: #0083B3;
+  font-weight: bold;
+  font-size: 28px;
+}
+
+#info_sytle_bck_border {
+  padding: 20px;
+}
+
+#info_sytle_bck_border p {
+  padding-bottom: 5px;
+  text-align: justify;
+}
+
+#info_style_container {
+  width: auto;
+  background-color: #FFFFFF;
+  border-radius: 25px;
+  padding: 20px 20px 40px 20px;
+}
+
+#info_style_container p {
+  margin: 0;
+  font-size: 15px;
+  font-weight: normal;
+  color: #000000;
+}
+
+#info_style_sign {
+  padding-top: 20px;
+  border-bottom: 7px solid #0083B3;
+  width: 35%;
+}
+
+#info_style_sign p {
+  font-size: 22px;
+  color: #0083B3;
+  font-weight: bold;
+}
+
+#info_sytle_ceo {
+  padding-top: 10px;
+}
+
+#info_sytle_ceo > p {
+  padding: 0;
 }

@@ -18,4 +18,16 @@ document.addEventListener("DOMContentLoaded", function(){
         }
     };
 
+    // adaptation CSS image header quand scroll
+    window.addEventListener( 'scroll', function( event ) {
+        var lastScrollTop = 0;
+        var element = document.getElementById("header_style_logo");
+        var st = window.pageYOffset || document.documentElement.scrollTop;
+        if (st > lastScrollTop){
+            element.classList.add("header_style_logo_scroll")
+        } else {
+            element.classList.remove("header_style_logo_scroll")
+        }
+    }, false );
+
 });
