@@ -74,11 +74,82 @@ header {
   margin: 0;
 }
 
+.header_style_menu_items > p > a {
+  color: #c9c9c9;
+  text-decoration: none;
+}
+
+.header_style_menu_items_selected > p > a {
+  border-bottom: 3px solid #FFF;
+  color: #FFF;
+}
+
+.header_style_menu_items > p >a:hover {
+  color: #FFF;
+}
+
 #header_style_menu_connexion {
   width: 45px;
   margin-left: 10px;
   height: auto;
 }
+
+#header_style_menu_connexion:hover {
+  cursor: pointer;
+ }
+
+#header_style_menu_actions {
+  position: relative;
+  margin-right: 20%;
+  float: right;
+}
+
+#header_style_menu_actions_rectangle {
+  margin-top: 10px;
+  width: 200px;
+  height: 70px;
+  background-color: #D4D4D4;
+  border-radius: 5px;
+}
+
+#header_style_menu_actions_arrow {
+  float: right;
+  margin-top: -5px;
+  width: 0;
+  height: 0;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-bottom: 25px solid #D4D4D4;
+}
+
+#header_style_menu_action_rectangle_container {
+  padding: 7px;
+}
+
+.header_style_menu_action_rectangle_items  {
+  padding: 3px;
+}
+
+.header_style_menu_action_rectangle_items p {
+  margin: 0;
+}
+
+.header_style_menu_action_rectangle_items  a {
+  text-decoration: none;
+  color: #0083B3;
+  font-weight: bold;
+}
+
+.header_style_menu_action_rectangle_items a:hover {
+ color: #FFF;
+}
+
+.header_style_menu_action_img {
+  width: 25px;
+  height: 25px;
+  margin-right: 5px;
+}
+
 
 /* singup */
 
@@ -168,12 +239,38 @@ header {
   flex-wrap: nowrap;
 }
 
-/*
-.flex_container > div {
-  margin: 0;
-  line-height: 1.5;
+.link a:hover {
+  color: #383838;
 }
-*/
+
+.link a {
+  text-decoration: none;
+  color: #FFFF;
+}
+
+.link a {
+  text-decoration: none;
+  color: #FFFF;
+}
+
+.header_style_logo_scroll > img {
+  width: 60px !important;
+}
+
+.header_style_logo_scroll {
+  width: auto !important;
+  height: auto !important;
+  background-color: transparent !important;
+}
+
+
+
+  /*
+  .flex_container > div {
+    margin: 0;
+    line-height: 1.5;
+  }
+  */
 
 /* FOOTER */
 footer {
@@ -212,14 +309,7 @@ footer {
   width: 30%;
 }
 
-#footer_text_contact a {
-  text-decoration: none;
-  color: #FFFF;
-}
 
-#footer_text_contact a:hover {
-  color: #383838;
-}
 
 #footer_image {
   width: 20%;
