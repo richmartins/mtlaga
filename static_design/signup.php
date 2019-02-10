@@ -6,24 +6,20 @@ include("header.html");
   <form class="" action="" method="post">
     <div class="form_style_front" >
       <div class="form_style_title">
-        <p>Nom d'utilisateur</p>
-        <input type="text" name="" value="" class="connexion_input">
-      </div>
-      <div class="form_style_title">
         <p>Adresse mail</p>
-        <input type="email" name="" value="" class="connexion_input">
+        <input type="email" name="" value="" class="form_input">
       </div>
       <div class="form_style_title">
         <p>Mot de passe</p>
-        <input type="password" name="" value="" class="connexion_input">
+        <input type="password" name="" value="" class="form_input">
       </div>
       <div class="form_style_title">
         <p>Confirmer le mot de passe</p>
-        <input type="password" name="" value="" class="connexion_input">
+        <input type="password" name="" value="" class="form_input">
       </div>
 
       <div class="form_style_submit form_style_title">
-        <input type="submit" name="" value="S'inscrire" class="connexion_input">
+        <input type="submit" name="" value="S'inscrire" class="form_input">
       </div>
 
       <div class="form_style_link" id="signup_submit">

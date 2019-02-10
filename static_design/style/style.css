@@ -32,15 +32,14 @@ header {
 }
 
 #header_style_logo {
-  width: 150px;
-  height: 130px;
-  background-color: #EBEBEB;
+  /*background-color: #EBEBEB;*/
   border-radius: 20px 20px;
 }
 
 #header_style_logo > img {
-  width: 120px;
+  width: 110px;
   height: auto;
+  padding-top: 5px;
 }
 
 #header_style_menu {
@@ -83,7 +82,7 @@ header {
 }
 
 .header_style_menu_items_selected > p > a {
-  border-bottom: 3px solid #FFFFFF;
+  /*border-bottom: 3px solid #FFFFFF;*/
   color: #FFFFFF;
 }
 
@@ -150,7 +149,6 @@ header {
 .header_style_menu_action_rectangle_items a:hover {
  color: #FFFFFF;
 }
-
 .header_style_menu_action_img {
   width: 25px;
   height: 25px;
@@ -166,12 +164,14 @@ header {
 
 /* connexion */
 
-.connexion_input {
+.form_input {
   width: 100%;
   background-color: #EBEBEB;
   height: 30px;
   border: none;
   outline: none;
+  font-size: 18px;
+  padding: 5px;
 }
 
 
@@ -191,7 +191,8 @@ header {
 
 .form_style_title {
   font-size: 21px;
-  height: 80px;
+  padding-bottom: 5px;
+  /*height: 80px;*/
 }
 
 .form_style_bck {
@@ -219,10 +220,12 @@ header {
   padding: 20px;
 }
 
+/*
 .form_style_front > div > input {
   font-size: 18px;
   padding: 5px;
 }
+*/
 
 .form_style_submit {
   padding-top: 20px;
@@ -234,7 +237,7 @@ header {
   color: #FFFFFF;
   font-weight: bold;
   font-size: 18px;
-  padding: 7px;
+  padding: 0 7px 0 7px;
   border-radius: 6px;
   border: none;
 }
@@ -275,12 +278,11 @@ header {
 /* FOOTER */
 
 footer {
-  margin-top: 110px;
+  margin-top: 150px;
   width: 100%;
   height: 300px;
   background-color: #0083B3;
   color: #FFFFFF;
-  overflow: hidden
 }
 
 #footer_text > div > p {
@@ -318,7 +320,7 @@ footer {
 }
 
 #footer_image > img {
-  height: 250px;
+  height: 200px;
   width: auto;
 }
 
@@ -346,7 +348,7 @@ footer {
   height: auto;
   width: 60%;
   margin: 0 auto;
-  margin-top: 150px;
+  margin-top: 50px;
 }
 
 #home_style_flexbox {
@@ -402,7 +404,7 @@ footer {
 
 .home_style_flexbox_input {
   width: 70%;
-  padding: 10px;
+  padding: 7px !important;
   margin: 30px 10px 10px 10px;
   border-radius: 10px;
   background-color: #0083B3;
@@ -443,9 +445,9 @@ footer {
 
 #info_sytle_bck {
   height: auto;
-  width: 60%;
+  width: 50%;
   margin: 0 auto;
-  margin-top: 150px !important;
+  margin-top: 50px !important;
   background-color: #EBEBEB;
   border-radius: 25px;
 }

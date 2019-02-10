@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", function(){
         }
     };
 
+    /*
     // adaptation CSS image header quand scroll
     window.addEventListener( 'scroll', function( event ) {
         var lastScrollTop = 0;
@@ -29,5 +30,6 @@ document.addEventListener("DOMContentLoaded", function(){
             element.classList.remove("header_style_logo_scroll")
         }
     }, false );
+    */
 
 });
