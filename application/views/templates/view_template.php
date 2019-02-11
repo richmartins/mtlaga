@@ -1,3 +1,6 @@
+<?php
+  defined('BASEPATH') OR exit('No direct script access allowed');
+?>
 <head>
   <title><?php echo $title; ?></title>
   <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>public/css/style.css">
@@ -8,7 +11,11 @@
 </header>
 
 <div id="main-content">
-    <?php echo $content; ?>
+  <?php
+    foreach($content as $v) {
+      echo $v['String'].'<br />';
+    }
+  ?>
 </div>
 <footer>
   <div id="footer_container" class="flex_container">
