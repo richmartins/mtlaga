@@ -11,6 +11,7 @@ class Home extends CI_Controller {
         
         $row_1 = $query->row();
         $row_2 = $query->row(1);
+        
         if (isset($row_1)){
           $user_1['id_user'] = $row_1->id_user;
           $user_1['email'] = $row_1->email;
