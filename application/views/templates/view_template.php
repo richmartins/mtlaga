@@ -12,9 +12,11 @@
 
 <div id="main-content">
   <?php
-    foreach($content as $v) {
-      echo $v['String'].'<br />';
-    }
+    echo 'id user : ' . $content['id_user'] . '<br />';
+    echo 'email : ' . $content['email'] .'<br />';
+    echo 'salt_password : ' . $content['salt_password'] .'<br />';
+    echo 'admin status : ' . $content['admin'] .'<br />';
+    echo 'user confirmend status : ' . $content['confirmed'] .'<br />';
   ?>
 </div>
 <footer>
