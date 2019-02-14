@@ -20,6 +20,7 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
+    $route['home'] = 'home';
 		$this->load->view('welcome_message');
 	}
 }
