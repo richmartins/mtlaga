@@ -24,6 +24,12 @@
         </div>
       </div>
     </div>
+    <?php if($connected) { ?>
+      <div id="header_style_menu_connexion" class="flex_container" >
+        <img src="<?= base_url();?>public/img/mtlaga_user.png" alt="Connexion">
+      </div>
+    </div>
+  </div>
     <div id="header_style_menu_actions" >
       <div id="header_style_menu_actions_arrow"></div>
       <div id="header_style_menu_actions_rectangle">
@@ -47,5 +53,14 @@
         </div>
       </div>
     </div>
+  <?php } else { ?>
+      <a href="<?= base_url(); ?>login">
+        <div id="header_style_menu_connexion" class="flex_container" >
+          <img src="<?= base_url();?>public/img/mtlaga_user.png" alt="Connexion">
+        </div>
+      </a>
+    </div>
+  </div>
+  <?php } ?>
   </div>
 </header>

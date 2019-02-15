@@ -28,16 +28,15 @@ class Home extends CI_Controller {
           $user_2['confirmed'] = $row_2->confirmed;
         }
 
-        $data = array(
+        $data = [
           'title' => 'Home | MTLAGA',
-          'content' => $user_2
-        );
-        
-        $route['home'] = 'home';
+          'content' => $user_2,
+          'connected' => 0
+        ];
 
         $this->load->helper('url');
-        $this->load->view('templates/head', $data['title']);
-        $this->load->view('templates/header');
+        $this->load->view('templates/head', $data);
+        $this->load->view('templates/header', $data['connected']);
         $this->load->view('home_view', $data);
         $this->load->view('templates/footer');
         //$this->load->view('templates/default_layout', $data);
