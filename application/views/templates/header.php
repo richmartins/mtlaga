@@ -2,18 +2,20 @@
   <div id="header_style">
     <div id="header_style_container" class="flex_container">
       <div id="header_style_logo" class="header_style_items">
-        <img src="<?= base_url();?>public/img/mtlaga_logo_22.png" alt="MTLAGA Logo">
+        <img src="<?= base_url(); ?>public/img/mtlaga_logo_22.png" alt="MTLAGA Logo">
       </div>
       <div id="header_style_menu" class="flex_container">
-        <div class="flex_container header_style_menu_items  header_style_menu_items_selected">
-          <p><a href="home.php">Accueil</a></p>
-        </div>
-        <div class="flex_container header_style_menu_items ">
-          <p><a href="info.php">Info</a></p>
-        </div>
-        <div class="flex_container header_style_menu_items ">
-          <p><a href="#">Plans</a></p>
-        </div>
+      <?php foreach ($header_nav_meta_data as $i): ?>
+        <?php if($i == $meta_data['active']): ?>
+          <div class="flex_container header_style_menu_items  header_style_menu_items_selected">
+            <p><a href="<?= base_url(); ?>home/<?= $i; ?>"><?= $i; ?></a></p>
+          </div>
+        <?php else: ?>
+          <div class="flex_container header_style_menu_items ">
+            <p><a href="<?= base_url(); ?>home/<?= $i; ?>"><?= $i; ?></a></p>
+          </div>
+        <?php endif; ?>
+      <?php endforeach; ?>
       </div>
       <div id="header_style_actions" class="flex_container header_style_items">
         <div class="flex_container">
@@ -24,12 +26,13 @@
         </div>
       </div>
     </div>
-    <?php if($connected) { ?>
+  </div>
+
+
+    <?php if($meta_data['connected']) { ?>
       <div id="header_style_menu_connexion" class="flex_container" >
         <img src="<?= base_url();?>public/img/mtlaga_user.png" alt="Connexion">
       </div>
-    </div>
-  </div>
     <div id="header_style_menu_actions" >
       <div id="header_style_menu_actions_arrow"></div>
       <div id="header_style_menu_actions_rectangle">
@@ -53,14 +56,10 @@
         </div>
       </div>
     </div>
-  <?php } else { ?>
-      <a href="<?= base_url(); ?>login">
-        <div id="header_style_menu_connexion" class="flex_container" >
-          <img src="<?= base_url();?>public/img/mtlaga_user.png" alt="Connexion">
-        </div>
-      </a>
-    </div>
-  </div>
-  <?php } ?>
+    <?php } else { ?>
+      <div id="header_style_menu_connexion" class="flex_container" >
+        <a href="<?= base_url(); ?>index.php/Auth/login"><img src="<?= base_url();?>public/img/mtlaga_user.png" alt="Connexion"> </a>
+      </div>
+    <?php } ?>
   </div>
 </header>
