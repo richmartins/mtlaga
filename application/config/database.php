@@ -76,8 +76,8 @@ $query_builder = TRUE;
 $db['default'] = array(
 	'dsn'	=> 'pgsql:host=127.0.0.1;port=3306;dbname=mtlaga',
 	'hostname' => '127.0.0.1',
-	'username' => 'root',
-	'password' => 'ww-Admin-9',
+	'username' => 'mtlaga_user',
+	'password' => '7x+d4XV9Hc/K$M+t8q5',
 	'database' => 'mtlaga_db',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
