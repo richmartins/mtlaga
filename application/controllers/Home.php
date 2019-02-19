@@ -31,7 +31,7 @@ class Home extends CI_Controller {
         $data = [
           'title' => 'Home | MTLAGA',
           'content' => $user_2,
-          'connected' => 0
+          'connected' => 1
         ];
 
         $this->load->helper('url');

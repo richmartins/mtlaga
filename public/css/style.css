@@ -108,6 +108,7 @@ header {
   position: relative;
   margin-right: 20%;
   float: right;
+  top: 60px;
 }
 
 #header_style_menu_actions_rectangle {
