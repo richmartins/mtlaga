@@ -8,11 +8,11 @@
       <?php foreach ($header_nav_meta_data as $i): ?>
         <?php if($i == $meta_data['active']): ?>
           <div class="flex_container header_style_menu_items  header_style_menu_items_selected">
-            <p><a href="<?= base_url(); ?>home/<?= $i; ?>"><?= $i; ?></a></p>
+            <p><a href="<?= base_url(); ?><?= $i; ?>"><?= $i; ?></a></p>
           </div>
         <?php else: ?>
           <div class="flex_container header_style_menu_items ">
-            <p><a href="<?= base_url(); ?>home/<?= $i; ?>"><?= $i; ?></a></p>
+            <p><a href="<?= base_url(); ?><?= $i; ?>"><?= $i; ?></a></p>
           </div>
         <?php endif; ?>
       <?php endforeach; ?>

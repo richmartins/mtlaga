@@ -11,18 +11,20 @@ class Home extends CI_Controller {
 
     }
 
-    public function accueil() {
+    public function index() {
         $query = $this->db->query("SELECT * FROM users;");
 
         $header_nav = [
-          0 => 'accueil',
-          1 => 'info'
+          0 => 'home',
+          1 => 'info',
+          2 => 'plan'
+
         ];
 
         $meta_data = [
           'title' => 'Home | MTLAGA',
           'connected' => 0,
-          'active' => 'accueil'
+          'active' => 'home'
         ];
 
         $data = [
@@ -37,9 +39,12 @@ class Home extends CI_Controller {
     }
 
     public function info(){
+      $this->load->helper('url');
+
       $header_nav = [
-        0 => 'accueil',
-        1 => 'info'
+        0 => 'home',
+        1 => 'info',
+        2 => 'plan'
       ];
 
       $meta_data = [
