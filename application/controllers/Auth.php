@@ -21,12 +21,26 @@ class Auth extends CI_Controller {
       ];
     }
 
+    public function signup_process(){
+      $mail = $this->input->post('mail');
+      $password = $this->input->post('password');
+      $password_confirm = $this->input->post('password_confirm');
+
+      if($password === $password_confirm){
+        redirect('auth/login');
+        //use model to add user
+      } else {
+        redirect('auth/signup');
+      }
+    }
+
     public function process(){
       $mail = $this->input->post('mail');
       $password = $this->input->post('password');
 
       if(($mail == 'toto@tata.ch') && ($password == '1234')){
         redirect('home');
+        //log on the user
       }
     }
 
