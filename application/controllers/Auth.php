@@ -6,15 +6,27 @@ class Auth extends CI_Controller {
     public function __construct() {
       parent::__construct();
       $this->load->helper('url');
-
+    }
     // Show login page
     public function login() {
+      $header_nav = [
+        'home' => 'Home',
+        'info' => 'Info',
+        'plan' => 'Plan'
+
+      ];
+
+      $meta_data = [
+        'title' => 'login | MTLAGA',
+        'connected' => 0,
+        'active' => 'Home'
+      ];
 
       $data = [
-        'title' => 'Login | MTLAGA',
-        'content' => 'blabla',
-        'connected' => 0
+        'header_nav_meta_data' => $header_nav,
+        'meta_data' => $meta_data
       ];
+
 
       $this->load->view('templates/head', $data);
       $this->load->view('templates/header', $data);
