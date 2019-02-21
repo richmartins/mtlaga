@@ -4,6 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Auth extends CI_Controller {
     var $header_nav;
+    var $meta_data;
+
     public function __construct() {
       parent::__construct();
       $this->load->helper('url');
@@ -11,6 +13,11 @@ class Auth extends CI_Controller {
         'home' => 'Home',
         'info' => 'Info',
         'plan' => 'Plan'
+      ];
+      $this->meta_data = [
+        'title' => '',
+        'connected' => 0,
+        'active' => ''
       ];
     }
 
@@ -24,17 +31,13 @@ class Auth extends CI_Controller {
     }
 
     public function signup() {
-      $meta_data = [
-        'title' => 'S\'inscrire | MTLAGA',
-        'connected' => 0,
-        'active' => 'Home'
-      ];
+      $this->meta_data['title'] = 'S\'inscrire | MTLAGA';
+      $this->meta_data['active'] = 'Home';
 
       $data = [
         'header_nav_meta_data' => $this->header_nav,
-        'meta_data' => $meta_data
+        'meta_data' => $this->meta_data
       ];
-
 
       $this->load->view('templates/head', $data);
       $this->load->view('templates/header', $data);
@@ -42,19 +45,15 @@ class Auth extends CI_Controller {
       $this->load->view('templates/footer');
 
     }
-    // Show login page
+
     public function login() {
-      $meta_data = [
-        'title' => 'Login | MTLAGA',
-        'connected' => 0,
-        'active' => 'Home'
-      ];
+      $this->meta_data['title'] = 'Login | MTLAGA';
+      $this->meta_data['active'] = 'Home';
 
       $data = [
         'header_nav_meta_data' => $this->header_nav,
-        'meta_data' => $meta_data
+        'meta_data' => $this->meta_data
       ];
-
 
       $this->load->view('templates/head', $data);
       $this->load->view('templates/header', $data);
