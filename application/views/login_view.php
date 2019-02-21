@@ -1,14 +1,15 @@
 <div class="form_style_bck" class="">
   <p>Connexion</p>
-  <form class="" action="" method="post">
+  <?php echo isset($error) ? $error : ''; ?>
+  <form method="post" action="<?php echo site_url('Auth/process'); ?>">  
     <div class="form_style_front" >
       <div class="form_style_title">
         <p>Adresse mail</p>
-        <input type="email" name="" value="" class="form_input">
+        <input type="email" name="mail" value="" class="form_input">
       </div>
       <div class="form_style_title">
         <p>Mot de passe</p>
-        <input type="password" name="" value="" class="form_input">
+        <input type="password" name="password" value="" class="form_input">
       </div>
       <div class="form_style_submit form_style_title">
         <input type="submit" name="" value="Se connecter" class="form_input">

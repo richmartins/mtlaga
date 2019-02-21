@@ -55,3 +55,4 @@ $route['translate_uri_dashes'] = FALSE;
 $route['login/(.+)'] = 'auth/login/';
 $route['home'] = 'home';
 $route['info'] = 'home/info';
+$route['home'] = 'auth/process';

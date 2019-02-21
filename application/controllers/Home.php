@@ -2,25 +2,20 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Home extends CI_Controller {
+  var $header_nav;
+
   function __construct() {
       parent::__construct();
-
       $this->load->database();
-
       $this->load->helper('url');
-
+      $this->header_nav = [
+        'home' => 'Home',
+        'info' => 'Info',
+        'plan' => 'Plan'
+      ];
     }
 
     public function index() {
-        $query = $this->db->query("SELECT * FROM users;");
-
-        $header_nav = [
-          'home' => 'Home',
-          'info' => 'Info',
-          'plan' => 'Plan'
-
-        ];
-
         $meta_data = [
           'title' => 'Home | MTLAGA',
           'connected' => 0,
@@ -28,7 +23,7 @@ class Home extends CI_Controller {
         ];
 
         $data = [
-          'header_nav_meta_data' => $header_nav,
+          'header_nav_meta_data' => $this->header_nav,
           'meta_data' => $meta_data
         ];
 
@@ -39,21 +34,13 @@ class Home extends CI_Controller {
     }
 
     public function info(){
-      $this->load->helper('url');
-
-      $header_nav = [
-        'home' => 'Home',
-        'info' => 'Info',
-        'plan' => 'Plan'
-      ];
-
       $meta_data = [
         'title' => 'Info | MTLAGA',
         'connected' => 0,
         'active' => 'Info'
       ];
       $data = [
-        'header_nav_meta_data' => $header_nav,
+        'header_nav_meta_data' => $this->header_nav,
         'meta_data' => $meta_data
       ];
 
