@@ -2,7 +2,7 @@
 Is a web application for consulting schedule of trains and buses in switzerland
 
 # Installation
-we are using ** mod_rewrite ** from apache in order to have a beautiful **url**.
+we are using **mod_rewrite** from apache in order to have a beautiful **url**.
 
 to install it on ubuntu, you must first
 
