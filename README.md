@@ -6,9 +6,13 @@ we are using ** mod_rewrite ** from apache in order to have a beautiful `url`.
 
 to install it on ubuntu, you must first
 
-** 1. **  enable rewrite module
+*1.*  
+
+enable rewrite module
 
     sudo a2enmod rewrite
+
+*2.*
 
 then if it is the first time that you enable it. You will have to edit your **site.conf** file.
 
@@ -29,6 +33,8 @@ and add the fellowing lines in it
 </VirtualHost>
 
 ```
+
+*3.*
 
 finally you will have to restart you server.
 
