@@ -1,7 +1,7 @@
 <div class="form_style_bck" class="">
   <p>Connexion</p>
   <?php echo isset($error) ? $error : ''; ?>
-  <form method="post" action="<?php echo site_url('Auth/process'); ?>">  
+  <form method="post" action="<?php echo site_url('auth/process'); ?>">
     <div class="form_style_front" >
       <div class="form_style_title">
         <p>Adresse mail</p>
@@ -16,7 +16,9 @@
       </div>
       <div class="flex_container">
         <div class="form_style_link">
+          <!-- ### to do ### -->
           <p><a href="#">Mot de passe oublié ?</a></p>
+          <!-- ############# -->
         </div>
         <div class="form_style_link">
           <p><a href="<?= base_url(); ?>auth/signup">S'inscrire sur MTLAGA ?</a></p>
