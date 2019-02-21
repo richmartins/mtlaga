@@ -3,18 +3,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 //session_start(); //we need to start session in order to access it through CI
 
 class Auth extends CI_Controller {
+    var $header_nav;
     public function __construct() {
       parent::__construct();
       $this->load->helper('url');
-    }
-    public function signup() {
-      $header_nav = [
+      $this->header_nav = [
         'home' => 'Home',
         'info' => 'Info',
         'plan' => 'Plan'
-
       ];
+    }
 
+    public function process(){
+      $mail = $this->input->post('mail');
+      $password = $this->input->post('password');
+
+      if(($mail == 'toto@tata.ch') && ($password == '1234')){
+        redirect('home');
+      }
+    }
+
+    public function signup() {
       $meta_data = [
         'title' => 'S\'inscrire | MTLAGA',
         'connected' => 0,
@@ -22,7 +31,7 @@ class Auth extends CI_Controller {
       ];
 
       $data = [
-        'header_nav_meta_data' => $header_nav,
+        'header_nav_meta_data' => $this->header_nav,
         'meta_data' => $meta_data
       ];
 
@@ -35,13 +44,6 @@ class Auth extends CI_Controller {
     }
     // Show login page
     public function login() {
-      $header_nav = [
-        'home' => 'Home',
-        'info' => 'Info',
-        'plan' => 'Plan'
-
-      ];
-
       $meta_data = [
         'title' => 'Login | MTLAGA',
         'connected' => 0,
@@ -49,7 +51,7 @@ class Auth extends CI_Controller {
       ];
 
       $data = [
-        'header_nav_meta_data' => $header_nav,
+        'header_nav_meta_data' => $this->header_nav,
         'meta_data' => $meta_data
       ];
 
