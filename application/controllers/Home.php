@@ -15,16 +15,16 @@ class Home extends CI_Controller {
         $query = $this->db->query("SELECT * FROM users;");
 
         $header_nav = [
-          0 => 'home',
-          1 => 'info',
-          2 => 'plan'
+          'home' => 'Home',
+          'info' => 'Info',
+          'plan' => 'Plan'
 
         ];
 
         $meta_data = [
           'title' => 'Home | MTLAGA',
           'connected' => 0,
-          'active' => 'home'
+          'active' => 'Home'
         ];
 
         $data = [
@@ -42,15 +42,15 @@ class Home extends CI_Controller {
       $this->load->helper('url');
 
       $header_nav = [
-        0 => 'home',
-        1 => 'info',
-        2 => 'plan'
+        'home' => 'Home',
+        'info' => 'Info',
+        'plan' => 'Plan'
       ];
 
       $meta_data = [
         'title' => 'Info | MTLAGA',
         'connected' => 0,
-        'active' => 'info'
+        'active' => 'Info'
       ];
       $data = [
         'header_nav_meta_data' => $header_nav,

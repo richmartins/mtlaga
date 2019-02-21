@@ -5,14 +5,14 @@
         <img src="<?= base_url(); ?>public/img/mtlaga_logo_22.png" alt="MTLAGA Logo">
       </div>
       <div id="header_style_menu" class="flex_container">
-<?php foreach ($header_nav_meta_data as $i): ?>
-<?php if($i == $meta_data['active']): ?>
+<?php foreach ($header_nav_meta_data as $k => $v): ?>
+<?php if($v == $meta_data['active']): ?>
           <div class="flex_container header_style_menu_items  header_style_menu_items_selected">
-            <p><a href="<?= base_url(); ?><?= $i; ?>"><?= $i; ?></a></p>
+            <p><a href="<?= base_url(); ?><?= $k; ?>"><?= $v; ?></a></p>
           </div>
 <?php else: ?>
           <div class="flex_container header_style_menu_items ">
-            <p><a href="<?= base_url(); ?><?= $i; ?>"><?= $i; ?></a></p>
+            <p><a href="<?= base_url(); ?><?= $k; ?>"><?= $v; ?></a></p>
           </div>
 <?php endif; ?>
 <?php endforeach; ?>
