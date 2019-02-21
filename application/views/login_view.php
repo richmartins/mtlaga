@@ -18,7 +18,7 @@
           <p><a href="#">Mot de passe oublié ?</a></p>
         </div>
         <div class="form_style_link">
-          <p><a href="signup.php">S'inscrire sur MTLAGA ?</a></p>
+          <p><a href="<?= base_url(); ?>auth/signup">S'inscrire sur MTLAGA ?</a></p>
         </div>
       </div>
     </div>
