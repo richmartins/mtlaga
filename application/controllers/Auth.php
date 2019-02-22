@@ -21,12 +21,42 @@ class Auth extends CI_Controller {
       ];
     }
 
+    public function reset_user_pwd() {
+      $this->load->database();
+      $this->load->model('users_model');
+
+      $email = $this->input->post('mail');
+      $password = $this->input->post('password');
+
+      $this->users_model->reset_user_pwd();
+
+    }
+
     public function signup_process(){
-      $mail = $this->input->post('mail');
+      $email = $this->input->post('mail');
       $password = $this->input->post('password');
       $password_confirm = $this->input->post('password_confirm');
 
+      $this->load->model('users_model');
+
+      $bytes = random_bytes(10);
+      $salt = (bin2hex($bytes));
+
+
       if($password === $password_confirm){
+        $data = [
+          'email' => $email,
+          'hash_password' => $this->users_model->hash_password($password, $salt),
+          'salted_password' => $salt, // to create | find
+          'admin' => 0,
+          'confirmed' => 0,
+          'confirmend_at' => '',
+          'remember' => 0,
+          'reset_password_token' => null,
+          'reset_password_sent_at' => null
+        ];
+
+        $this->users_model->add_user($data);
         redirect('auth/login');
         //use model to add user
       } else {
@@ -35,13 +65,16 @@ class Auth extends CI_Controller {
     }
 
     public function process(){
-      $mail = $this->input->post('mail');
+      $this->load->database();
+      $this->load->model('users_model');
+
+      $email = $this->input->post('mail');
       $password = $this->input->post('password');
 
-      if(($mail == 'toto@tata.ch') && ($password == '1234')){
-        redirect('home');
+      $this->users_model->check_password($email,$password);
+      redirect('home');
+
         //log on the user
-      }
     }
 
     public function signup() {
