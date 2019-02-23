@@ -1,0 +1,171 @@
+<?php
+include("header.html");
+?>
+<div id="home_container">
+  <div>
+    <div class="flex_container" id="itineraire_flex_header_title" >
+      <div id="itineraire_flex_Header_direction">
+        <p>De <b>Lausanne</b> à <b>Genève</b></p>
+      </div>
+      <div class="flex_container" id="itineraire_flex_header_time">
+          <p>15:56 | 02.02.2019</p>
+      </div>
+        <div id="itineraire_flex_header_logo">
+            <img src="./img/mtlaga_calendar.png" alt="calendar">
+        </div>
+
+    </div>
+  </div>
+  <div id="itineraire_flex_container_bck" >
+    <div id="itineraire_flex_container">
+      <div class="flex_container" id="itineraire_flex_container_title">
+        <div id="itineraire_flex_container_title_now" class="itineraire_flex_container_center">
+          <p><b>Maintenant</b></p>
+        </div>
+        <div id="itineraire_flex_container_title_time" class="itineraire_flex_container_center">
+          <p><b>Durée</b></p>
+        </div>
+        <div id="itineraire_flex_container_title_change" class="itineraire_flex_container_center">
+          <p><b>Changements</b></p>
+        </div>
+        <div id="itineraire_flex_container_title_more" class="itineraire_flex_container_center">
+          <p><b>Action</b></p>
+        </div>
+      </div>
+      <?php
+      for($i = 0; $i < 15; $i++) {
+        ?>
+        <div class="itineraire_flex_container_travel_bck" id="<?= $i ?>">
+          <div class="itineraire_flex_container_travel">
+            <div class="itineraire_flex_container_travel_text">
+              <p>IR 15 (Direction Lucerne) - Voie 1</p>
+            </div>
+            <div class="flex_container">
+              <div class="flex_container itineraire_flex_container_travel_now">
+                <div>
+                  <p style="margin: 0;">07:00</p>
+                </div>
+                <div>
+                  <span class="dot"></span>
+                  <svg height="30" width="200" style="position: relative; bottom: 8px;">
+                   <g fill="none">
+                     <path stroke="red" d="M0 20 l200 0" stroke-width="3" />
+                   </g>
+                  </svg>
+                  <span class="dot2"></span>
+                </div>
+                <div>
+                  <p style="margin: 0;">07:42</p>
+                </div>
+              </div>
+              <div class="flex_container itineraire_flex_container_travel_time">
+                <p>42min</p>
+              </div>
+              <div class="flex_container itineraire_flex_container_travel_change">
+                <p>0 Changements</p>
+              </div>
+              <div class="flex_container itineraire_flex_container_travel_more">
+                  <a><div class="fas fa-plus fa-lg accordion rotate"></div></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel flex_container">
+          <div class="flex_container" style="padding:10px; width: 100%;">
+            <div style="width: 40px;">
+                <div style="height: 50%;">
+                  <p style="margin: 0">07:00</p>
+                </div>
+                <div style="height: 50%; display: flex; flex-direction: column; justify-content: end;" />
+                  <p style="margin: 0">07:42</p>
+                </div>
+            </div>
+            <div style="width: 40px;">
+                <span class="dot3"></span>
+                <svg height="130" width="30" style="position: relative; left: 16px;">
+                    <g fill="none">
+                        <path stroke="red" d="M 0 0 L 0 140 " stroke-width="5" />
+                    </g>
+                </svg>
+                <span class="dot4"></span>
+            </div>
+            <div style="width: auto">
+                <div style="height: 50%;" class="flex_container">
+                    <p style="margin: 0;"><b>Genève</b></p>
+                </div>
+                <div style="height: 50%; display: flex; flex-direction: column; justify-content: end;" class="flex_container">
+                    <p style="margin: 0;"><b>Lausanne</b></p>
+                </div>
+            </div>
+            <div style="border: 2px solid green; width: 100%">
+            </div>
+
+          </div>
+        </div>
+        <?php
+      }
+      ?>
+
+    </div>
+  </div>
+</div>
+<script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].onclick = function(){
+            this.closest('.itineraire_flex_container_travel_bck').classList.toggle("active");
+        this.closest('.itineraire_flex_container_travel_bck').nextElementSibling.classList.toggle("show");
+        //this.classList.toggle("active");
+        //this.nextElementSibling.classList.toggle("show");
+        };
+    }
+    $(".rotate").click(function(){
+        $(this).toggleClass("down")  ;
+    })
+</script>
+
+<style>
+div.accordion {
+    color: #444;
+    cursor: pointer;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+}
+
+div.accordion.active, p.accordion:hover {
+    background-color: #ddd;
+}
+
+div.panel {
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: 0.4s ease-in-out;
+    opacity: 0;
+    margin-bottom:10px;
+}
+
+div.panel.show {
+    opacity: 1;
+    max-height: 200px;
+    margin-top: 2px;
+}
+
+.rotate {
+    -moz-transition: all .5s linear;
+    -webkit-transition: all .5s linear;
+    transition: all .5s linear;
+}
+.rotate.down {
+    -moz-transform:rotate(45deg);
+    -webkit-transform:rotate(45deg);
+    transform:rotate(45deg);
+}
+</style>
+<?php
+include("footer.html");
+?>
