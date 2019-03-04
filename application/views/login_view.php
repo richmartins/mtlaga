@@ -1,7 +1,7 @@
 <div class="form_style_bck" class="">
   <p>Connexion</p>
   <?php echo isset($error) ? $error : ''; ?>
-  <form method="post" action="<?php echo site_url('auth/process'); ?>">
+  <form method="post" action="<?php echo site_url('auth/login_process'); ?>">
     <div class="form_style_front" >
       <div class="form_style_title">
         <p>Adresse mail</p>

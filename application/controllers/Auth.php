@@ -64,7 +64,7 @@ class Auth extends CI_Controller {
       }
     }
 
-    public function process(){
+    public function login_process(){
       $this->load->database();
       $this->load->model('users_model');
 
