@@ -22,59 +22,58 @@ class Auth extends CI_Controller {
     }
 
     public function reset_user_pwd() {
-      $this->load->database();
-      $this->load->model('users_model');
+        $this->load->model('users_model');
 
-      $email = $this->input->post('mail');
-      $password = $this->input->post('password');
+        $email = $this->input->post('mail');
+        $password = $this->input->post('password');
 
-      $this->users_model->reset_user_pwd();
+        $this->users_model->reset_user_pwd();
 
-    }
-
-    public function signup_process(){
-      $email = $this->input->post('mail');
-      $password = $this->input->post('password');
-      $password_confirm = $this->input->post('password_confirm');
-
-      $this->load->model('users_model');
-
-      $bytes = random_bytes(10);
-      $salt = (bin2hex($bytes));
-
-
-      if($password === $password_confirm){
-        $data = [
-          'email' => $email,
-          'hash_password' => $this->users_model->hash_password($password, $salt),
-          'salted_password' => $salt, // to create | find
-          'admin' => 0,
-          'confirmed' => 0,
-          'confirmend_at' => '',
-          'remember' => 0,
-          'reset_password_token' => null,
-          'reset_password_sent_at' => null
-        ];
-
-        $this->users_model->add_user($data);
-        redirect('auth/login');
-        //use model to add user
-      } else {
-        redirect('auth/signup');
       }
+
+      public function signup_process(){
+        $email = $this->input->post('mail');
+        $password = $this->input->post('password');
+        $password_confirm = $this->input->post('password_confirm');
+
+        $this->load->model('users_model');
+
+
+        if($password === $password_confirm){
+            $data = [
+              'email' => $email,
+              'hash_password' => $this->users_model->hash_password($password),
+              'admin' => 0,
+              'created_at' => date('Y-m-d'),
+              'confirmed' => 0,
+              'confirmed' => null,
+              'confirmed' => bin2hex(random_bytes(20)),
+              'remember' => 0,
+              // 'reset_password_token' => null,
+              // 'reset_password_sent_at' => null
+            ];
+            $success = $this->users_model->add_user($data);
+            if($success == true){
+              redirect('auth/login');
+            }else{
+              redirect('auth/signup');
+            }
+        }
     }
 
     public function login_process(){
-      $this->load->database();
       $this->load->model('users_model');
 
       $email = $this->input->post('mail');
       $password = $this->input->post('password');
 
-      $this->users_model->check_password($email,$password);
-      redirect('home');
-
-        //log on the user
+      if($this->users_model->check_password($email,$password)){
+          // session_start();
+          // $_SESSION['email'] = $email;
+          redirect('home');
+      }else{
+          redirect('auth/login');
+      }
     }
 
     public function signup() {

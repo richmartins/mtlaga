@@ -1,37 +1,22 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Users_model extends CI_Model {
-
-    public $email;
-    public $hash_password;
-    public $salt_password;
-    public $admin;
-    public $created_at;
-    public $confirmed;
-    public $confirmed_at;
-    public $confirmed_token;
-    public $remember;
-    public $reset_password_token;
-    public $reset_password_sent_at;
-
+  public function __construct()
+   {
+       parent::__construct();
+       $this->load->database('default');
+   }
 
     public function add_user($data){
-      $length = 78;
-
-      $this->email                  = $data['email'];
-      $this->hash_password          = $data['hash_password'];
-      $this->$salt_password         = $data['salted_password'];
-      $this->admin                  = $data['admin'];
-      $this->created_at             = date('Y-m-d');
-      $this->confirmed              = $data['confirmed'];
-      $this->confirmed_at           = $data['confirmed_at'];
-      $this->confirmend_token       = bin2hex(random_bytes($length));
-      $this->remember               = $data['remember'];
-      $this->reset_password_token   = $data['reset_password_token'];
-      $this->reset_password_sent_at = $data['reset_password_sent_at'];
-
-
-      $this->db->insert('users', $this);
+      // $this->reset_password_token   = $data['reset_password_token'];
+      // $this->reset_password_sent_at = $data['reset_password_sent_at'];
+      $query =  $this->db->insert('users', $data);
+      //
+      if($query){
+        return true;
+      }else{
+        return false;
+      }
     }
 
     public function reset_user_pwd($email, $new_password){
@@ -39,19 +24,24 @@ class Users_model extends CI_Model {
 
       $this->db->set('hash_password', $hashed);
       $this->db->where('email', $email);
-      $this->db->update("users");
+      $this->db->update('users');
     }
 
     public function check_password($email, $password){
-      $hashed = $this->db->get_where("users", array("email" => $email))->result()[0]->email;
+      $this->db->select('email, hash_password');
+      $this->db->from('users');
+      $this->db->where('email', $email);
+      $query = $this->db->get()->result()[0]->hash_password;
 
-      if (! password_verify($password, $hashed)) {
-        throw new Exception("Wrong password");
+      if (!password_verify($password, $query)) {
+        return false;
+      }else{
+        return true;
       }
     }
 
-    public function hash_password($password, $salt){
-      $hashed = password_hash($password, PASSWORD_BCRYPT, array("cost" => 22);
+    public function hash_password($password){
+      $hashed = password_hash($password, PASSWORD_DEFAULT, array("cost" => 10));
       return $hashed;
     }
 }
