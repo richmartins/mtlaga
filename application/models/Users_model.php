@@ -34,7 +34,7 @@ class Users_model extends CI_Model {
       $this->db->insert('users', $this);
     }
 
-    public function reset_user_pwd($email, $new_password) {
+    public function reset_user_pwd($email, $new_password){
       $hashed = password_hash($new_password, PASSWORD_DEFAULT);
 
       $this->db->set('hash_password', $hashed);
@@ -42,7 +42,7 @@ class Users_model extends CI_Model {
       $this->db->update("users");
     }
 
-    public function check_password($email, $password) {
+    public function check_password($email, $password){
       $hashed = $this->db->get_where("users", array("email" => $email))->result()[0]->email;
 
       if (! password_verify($password, $hashed)) {
