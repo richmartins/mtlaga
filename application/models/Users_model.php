@@ -24,7 +24,9 @@ class Users_model extends CI_Model {
 
       $this->db->set('hash_password', $hashed);
       $this->db->where('email', $email);
-      $this->db->update('users');
+      //$sucess = $this->db->update('users');
+      //$sucess = ($this->db->update('users')) ? return true : return false ;
+
     }
 
     public function check_password($email, $password){

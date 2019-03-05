@@ -19,15 +19,26 @@ class Auth extends CI_Controller {
         'connected' => 0,
         'active' => ''
       ];
+      $this->load->model('users_model');
+
     }
 
-    public function reset_user_pwd() {
-        $this->load->model('users_model');
+    /*
+     * process
+     */
 
+    public function reset_pwd_process() {
         $email = $this->input->post('mail');
-        $password = $this->input->post('password');
+        $res = $this->users_model->check_email($email);
+        if($res){
+          //get token of email
+          //send email
+        }else{
+          redirect('auth/reset');
+        }
+      }
 
-        $this->users_model->reset_user_pwd();
+      public function new_pwd_process(){
 
       }
 
@@ -35,8 +46,6 @@ class Auth extends CI_Controller {
         $email = $this->input->post('mail');
         $password = $this->input->post('password');
         $password_confirm = $this->input->post('password_confirm');
-
-        $this->load->model('users_model');
 
 
         if($password === $password_confirm){
@@ -46,24 +55,23 @@ class Auth extends CI_Controller {
               'admin' => 0,
               'created_at' => date('Y-m-d'),
               'confirmed' => 0,
-              'confirmed' => null,
-              'confirmed' => bin2hex(random_bytes(20)),
+              'confirmed_at' => null,
+              'confirmation_token' => bin2hex(random_bytes(20)),
               'remember' => 0,
-              // 'reset_password_token' => null,
-              // 'reset_password_sent_at' => null
+
             ];
             $success = $this->users_model->add_user($data);
             if($success == true){
+              $signup_status = 'sucess';
               redirect('auth/login');
             }else{
+              $signup_status = null;
               redirect('auth/signup');
             }
         }
     }
 
     public function login_process(){
-      $this->load->model('users_model');
-
       $email = $this->input->post('mail');
       $password = $this->input->post('password');
 
@@ -76,6 +84,25 @@ class Auth extends CI_Controller {
       }
     }
 
+    /*
+     * pages
+     */
+
+    public function reset(){
+      $this->meta_data['title'] = 'réinitialiser mot de passe | MTLAGA';
+      $this->meta_data['active'] = 'Home';
+
+      $data = [
+        'header_nav_meta_data' => $this->header_nav,
+        'meta_data' => $this->meta_data
+      ];
+
+      $this->load->view('templates/head', $data);
+      $this->load->view('templates/header', $data);
+      $this->load->view('resetpwd_view', $data);
+      $this->load->view('templates/footer');
+
+    }
     public function signup() {
       $this->meta_data['title'] = 'S\'inscrire | MTLAGA';
       $this->meta_data['active'] = 'Home';
@@ -95,6 +122,8 @@ class Auth extends CI_Controller {
     public function login() {
       $this->meta_data['title'] = 'Login | MTLAGA';
       $this->meta_data['active'] = 'Home';
+
+      (isset($signup_status)) ? $this->meta_data['signup'] = 'sucess' : $this->meta_data['signup'] = 'failed';
 
       $data = [
         'header_nav_meta_data' => $this->header_nav,
