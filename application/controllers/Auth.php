@@ -32,13 +32,17 @@ class Auth extends CI_Controller {
         $res = $this->users_model->check_email($email);
         if($res){
           //get token of email
+          $token = $this->users_model->get_token($email);
           //send email
+          $this->users_model->sendEmail_reset_pwd($email, $token);
+          // redirect('auth/login');
         }else{
           redirect('auth/reset');
         }
       }
 
       public function new_pwd_process(){
+        $token = $this->input->get('token');
 
       }
 
@@ -63,6 +67,7 @@ class Auth extends CI_Controller {
             $success = $this->users_model->add_user($data);
             if($success == true){
               $signup_status = 'sucess';
+
               redirect('auth/login');
             }else{
               $signup_status = null;
@@ -103,6 +108,7 @@ class Auth extends CI_Controller {
       $this->load->view('templates/footer');
 
     }
+
     public function signup() {
       $this->meta_data['title'] = 'S\'inscrire | MTLAGA';
       $this->meta_data['active'] = 'Home';
