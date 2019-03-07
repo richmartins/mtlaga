@@ -569,11 +569,10 @@ footer {
 
 #itineraire_flex_container_title p {
   margin: 0;
-  font-size: 20px;
 }
 
 #itineraire_flex_container_title {
-  height: 40px;
+  height: 30px;
   background-color: #0083B3;
   color: #FFFFFF;
   padding: 0 8px;
@@ -583,7 +582,7 @@ footer {
   width: 50%;
 }
 
-#itineraire_flex_conftainer_title_time {
+#itineraire_flex_container_title_time {
   width: 20%;
 }
 
@@ -594,7 +593,7 @@ footer {
 .itineraire_flex_container_travel {
   padding: 8px 8px 0 8px;
   width: auto;
-  height: 100px;
+  height: 70px;
   background-color: #FFFFFF;
 }
 
@@ -604,10 +603,6 @@ footer {
 
 .itineraire_flex_container_travel_text {
   padding-bottom: 5px;
-}
-
-.itineraire_flex_container_travel_text p {
-  font-size: 20px;
 }
 
 /*
@@ -622,10 +617,6 @@ footer {
 
 .itineraire_flex_container_travel_now {
   width: 50%;
-  font-size: 18px;
-  text-align: center;
-  border-right: 2px solid #b9b7b7;
-  padding-right: 20px;
 }
 
 .itineraire_flex_container_travel_now svg {
@@ -635,37 +626,15 @@ footer {
 
 .itineraire_flex_container_travel_time {
   width: 20%;
-  text-align: center;
-  font-size: 20px;
-  flex-direction: column;
-  justify-content: center;
-  border-right: 2px solid #b9b7b7;
-}
-
-.itineraire_flex_container_travel_time p {
-  width: 100%;
 }
 
 .itineraire_flex_container_travel_change {
   width: 20%;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.itineraire_flex_container_travel_change p {
-  width: 100%;
-  text-align: center;
-  font-size: 18px;
-
 }
 
 .itineraire_flex_container_travel_more {
   width: 10%;
   justify-content: center;
-}
-
-.itineraire_flex_container_travel_container {
-  padding-top: 10px;
 }
 
 .itineraire_flex_container_center {
@@ -681,38 +650,16 @@ footer {
   height: 200px;
 }
 
-.itineraire_flex_container_travel_details_box {
-  padding-right: 20px;
-}
-
 .itineraire_flex_container_travel_details_hours {
     width: 40px;
 }
 
 .itineraire_flex_container_travel_details_start {
-    height: 45%;
-}
-
-.itineraire_flex_container_travel_details_hours_start {
-  height: 90%;
-}
-
-.itineraire_flex_container_travel_details_hours_start p {
-  margin: 0;
+    height: 90%;
 }
 
 .itineraire_flex_container_travel_details_start > p {
     margin: 0;
-}
-
-.itineraire_flex_container_travel_details_infos {
-  height: 45%;
-  flex-direction: column;
-  font-size: 16px;
-}
-
-.itineraire_flex_container_travel_details_infos p {
-  margin: 0;
 }
 
 .itineraire_flex_container_travel_details_end {
@@ -739,7 +686,7 @@ footer {
     height: 50px;
     margin: 8px;
     background: lightgray;
-    padding: 0 12px;
+    padding: 0 8px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -817,11 +764,4 @@ footer {
     -moz-transform:rotate(45deg);
     -webkit-transform:rotate(45deg);
     transform:rotate(45deg);
-}
-
-/* RESPONSIVE */
-@media screen and (max-width: 1450px) {
-  #home_container {
-    width: 830px;
-  }
 }

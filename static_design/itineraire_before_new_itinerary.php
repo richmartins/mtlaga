@@ -5,7 +5,7 @@ include("header.html");
   <div>
     <div class="flex_container" id="itineraire_flex_header_title" >
       <div id="itineraire_flex_Header_direction">
-        <p>Résultats</p>
+        <p>De <b>Lausanne</b> à <b>Genève</b></p>
       </div>
       <div class="flex_container" id="itineraire_flex_header_time">
           <p>15:56 | 02.02.2019</p>
@@ -18,28 +18,35 @@ include("header.html");
   </div>
   <div id="itineraire_flex_container_bck" >
     <div id="itineraire_flex_container">
+      <div class="flex_container" id="itineraire_flex_container_title">
+        <div id="itineraire_flex_container_title_now" class="itineraire_flex_container_center">
+          <p><b>Maintenant</b></p>
+        </div>
+        <div id="itineraire_flex_container_title_time" class="itineraire_flex_container_center">
+          <p><b>Durée</b></p>
+        </div>
+        <div id="itineraire_flex_container_title_change" class="itineraire_flex_container_center">
+          <p><b>Changements</b></p>
+        </div>
+        <div id="itineraire_flex_container_title_more" class="itineraire_flex_container_center">
+          <p><b>Action</b></p>
+        </div>
+      </div>
       <?php
+      // title du train
+      $train_title = "IR 15 (Direction Lucerne) - Voie 1";
       // Départ du train
       $train_departure = "07:00";
       // Arrivée du train
       $train_arrival = "07:42";
       // Durée trajet
-      $train_traject_length = "2 h 6 min";
+      $train_traject_length = "42min";
       // Nombre changement
-      $train_change = "3x Changements";
+      $train_change = "0 changement";
       // Ville départ
       $train_departure_city = "Genève";
       // Ville départ
       $train_arrival_city = "Lausanne";
-      // Quai de départ
-      $train_departure_platform = "Voie 2";
-      // Quai d'arrivée
-      $train_arrival_platform = "Voie 1";
-      // Direction du train
-      $train_direction = "Brig";
-      // Numéro du train
-      $train_number = "IR 90";
-
       for($i = 0; $i < 15; $i++) {
         ?>
 
@@ -47,17 +54,12 @@ include("header.html");
         <div class="itineraire_flex_container_travel_bck" id="<?= $i ?>">
           <div class="itineraire_flex_container_travel">
             <div class="itineraire_flex_container_travel_text">
-                <p>
-                    <?= $train_departure_city ?>
-                    <i class="fas fa-long-arrow-alt-right"></i>
-                    <?= $train_arrival_city ?>
-                </p>
+              <p><?= $train_title ?></p>
             </div>
-            <div class="flex_container itineraire_flex_container_travel_container" >
+            <div class="flex_container">
               <div class="flex_container itineraire_flex_container_travel_now">
                 <div>
-                    <div><p><?= $train_departure ?></p></div>
-                    <div><p><b><?= $train_departure_city ?></b></p></div>
+                  <p><?= $train_departure ?></p>
                 </div>
                 <div>
                   <span class="dot dot_start"></span>
@@ -69,8 +71,7 @@ include("header.html");
                   <span class="dot dot_end"></span>
                 </div>
                 <div>
-                    <div><p><?= $train_arrival ?></p></div>
-                    <div><p><b><?= $train_arrival_city ?></b></p></div>
+                  <p><?= $train_arrival ?></p>
                 </div>
               </div>
               <div class="flex_container itineraire_flex_container_travel_time">
@@ -91,7 +92,7 @@ include("header.html");
               <!-- Bloc trajet point A vers point B -->
               <div class="itineraire_flex_container_travel_details flex_container">
                   <div class="itineraire_flex_container_travel_details_hours">
-                      <div class="itineraire_flex_container_travel_details_hours_start">
+                      <div class="itineraire_flex_container_travel_details_start">
                           <p><?= $train_departure ?></p>
                       </div>
                       <div class="itineraire_flex_container_travel_details_end">
@@ -107,19 +108,15 @@ include("header.html");
                       </svg>
                       <span class="dot dot_end_details"></span>
                   </div>
-                  <div class="itineraire_flex_container_travel_details_box">
+                  <div>
                       <div class="flex_container itineraire_flex_container_travel_details_start">
-                          <p><b><?= $train_departure_city ?></b><?= ", " . $train_departure_platform ?></p>
-                      </div>
-                      <div class="flex_container itineraire_flex_container_travel_details_infos">
-                          <div><i class="fas fa-train fa-lg"></i> <b><?= $train_number ?></b> Direction <b><?= $train_direction ?></b></div>
-                          <div><p><b>42</b> min</p></div>
+                          <p><b><?= $train_departure_city ?></b></p>
                       </div>
                       <div class="itineraire_flex_container_travel_details_end flex_container">
-                          <p><b><?= $train_arrival_city ?></b><?= ", " . $train_arrival_platform ?></p>
+                          <p><b><?= $train_arrival_city ?></b></p>
                       </div>
                   </div>
-                  <div style="border: 2px solid green; width: auto">
+                  <div style="border: 2px solid green; width: 100%">
                   </div>
               </div>
 
@@ -133,7 +130,7 @@ include("header.html");
               <!-- Bloc trajet point A vers point B -->
               <div class="itineraire_flex_container_travel_details flex_container">
                   <div class="itineraire_flex_container_travel_details_hours">
-                      <div class="itineraire_flex_container_travel_details_hours_start">
+                      <div class="itineraire_flex_container_travel_details_start">
                           <p><?= $train_departure ?></p>
                       </div>
                       <div class="itineraire_flex_container_travel_details_end">
@@ -149,19 +146,15 @@ include("header.html");
                       </svg>
                       <span class="dot dot_end_details"></span>
                   </div>
-                  <div class="itineraire_flex_container_travel_details_box">
+                  <div>
                       <div class="flex_container itineraire_flex_container_travel_details_start">
-                          <p><b><?= $train_departure_city ?></b><?= ", " . $train_departure_platform ?></p>
-                      </div>
-                      <div class="flex_container itineraire_flex_container_travel_details_infos">
-                          <div><i class="fas fa-train fa-lg"></i> <b>IR 90</b> Direction <b>Brig</b></div>
-                          <div><p><b>42</b> min</p></div>
+                          <p><b><?= $train_departure_city ?></b></p>
                       </div>
                       <div class="itineraire_flex_container_travel_details_end flex_container">
-                          <p><b><?= $train_arrival_city ?></b><?= ", " . $train_arrival_platform ?></p>
+                          <p><b><?= $train_arrival_city ?></b></p>
                       </div>
                   </div>
-                  <div style="border: 2px solid green; width: auto">
+                  <div style="border: 2px solid green; width: 100%">
                   </div>
               </div>
 
@@ -175,7 +168,7 @@ include("header.html");
               <!-- Bloc trajet point A vers point B -->
               <div class="itineraire_flex_container_travel_details flex_container">
                   <div class="itineraire_flex_container_travel_details_hours">
-                      <div class="itineraire_flex_container_travel_details_hours_start">
+                      <div class="itineraire_flex_container_travel_details_start">
                           <p><?= $train_departure ?></p>
                       </div>
                       <div class="itineraire_flex_container_travel_details_end">
@@ -191,22 +184,17 @@ include("header.html");
                       </svg>
                       <span class="dot dot_end_details"></span>
                   </div>
-                  <div class="itineraire_flex_container_travel_details_box">
+                  <div>
                       <div class="flex_container itineraire_flex_container_travel_details_start">
-                          <p><b><?= $train_departure_city ?></b><?= ", " . $train_departure_platform ?></p>
-                      </div>
-                      <div class="flex_container itineraire_flex_container_travel_details_infos">
-                          <div><i class="fas fa-train fa-lg"></i> <b>IR 90</b> Direction <b>Brig</b></div>
-                          <div><p><b>42</b> min</p></div>
+                          <p><b><?= $train_departure_city ?></b></p>
                       </div>
                       <div class="itineraire_flex_container_travel_details_end flex_container">
-                          <p><b><?= $train_arrival_city ?></b><?= ", " . $train_arrival_platform ?></p>
+                          <p><b><?= $train_arrival_city ?></b></p>
                       </div>
                   </div>
-                  <div style="border: 2px solid green; width: auto">
+                  <div style="border: 2px solid green; width: 100%">
                   </div>
               </div>
-
           </div>
         <?php
       }
