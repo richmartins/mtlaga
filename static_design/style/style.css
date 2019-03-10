@@ -592,9 +592,8 @@ footer {
 }
 
 .itineraire_flex_container_travel {
-  padding: 8px 8px 0 8px;
+  padding: 8px;
   width: auto;
-  height: 100px;
   background-color: #FFFFFF;
 }
 
@@ -621,16 +620,24 @@ footer {
 }
 
 .itineraire_flex_container_travel_now {
-  width: 50%;
   font-size: 18px;
   text-align: center;
   border-right: 2px solid #b9b7b7;
   padding-right: 20px;
 }
 
+.itineraire_flex_container_travel_line {
+  border-top: 3px solid red;
+  position: relative;
+  top: 14px;
+  margin: 0 20px;
+  width: 200px;
+}
+
 .itineraire_flex_container_travel_now svg {
-    position: relative;
-    bottom: 8px;
+  position: relative;
+  bottom: 8px;
+  width: 100%;
 }
 
 .itineraire_flex_container_travel_time {
@@ -650,6 +657,7 @@ footer {
   width: 20%;
   flex-direction: column;
   justify-content: center;
+  margin-left: 10px;
 }
 
 .itineraire_flex_container_travel_change p {
@@ -679,6 +687,10 @@ footer {
     padding:10px;
   min-height: 200px;
   height: 200px;
+}
+
+.itineraire_flex_container_travel_details_container {
+  width: 50%;
 }
 
 .itineraire_flex_container_travel_details_box {
@@ -743,6 +755,7 @@ footer {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    border-radius: 5px;
 }
 
 .itineraire_flex_container_travel_details_walk p {
@@ -750,16 +763,86 @@ footer {
     margin-left: 10px;
 }
 
+.itineraire_flex_container_travel_action {
+  width: 50%;
+}
+
+.itineraire_flex_container_travel_action_perturbations {
+  height: 80%;
+  width: 50%;
+  margin-right: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.2);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.itineraire_flex_container_travel_action_outils {
+  height: 80%;
+  width: 250px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.2);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.itineraire_flex_container_travel_action_outils_icon:hover {
+  padding-left: 5px;
+}
+
+.itineraire_flex_container_travel_action_outils ul {
+  padding: 0;
+  margin-top: 8px;
+}
+
+.itineraire_flex_container_travel_action_outils ul li {
+  list-style-type: none;
+  width: 90%;
+  padding-bottom: 5px;
+}
+
+.itineraire_flex_container_travel_action_outils ul li:hover {
+  color: red;
+  cursor: pointer;
+}
+
+.itineraire_flex_container_travel_action_outils ul div {
+  flex-direction: row;
+}
+
+.itineraire_flex_container_travel_action_outils > p, .itineraire_flex_container_travel_action_perturbations > p {
+  margin: 0;
+  font-size: 19px;
+}
+
+.itineraire_flex_container_travel_action_perturbations > div > p {
+  margin-top: 8px;
+  text-align: center;
+}
 
 /* Design SVG */
 .dot_start {
+  /*
   bottom: 10px;
   left: 10px;
+
+  bottom: 14px;
+  right: 90px;
+  */
+
+  bottom: 20%;
+  right: 45%;
 }
 
 .dot_end {
-    bottom: 10px;
-    right: 10px;
+  /*
+  bottom: 10px;
+  right: 10px;
+
+  bottom: 14px;
+  left: 90px;
+  */
+
+  bottom: 20%;
+  left: 45%;
 }
 
 .dot {
@@ -822,6 +905,6 @@ footer {
 /* RESPONSIVE */
 @media screen and (max-width: 1450px) {
   #home_container {
-    width: 830px;
+    width: 840px;
   }
 }
