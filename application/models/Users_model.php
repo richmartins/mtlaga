@@ -72,7 +72,6 @@ class Users_model extends CI_Model {
 
     public function sendEmail_reset_pwd($to, $token){
       $from = 'richard.tenorio@outlook.com';
-      //$user_password = 'xxxxxx';
       $subject  = 'Réinitialisation de votre mot de passe MTLAGA';
       $message  = '';
       $message .= "<h2>Vous recevez cette email suite à votre demande de réinitialisation de votre mot de passe</h2>"
@@ -83,8 +82,6 @@ class Users_model extends CI_Model {
       $this->load->library('email');
       $this->email->from($from, 'MTLAGA');
       $this->email->to($to);
-      //$this->email->cc('another@another-example.com');
-      //$this->email->bcc('them@their-example.com');
       $this->email->subject($subject);
       $this->email->message($message);
       $this->email->send();
