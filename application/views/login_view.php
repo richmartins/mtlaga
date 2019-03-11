@@ -1,13 +1,12 @@
+<?php  if (null !== $this->session->flashdata('error')): ?>
+    <p class="error"><?= $this->session->flashdata('error') ?></p>
+<?php endif;?>
 <div class="form_style_bck" class="">
   <p>Connexion</p>
   <?php echo isset($error) ? $error : ''; ?>
   <form method="post" action="<?php echo site_url('auth/login_process'); ?>">
     <div class="form_style_front" >
-      <?php
-          if (isset($_SESSION['email'])) {
 
-          }
-      ?>
       <div class="form_style_title">
         <p>Adresse mail</p>
         <input type="email" name="mail" value="" class="form_input">
