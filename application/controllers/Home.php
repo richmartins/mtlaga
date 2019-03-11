@@ -16,8 +16,12 @@ class Home extends CI_Controller {
         $this->meta_data = [
           'title' => '',
           'connected' => 0,
-          'active' => ''
+          'active' => '',
+          'error' => null
         ];
+        if(isset($_SESSION['email'])){
+          $this->meta_data['connected'] = 1;
+        }
       }
 
       public function index() {

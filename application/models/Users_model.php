@@ -10,11 +10,7 @@ class Users_model extends CI_Model {
     public function add_user($data){
       $query =  $this->db->insert('users', $data);
       //
-      if($query){
-        return true;
-      }else{
-        return false;
-      }
+      if($query) { return true; } else { return false; }
     }
 
     public function reset_user_pwd($email, $new_password){
@@ -23,11 +19,7 @@ class Users_model extends CI_Model {
       $this->db->set('hash_password', $hashed);
       $this->db->where('email', $email);
       $sucess = $this->db->update('users');
-      if ($sucess) {
-        return true;
-      } else {
-        return false;
-      }
+      if ($sucess) { return true; } else { return false; }
 
     }
 
@@ -37,11 +29,7 @@ class Users_model extends CI_Model {
       $this->db->where('email', $email);
       $query = $this->db->get()->result()[0]->hash_password;
 
-      if(!password_verify($password, $query)) {
-        return false;
-      }else{
-        return true;
-      }
+      if(!password_verify($password, $query)) { return false; } else { return true; }
     }
 
     public function hash_password($password){
@@ -64,9 +52,9 @@ class Users_model extends CI_Model {
       $res = $this->db->get()->result()[0]->email;
 
       if($res != null){
-        return true;
+        return false; //email existe pas
       } else {
-        return true;
+        return true; //existe
       }
     }
 

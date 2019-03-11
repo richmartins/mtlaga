@@ -1,6 +1,8 @@
+<?php  if (null !== $this->session->flashdata('error')): ?>
+    <p class="error"><?= $this->session->flashdata('error') ?></p>
+<?php endif;?>
 <div class="form_style_bck" >
   <p>S'inscrire</p>
-  <?php echo isset($error) ? $error : ''; ?>
   <form method="post" action="<?= site_url('auth/signup_process') ?>" >
     <div class="form_style_front" >
       <div class="form_style_title">

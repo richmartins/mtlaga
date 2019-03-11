@@ -53,7 +53,7 @@
             <img src="<?= base_url(); ?>public/img/mtlaga_logout.png" alt="Settings img" class="header_style_menu_action_img">
           </div>
           <div class="flex_container">
-            <p><a href="#">Déconnexion</a></p>
+            <p><a href="<?= base_url(); ?>auth/logoff">Déconnexion</a></p>
           </div>
         </div>
       </div>
