@@ -63,7 +63,7 @@ class Auth extends CI_Controller {
             if($password !== $password_confirm){
               $error = 'Vous devez saisir 2 fois le même mode passe !';
               $this->session->set_flashdata('error', $error);
-              redirect('auth/signup', 'refresh');
+              redirect('auth/signup');
             }
 
             $data = [
