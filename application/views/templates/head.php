@@ -3,7 +3,7 @@
 ?>
 <head>
   <meta charset="utf-8"/>
-  <title><?= $title; ?></title>
+  <title><?= $meta_data['title']; ?></title>
   <link href="https://fonts.googleapis.com/css?family=Didact+Gothic" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="<?= base_url();?>public/css/style.css">
   <script src='https://api.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.js'></script>

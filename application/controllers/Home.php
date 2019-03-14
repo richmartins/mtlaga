@@ -2,43 +2,63 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Home extends CI_Controller {
-    public function index() {
+    var $header_nav;
+    var $meta_data;
+    function __construct() {
+        parent::__construct();
         $this->load->database();
-        $query = $this->db->query("SELECT * FROM users;");
+        $this->load->helper('url');
+        $this->header_nav = [
+          'home' => 'Home',
+          'info' => 'Info',
+          'plan' => 'Plan'
+        ];
+        $this->meta_data = [
+          'title' => '',
+          'connected' => 0,
+          'active' => '',
+          'error' => null
+        ];
+        if(isset($_SESSION['email'])){
+          $this->meta_data['connected'] = 1;
+        }
+      }
 
-        $user_1 = [];
-        $user_2 = [];
+      public function index() {
+          $this->meta_data['title'] = 'Home | MTLAGA';
+          $this->meta_data['active'] = 'Home';
 
-        $row_1 = $query->row();
-        $row_2 = $query->row(1);
+          $data = [
+            'header_nav_meta_data' => $this->header_nav,
+            'meta_data' => $this->meta_data
+          ];
 
-        if (isset($row_1)){
-          $user_1['id_user'] = $row_1->id_user;
-          $user_1['email'] = $row_1->email;
-          $user_1['salt_password'] =$row_1->salt_password;
-          $user_1['admin'] = $row_1->admin;
-          $user_1['confirmed'] = $row_1->confirmed;
+          $this->load->view('templates/head', $data);
+          $this->load->view('templates/header', $data);
+          $this->load->view('home_view', $data);
+          $this->load->view('templates/footer');
         }
 
-        if (isset($row_2)){
-          $user_2['id_user'] = $row_2->id_user;
-          $user_2['email'] = $row_2->email;
-          $user_2['salt_password'] = $row_2->salt_password;
-          $user_2['admin'] = $row_2->admin;
-          $user_2['confirmed'] = $row_2->confirmed;
-        }
+        public function info(){
+          $this->meta_data['title'] = 'Info | MTLAGA';
+          $this->meta_data['active'] = 'Info';
 
+<<<<<<< HEAD
         $data = [
           'title' => 'Home | MTLAGA',
           'content' => $user_2,
           'connected' => 1
         ];
+=======
+          $data = [
+            'header_nav_meta_data' => $this->header_nav,
+            'meta_data' => $this->meta_data
+          ];
+>>>>>>> dev-rich
 
-        $this->load->helper('url');
-        $this->load->view('templates/head', $data);
-        $this->load->view('templates/header', $data['connected']);
-        $this->load->view('home_view', $data);
-        $this->load->view('templates/footer');
-        //$this->load->view('templates/default_layout', $data);
-    }
+          $this->load->view('templates/head', $data);
+          $this->load->view('templates/header', $data);
+          $this->load->view('about_view', $data);
+          $this->load->view('templates/footer');
+        }
 }

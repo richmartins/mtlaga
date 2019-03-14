@@ -74,7 +74,7 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
-	'dsn'	=> 'pgsql:host=127.0.0.1;port=3306;dbname=mtlaga',
+	'dsn'	=> 'pgsql:host=127.0.0.1;port=3306;dbname=mtlaga_db',
 	'hostname' => '127.0.0.1',
 	'username' => 'mtlaga_user',
 	'password' => '7x+d4XV9Hc/K$M+t8q5',

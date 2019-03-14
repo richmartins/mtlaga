@@ -502,3 +502,7 @@ footer {
 #info_sytle_ceo > p {
   padding: 0;
 }
+
+.error {
+  color: red;
+}
