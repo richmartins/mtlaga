@@ -1,6 +1,9 @@
 <?php  if (null !== $this->session->flashdata('error')): ?>
     <p class="error"><?= $this->session->flashdata('error') ?></p>
 <?php endif;?>
+<?php  if (null !== $this->session->flashdata('info')): ?>
+    <p class="info"><?= $this->session->flashdata('info') ?></p>
+<?php endif;?>
 <div class="form_style_bck" class="">
   <p>Connexion</p>
   <?php echo isset($error) ? $error : ''; ?>

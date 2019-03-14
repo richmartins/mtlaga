@@ -35,26 +35,47 @@ class Auth extends CI_Controller {
       redirect('home');
     }
 
+    //before sending email
     public function reset_pwd_process() {
-        $email = $this->input->post('mail');
+        $email = $this->input->get('mail');
         $res = $this->users_model->check_email($email);
         if($res){
-          //get token of email
           $token = $this->users_model->get_token($email);
-          //send email
           $this->users_model->sendEmail_reset_pwd($email, $token);
-          // redirect('auth/login');
+          $info = 'Veuillez consulter votre adresse mail pour réinitialiser votre mot de passe';
+          $this->session->set_flashdata('info', $info);
+          redirect('auth/login');
         }else{
+          $error = 'Cette adresse mail n\'existe pas !';
+          $this->session->set_flashdata('error', $error);
           redirect('auth/reset');
         }
       }
 
-      public function new_pwd_process(){
+      //after sending email
+      public function reset_tok(){
         $token = $this->input->get('token');
+        $email = $this->input->get('email');
         // check db si il existe
-        // si oui -> view reset_pwd
-        // si non -> tchao
+        $res = $this->users_model->check_token($token);
+        if ($res) {
+          $this->session->flashdata('reset_step' => '2', 'email' => $email, 'token' => $token);
+          redirect('auth/reset');
+        } else {
+          exit;
+        }
+      }
 
+      public function change_db_pwd(){
+        $pwd = $this->input->post('password');
+        $pwd_confirm = $this->input->post('password_confirm');
+        $email = $this->input->post('email');
+        $token = $this->input->post('token');
+
+        if ($pwd == $pwd_confirm) {
+          $res = $this->users_model->update_password($email, $pwd)
+          if ($res) { redirect('auth/login'); } else { /*whatever*/}
+        }
       }
 
       public function signup_process(){
@@ -102,7 +123,6 @@ class Auth extends CI_Controller {
       $password = $this->input->post('password');
 
       if($this->users_model->check_password($email,$password)){
-          //session_start();
           $this->session->set_userdata(array('email'=>$email));
           redirect('home');
       }else{
@@ -125,11 +145,17 @@ class Auth extends CI_Controller {
         'meta_data' => $this->meta_data
       ];
 
-      $this->load->view('templates/head', $data);
-      $this->load->view('templates/header', $data);
-      $this->load->view('resetpwd_view', $data);
-      $this->load->view('templates/footer');
-
+      if($this->session->flashdata('reset_step') = '2'){
+        $this->load->view('templates/head', $data);
+        $this->load->view('templates/header', $data);
+        $this->load->view('resetpwd_step_two_view', $data);
+        $this->load->view('templates/footer');
+      } else {
+        $this->load->view('templates/head', $data);
+        $this->load->view('templates/header', $data);
+        $this->load->view('resetpwd_step_one_view', $data);
+        $this->load->view('templates/footer');
+      }
     }
 
     public function signup() {
