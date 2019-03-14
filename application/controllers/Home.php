@@ -43,18 +43,11 @@ class Home extends CI_Controller {
           $this->meta_data['title'] = 'Info | MTLAGA';
           $this->meta_data['active'] = 'Info';
 
-<<<<<<< HEAD
-        $data = [
-          'title' => 'Home | MTLAGA',
-          'content' => $user_2,
-          'connected' => 1
-        ];
-=======
           $data = [
             'header_nav_meta_data' => $this->header_nav,
             'meta_data' => $this->meta_data
           ];
->>>>>>> dev-rich
+
 
           $this->load->view('templates/head', $data);
           $this->load->view('templates/header', $data);
