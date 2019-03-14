@@ -13,14 +13,12 @@ class Users_model extends CI_Model {
 
     public function update_password($email, $new_password){
       $hashed = password_hash($new_password, PASSWORD_DEFAULT, array('cost' => 10));
-      //update token reset
       $this->db->set('hash_password', $hashed);
-      $this->db->set('reset')
+      $this->db->set('reset');
       $this->db->where('email', $email);
       $sucess = $this->db->update('users');
 
       if ($sucess) { return true; } else { return false; }
-
     }
 
     public function check_password($email, $password){
@@ -54,7 +52,7 @@ class Users_model extends CI_Model {
     }
 
     public function sendEmail_reset_pwd($to, $token){
-      $from = 'richard.tenorio@outlook.com';
+      $from     = 'richard.tenorio@outlook.com';
       $subject  = 'Réinitialisation de votre mot de passe MTLAGA';
       $message  = '';
       $message .= "<h2>Vous recevez cette email suite à votre demande de réinitialisation de votre mot de passe</h2>"

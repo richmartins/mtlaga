@@ -1,6 +1,5 @@
 <div class="form_style_bck" class="">
   <p>réinitialiser votre mot de passe</p>
-  <?php echo isset($error) ? $error : ''; ?>
   <form method="get" action="<?php echo site_url('auth/reset_pwd_process'); ?>">
     <div class="form_style_front" >
       <div class="form_style_title">

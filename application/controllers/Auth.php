@@ -1,6 +1,5 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-//session_start(); //we need to start session in order to access it through CI
 
 class Auth extends CI_Controller {
     var $header_nav;
@@ -14,6 +13,7 @@ class Auth extends CI_Controller {
         'info' => 'Info',
         'plan' => 'Plan'
       ];
+
       $this->meta_data = [
         'title' => '',
         'connected' => 0,
@@ -28,14 +28,8 @@ class Auth extends CI_Controller {
     }
 
     /*
-     * process
+     * process *****************************************************************
      */
-    public function logoff(){
-      $this->session->unset_userdata('email');
-      redirect('home');
-    }
-
-    //before sending email
     public function reset_pwd_process() {
         $email = $this->input->get('mail');
         $res = $this->users_model->check_email($email);
@@ -52,14 +46,12 @@ class Auth extends CI_Controller {
         }
       }
 
-      //after sending email
       public function reset_tok(){
         $token = $this->input->get('token');
         $email = $this->input->get('email');
-        // check db si il existe
         $res = $this->users_model->check_token($token);
         if ($res) {
-          $this->session->flashdata('reset_step' => '2', 'email' => $email, 'token' => $token);
+          $_SESSION['reset_step'] = '2'; $_SESSION['email'] = $email; $_SESSION['token'] = $token;
           redirect('auth/reset');
         } else {
           exit;
@@ -72,8 +64,8 @@ class Auth extends CI_Controller {
         $email = $this->input->post('email');
         $token = $this->input->post('token');
 
-        if ($pwd == $pwd_confirm) {
-          $res = $this->users_model->update_password($email, $pwd)
+        if ($pwd == $pwd_confirm){
+          $res = $this->users_model->update_password($email, $pwd);
           if ($res) { redirect('auth/login'); } else { /*whatever*/}
         }
       }
@@ -118,6 +110,11 @@ class Auth extends CI_Controller {
         }
     }
 
+    public function logoff(){
+      $this->session->unset_userdata('email');
+      redirect('home');
+    }
+
     public function login_process(){
       $email = $this->input->post('mail');
       $password = $this->input->post('password');
@@ -133,7 +130,7 @@ class Auth extends CI_Controller {
     }
 
     /*
-     * pages
+     * pages render ***********************************************************
      */
 
     public function reset(){
@@ -145,7 +142,8 @@ class Auth extends CI_Controller {
         'meta_data' => $this->meta_data
       ];
 
-      if($this->session->flashdata('reset_step') = '2'){
+      $res = $this->session->flashdata('reset_step');
+      if($res = '2') {
         $this->load->view('templates/head', $data);
         $this->load->view('templates/header', $data);
         $this->load->view('resetpwd_step_two_view', $data);
