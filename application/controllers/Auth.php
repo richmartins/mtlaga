@@ -51,6 +51,9 @@ class Auth extends CI_Controller {
 
       public function new_pwd_process(){
         $token = $this->input->get('token');
+        // check db si il existe
+        // si oui -> view reset_pwd
+        // si non -> tchao
 
       }
 
