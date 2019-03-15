@@ -76,6 +76,7 @@
 
     // Init Select2 sur classe "typeahead"
     $( document ).ready(function() {
+        $.fn.select2.defaults.set('language', 'fr');
         $('.typeahead').select2({
             ajax: {
                 url: "http://transport.opendata.ch/v1/locations?",
