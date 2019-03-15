@@ -30,6 +30,7 @@ class Auth extends CI_Controller {
     /*
      * process *****************************************************************
      */
+
     public function reset_pwd_process() {
         $email = $this->input->get('mail');
         $res = $this->users_model->check_email($email);
@@ -118,14 +119,19 @@ class Auth extends CI_Controller {
     public function login_process(){
       $email = $this->input->post('mail');
       $password = $this->input->post('password');
-
-      if($this->users_model->check_password($email,$password)){
-          $this->session->set_userdata(array('email'=>$email));
-          redirect('home');
-      }else{
-          $error = 'L\'adresse mail ou le mot de passe saisi sont incorect';
-          $this->session->set_flashdata('error', $error);
-          redirect('auth/login');
+      if($this->users_model->check_email($email)){
+        if($this->users_model->check_password($email,$password)){
+            $this->session->set_userdata(array('email'=>$email));
+            redirect('home');
+        }else{
+            $error = 'L\'adresse mail ou le mot de passe saisi sont incorect';
+            $this->session->set_flashdata('error', $error);
+            redirect('auth/login');
+        }
+      } else {
+        $error = 'L\'adresse mail ou le mot de passe saisi sont incorect';
+        $this->session->set_flashdata('error', $error);
+        redirect('auth/login');
       }
     }
 
