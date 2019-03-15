@@ -65,6 +65,6 @@ class Users_model extends CI_Model {
       $this->email->to($to);
       $this->email->subject($subject);
       $this->email->message($message);
-      $this->email->send();
+      if($this->email->send()) { return true; } else { return false; }
     }
 }

@@ -35,7 +35,11 @@ class Auth extends CI_Controller {
         $res = $this->users_model->check_email($email);
         if($res){
           $token = $this->users_model->get_token($email);
-          $this->users_model->sendEmail_reset_pwd($email, $token);
+          if ($this->users_model->sendEmail_reset_pwd($email, $token)){
+            $this->session->set_flashdata("email_sent","Congragulation Email Send Successfully.");
+          } else {
+            $this->session->set_flashdata("email_sent","You have encountered an error");
+          }
           $info = 'Veuillez consulter votre adresse mail pour réinitialiser votre mot de passe';
           $this->session->set_flashdata('info', $info);
           redirect('auth/login');
@@ -54,7 +58,7 @@ class Auth extends CI_Controller {
           $_SESSION['reset_step'] = '2'; $_SESSION['email'] = $email; $_SESSION['token'] = $token;
           redirect('auth/reset');
         } else {
-          exit;
+          $_SESSION['reset_step'] = '1';
         }
       }
 
@@ -143,17 +147,17 @@ class Auth extends CI_Controller {
       ];
 
       $res = $this->session->flashdata('reset_step');
-      if($res = '2') {
-        $this->load->view('templates/head', $data);
-        $this->load->view('templates/header', $data);
-        $this->load->view('resetpwd_step_two_view', $data);
-        $this->load->view('templates/footer');
-      } else {
+      // if($res = '2') {
+      //   $this->load->view('templates/head', $data);
+      //   $this->load->view('templates/header', $data);
+      //   $this->load->view('resetpwd_step_two_view', $data);
+      //   $this->load->view('templates/footer');
+      // } else {
         $this->load->view('templates/head', $data);
         $this->load->view('templates/header', $data);
         $this->load->view('resetpwd_step_one_view', $data);
         $this->load->view('templates/footer');
-      }
+      //}
     }
 
     public function signup() {
