@@ -56,10 +56,9 @@ class Auth extends CI_Controller {
         $email = $this->input->get('email');
         $res = $this->users_model->check_token($token);
         if ($res) {
-          $_SESSION['reset_step'] = '2'; $_SESSION['email'] = $email; $_SESSION['token'] = $token;
-          redirect('auth/reset');
+          redirect('auth/newpassword');
         } else {
-          $_SESSION['reset_step'] = '1';
+          show_404();
         }
       }
 
@@ -71,48 +70,45 @@ class Auth extends CI_Controller {
 
         if ($pwd == $pwd_confirm){
           $res = $this->users_model->update_password($email, $pwd);
-          if ($res) { redirect('auth/login'); } else { /*whatever*/}
+          if ($res) { redirect('auth/login'); } else { $this->session->set_flashdata('error', 'somehting went wrong'); }
         }
       }
 
-      public function signup_process(){
-        $email = $this->input->post('mail');
-        $password = $this->input->post('password');
-        $password_confirm = $this->input->post('password_confirm');
+    public function signup_process(){
+      $email = $this->input->post('mail');
+      $password = $this->input->post('password');
+      $password_confirm = $this->input->post('password_confirm');
 
-        if($this->users_model->check_email($email)){
-            if($password !== $password_confirm){
-              $error = 'Vous devez saisir 2 fois le même mode passe !';
-              $this->session->set_flashdata('error', $error);
-              redirect('auth/signup');
-            }
-
-            $data = [
-              'email' => $email,
-              'hash_password' => $this->users_model->hash_password($password),
-              'admin' => 0,
-              'created_at' => date('Y-m-d'),
-              'confirmed' => 0,
-              'confirmed_at' => null,
-              'confirmation_token' => bin2hex(random_bytes(20)),
-              'remember' => 0,
-            ];
-
-            $success = $this->users_model->add_user($data);
-
-            if($success == true){
-              redirect('auth/login', 'refresh');
-            }else{
-              $error = 'Une erreur c\'est produite, veuillez contacter admin@mtlaga.ch';
-              $this->session->set_flashdata('error', $error);
-              redirect('auth/signup', 'refresh');
-            }
-
+      if($this->users_model->check_email($email)){
+        if($password == $password_confirm){ 
+          $data = [
+            'email' => $email,
+            'hash_password' => $this->users_model->hash_password($password),
+            'admin' => 0,
+            'created_at' => date('Y-m-d'),
+            'confirmed' => 0,
+            'confirmed_at' => null,
+            'confirmation_token' => bin2hex(random_bytes(20)),
+            'remember' => 0,
+          ];
+          $success = $this->users_model->add_user($data);
+          if($success == true){
+            redirect('auth/login', 'refresh');
+          }else{
+            $error = 'Une erreur c\'est produite, veuillez contacter admin@mtlaga.ch';
+            $this->session->set_flashdata('error', $error);
+            redirect('auth/signup', 'refresh');
+          }
         } else {
-          $error = 'L\'adresse mail que vous avez saisi existe déjà !';
+          $error = 'Vous devez saisir 2 fois le même mode passe !';
           $this->session->set_flashdata('error', $error);
-          redirect('auth/signup', 'refresh');
+          redirect('auth/signup');
         }
+      } else {
+        $error = 'L\'adresse mail que vous avez saisi existe déjà !';
+        $this->session->set_flashdata('error', $error);
+        redirect('auth/signup', 'refresh');
+      }
     }
 
     public function logoff(){
@@ -139,10 +135,13 @@ class Auth extends CI_Controller {
       }
     }
 
-    /*
-     * pages render ***********************************************************
-     */
+  /*
+   * pages render ***********************************************************
+   */
 
+
+    // reset password render
+    //step 1
     public function reset(){
       $this->meta_data['title'] = 'réinitialiser mot de passe | MTLAGA';
       $this->meta_data['active'] = 'Home';
@@ -152,19 +151,28 @@ class Auth extends CI_Controller {
         'meta_data' => $this->meta_data
       ];
 
-      $res = $this->session->flashdata('reset_step');
-      // if($res = '2') {
-      //   $this->load->view('templates/head', $data);
-      //   $this->load->view('templates/header', $data);
-      //   $this->load->view('resetpwd_step_two_view', $data);
-      //   $this->load->view('templates/footer');
-      // } else {
-        $this->load->view('templates/head', $data);
-        $this->load->view('templates/header', $data);
-        $this->load->view('resetpwd_step_one_view', $data);
-        $this->load->view('templates/footer');
-      //}
+      $this->load->view('templates/head', $data);
+      $this->load->view('templates/header', $data);
+      $this->load->view('resetpwd_step_one_view', $data);
+      $this->load->view('templates/footer');
     }
+
+    //step 2
+    public function newpassword(){
+      $this->meta_data['title'] = 'réinitialiser mot de passe | MTLAGA';
+      $this->meta_data['active'] = 'Home';
+
+      $data = [
+        'header_nav_meta_data' => $this->header_nav,
+        'meta_data' => $this->meta_data
+      ];
+
+      $this->load->view('templates/head', $data);
+      $this->load->view('templates/header', $data);
+      $this->load->view('resetpwd_step_two_view', $data);
+      $this->load->view('templates/footer');
+    }
+
 
     public function signup() {
       $this->meta_data['title'] = 'S\'inscrire | MTLAGA';

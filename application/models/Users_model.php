@@ -25,13 +25,10 @@ class Users_model extends CI_Model {
       $this->db->select('email, hash_password');
       $this->db->from('users');
       $this->db->where('email', $email);
-      $res = $this->db->get()->result();
-      if( $res > 0){
-        $query = $this->db->get()->result()[0]->hash_password;
-        if(!password_verify($password, $query)) { return false; } else { return true; }
-      } else {
-        return false;
-      }
+
+      $query = $this->db->get()->result()[0]->hash_password;
+      if(!password_verify($password, $query)) { return false; } else { return true; }
+
     }
 
     public function hash_password($password){
