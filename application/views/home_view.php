@@ -14,11 +14,15 @@
       </div>
         <form>
             <div id="home_style_flexbox_container" class="flex_container">
-                <div class="flex_container" >
-                    <input class="home_style_flexbox_fields" type="text" placeholder="Départ">
+                <div class="flex_container home_style_flexbox_fields_box" >
+                    <select class="home_style_flexbox_fields js-data-example-ajax typeahead" data-placeholder="Ville de départ" >
+                        <option></option>
+                    </select>
                 </div>
                 <div class="flex_container" >
-                    <input class="home_style_flexbox_fields" type="text" placeholder="Arrivée">
+                    <select class="home_style_flexbox_fields js-data-example-ajax typeahead" data-placeholder="Ville d'arrivée" >
+                        <option></option>
+                    </select>
                 </div>
                 <div class="flex_container form_style_submit" >
                     <input type="submit" class="home_style_flexbox_input" value="Rechercher" class="" type="text">
@@ -68,5 +72,34 @@
         center: [6.6327025, 46.5218269],
         zoom: 12.0,
         boxZoom: false,
+    });
+
+    // Init Select2 sur classe "typeahead"
+    $( document ).ready(function() {
+        $('.typeahead').select2({
+            ajax: {
+                url: "http://transport.opendata.ch/v1/locations?",
+                dataType: 'json',
+                delay: 250,
+                language: "fr",
+                placeholder: function(){
+                    $(this).data('placeholder');
+                },
+                method:'get',
+                data: function (params) {
+                    var query = {
+                        query: params.term,
+                    }
+                    return query;
+                },
+                processResults: function (data) {
+                    return {
+                        results: $.map(data.stations, function(obj) {
+                            return { id: obj.name, text: obj.name };
+                        })
+                    };
+                },
+            }
+        });
     });
 </script>

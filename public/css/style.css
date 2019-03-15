@@ -362,7 +362,7 @@ footer {
   background-color: #EBEBEB;
   border-radius: 25px;
   flex-direction: column;
-  width: 50%;
+  width: 200px;
 }
 
 .home_style_flexbox_title_container {
@@ -387,7 +387,7 @@ footer {
 }
 
 #home_style_flexbox_container {
-  width: 100%;
+  padding: 20px;
   flex-direction: column;
 }
 
@@ -505,4 +505,22 @@ footer {
 
 .error {
   color: red;
+}
+
+/* SELECT 2 - EDIT CSS */
+.home_style_flexbox_fields_box {
+  padding-bottom: 30px;
+}
+
+.select2-container--default .select2-selection--single {
+  background-color: transparent !important;
+  height: 35px;
+}
+
+.select2-container {
+  width: 100% !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+  top: 5px !important;
 }
