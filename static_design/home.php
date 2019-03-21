@@ -6,43 +6,41 @@ include("header.html");
   <div id="home_style_flexbox" class="flex_container">
 
     <div class="flex_container home_style_flexbox_head" >
-      <div class="flex_container home_style_flexbox_title_container" >
-        <div class="flex_container home_style_flexbox_title_text" >
-          <p>Horaires</p>
-        </div>
-        <div class="flex_container" >
-          <img class="home_style_flexbox_title_img" src="img/mtlaga_home_clock.png" alt="">
-        </div>
-      </div>
-        <form>
-            <div id="home_style_flexbox_container" class="flex_container">
-                <div class="flex_container" >
-                    <input class="home_style_flexbox_fields" type="text" placeholder="Départ">
-                </div>
-                <div class="flex_container" >
-                    <input class="home_style_flexbox_fields" type="text" placeholder="Arrivée">
-                </div>
-                <div class="flex_container form_style_submit" >
-                    <input type="submit" class="home_style_flexbox_input" value="Rechercher" class="" type="text">
-                </div>
-            </div>
-        </form>
-    </div>
-
-    <div class="flex_container home_style_flexbox_head" >
         <div class="flex_container home_style_flexbox_title_container" >
-            <div class="flex_container home_style_flexbox_title_text" >
-                <p>Trafic</p>
-            </div>
-            <div class="flex_container">
-                <img class="home_style_flexbox_title_img" src="img/mtlaga_home_bell.png" alt="">
-            </div>
+          <div class="flex_container home_style_flexbox_title_text" >
+            <p>Horaires</p>
+          </div>
+          <div class="flex_container" >
+            <img class="home_style_flexbox_title_img" src="img/mtlaga_home_clock.png" alt="">
+          </div>
         </div>
-        <div class="flex_container home_style_flexbox_sub_text" >
-            <p style="text-align: center">Pour afficher ce contenu, vous devez être connecté</p>
-        </div>
-    </div>
-
+          <form>
+              <div id="home_style_flexbox_container" class="flex_container">
+                  <div class="flex_container" >
+                      <input class="home_style_flexbox_fields" type="text" placeholder="Départ">
+                  </div>
+                  <div class="flex_container" >
+                      <input class="home_style_flexbox_fields" type="text" placeholder="Arrivée">
+                  </div>
+                  <div class="flex_container form_style_submit" >
+                      <input type="submit" class="home_style_flexbox_input" value="Rechercher" class="" type="text">
+                  </div>
+              </div>
+          </form>
+      </div>
+    <div class="flex_container home_style_flexbox_head" >
+          <div class="flex_container home_style_flexbox_title_container" >
+              <div class="flex_container home_style_flexbox_title_text" >
+                  <p>Trafic</p>
+              </div>
+              <div class="flex_container">
+                  <img class="home_style_flexbox_title_img" src="img/mtlaga_home_bell.png" alt="">
+              </div>
+          </div>
+          <div class="flex_container home_style_flexbox_sub_text" >
+              <p style="text-align: center">Pour afficher ce contenu, vous devez être connecté</p>
+          </div>
+      </div>
     <div class="flex_container home_style_flexbox_head" >
         <div class="flex_container home_style_flexbox_title_container" >
             <div class="flex_container home_style_flexbox_title_text" >
@@ -56,6 +54,7 @@ include("header.html");
             <p style="text-align: center">Pour afficher ce contenu, vous devez être connecté</p>
         </div>
     </div>
+
   </div>
 
 
