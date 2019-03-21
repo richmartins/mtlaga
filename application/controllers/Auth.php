@@ -7,7 +7,9 @@ class Auth extends CI_Controller {
 
     public function __construct() {
       parent::__construct();
-      $this->load->helper('url');
+      $this->load->helper(array('form', 'url'));
+      $this->load->library('form_validation');
+
       $this->header_nav = [
         'home' => 'Home',
         'info' => 'Info',
@@ -79,8 +81,7 @@ class Auth extends CI_Controller {
       $password = $this->input->post('password');
       $password_confirm = $this->input->post('password_confirm');
 
-      if($this->users_model->check_email($email)){
-        if($password == $password_confirm){ 
+      if(! $this->users_model->check_email($email)){
           $data = [
             'email' => $email,
             'hash_password' => $this->users_model->hash_password($password),
@@ -93,21 +94,16 @@ class Auth extends CI_Controller {
           ];
           $success = $this->users_model->add_user($data);
           if($success == true){
-            redirect('auth/login', 'refresh');
+            // redirect('auth/login', 'refresh');
           }else{
             $error = 'Une erreur c\'est produite, veuillez contacter admin@mtlaga.ch';
             $this->session->set_flashdata('error', $error);
-            redirect('auth/signup', 'refresh');
+            // redirect('auth/signup', 'refresh');
           }
-        } else {
-          $error = 'Vous devez saisir 2 fois le même mode passe !';
-          $this->session->set_flashdata('error', $error);
-          redirect('auth/signup');
-        }
       } else {
         $error = 'L\'adresse mail que vous avez saisi existe déjà !';
         $this->session->set_flashdata('error', $error);
-        redirect('auth/signup', 'refresh');
+        // redirect('auth/signup', 'refresh');
       }
     }
 
@@ -183,11 +179,23 @@ class Auth extends CI_Controller {
         'meta_data' => $this->meta_data
       ];
 
-      $this->load->view('templates/head', $data);
-      $this->load->view('templates/header', $data);
-      $this->load->view('signup_view', $data);
-      $this->load->view('templates/footer');
+      $this->form_validation->set_rules('mail', 'E-mail', 'required');
+      $this->form_validation->set_rules('password', 'Mot de passe', 'required',
+              array('required' => 'You must provide a %s.')
+      );
+      $this->form_validation->set_rules('password_confirm', 'Confirmation', 'required');
 
+      if ($this->form_validation->run() == FALSE) {
+        $this->load->view('templates/head', $data);
+        $this->load->view('templates/header', $data);
+        $this->load->view('signup_view', $data);
+        $this->load->view('templates/footer');
+      } else {
+        $this->load->view('templates/head', $data);
+        $this->load->view('templates/header', $data);
+        $this->load->view('login_view', $data);
+        $this->load->view('templates/footer');
+      }
     }
 
     public function login() {

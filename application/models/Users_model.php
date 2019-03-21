@@ -45,11 +45,15 @@ class Users_model extends CI_Model {
     }
 
     public function check_email($email){
-      $this->db->select('email');
-      $this->db->from('users');
-      $this->db->where('email', $email);
-      $res = $this->db->get()->result()[0]->email;
-      if($res !== null) { return true; } else { return false; }
+      // $this->db->select('email');
+      // $this->db->from('users');
+      // $this->db->where('email', $email);
+      // $res = $this->db->get()->result()[0]->email;
+      // if($res !== null) { return true; } else { return false; }
+
+      $this->db->where('email',$key);
+      $query = $this->db->get('users');
+      if ($query->num_rows() > 0){ return true; } else{ return false; }
     }
 
     public function sendEmail_reset_pwd($to, $token){
