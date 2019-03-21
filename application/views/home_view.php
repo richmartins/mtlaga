@@ -12,15 +12,15 @@
           <img class="home_style_flexbox_title_img" src="<?= base_url(); ?>public/img/mtlaga_home_clock.png" alt="">
         </div>
       </div>
-        <form>
+        <form method="post" action="<?= base_url();?>Itinerary/itinerary_process">
             <div id="home_style_flexbox_container" class="flex_container">
                 <div class="flex_container home_style_flexbox_fields_box" >
-                    <select class="home_style_flexbox_fields js-data-example-ajax typeahead" data-placeholder="Ville de départ" >
+                    <select class="home_style_flexbox_fields js-data-example-ajax typeahead" name="departure_city" data-placeholder="Ville de départ" >
                         <option></option>
                     </select>
                 </div>
                 <div class="flex_container" >
-                    <select class="home_style_flexbox_fields js-data-example-ajax typeahead" data-placeholder="Ville d'arrivée" >
+                    <select class="home_style_flexbox_fields js-data-example-ajax typeahead" name="arrival_city" data-placeholder="Ville d'arrivée" >
                         <option></option>
                     </select>
                 </div>
