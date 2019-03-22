@@ -39,13 +39,15 @@ class Auth extends CI_Controller {
         if($res){
           $token = $this->users_model->get_token($email);
           if ($this->users_model->sendEmail_reset_pwd($email, $token)){
-            $this->session->set_flashdata("email_sent","Congragulation Email Send Successfully.");
+            echo '1';
+            // $this->session->set_flashdata("email_sent","Congragulation Email Send Successfully.");
           } else {
-            $this->session->set_flashdata("email_sent","You have encountered an error");
+            echo '2';
+            // $this->session->set_flashdata("email_sent","You have encountered an error");
           }
-          $info = 'Veuillez consulter votre adresse mail pour réinitialiser votre mot de passe';
-          $this->session->set_flashdata('info', $info);
-          redirect('auth/login');
+          // $info = 'Veuillez consulter votre adresse mail pour réinitialiser votre mot de passe';
+          // $this->session->set_flashdata('info', $info);
+          //redirect('auth/login');
         }else{
           $error = 'Cette adresse mail n\'existe pas !';
           $this->session->set_flashdata('error', $error);
@@ -81,7 +83,10 @@ class Auth extends CI_Controller {
       $password = $this->input->post('password');
       $password_confirm = $this->input->post('password_confirm');
 
-      if(! $this->users_model->check_email($email)){
+
+      if ($password === $password_confirm){
+        $res = $this->users_model->check_email($email);
+        if($res == false){
           $data = [
             'email' => $email,
             'hash_password' => $this->users_model->hash_password($password),
@@ -94,16 +99,21 @@ class Auth extends CI_Controller {
           ];
           $success = $this->users_model->add_user($data);
           if($success == true){
-            // redirect('auth/login', 'refresh');
+            redirect('auth/login', 'refresh');
           }else{
             $error = 'Une erreur c\'est produite, veuillez contacter admin@mtlaga.ch';
             $this->session->set_flashdata('error', $error);
-            // redirect('auth/signup', 'refresh');
+            redirect('auth/signup', 'refresh');
           }
-      } else {
-        $error = 'L\'adresse mail que vous avez saisi existe déjà !';
+        } else {
+          $error = 'L\'adresse mail que vous avez saisi existe déjà !';
+          $this->session->set_flashdata('error', $error);
+          redirect('auth/signup', 'refresh');
+        }
+      }else{
+        $error = 'Veuillez saisir deux fois le même mot de passe !';
         $this->session->set_flashdata('error', $error);
-        // redirect('auth/signup', 'refresh');
+        redirect('auth/signup', 'refresh');
       }
     }
 
