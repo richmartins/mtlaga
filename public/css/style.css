@@ -697,9 +697,11 @@ footer {
   padding-right: 20px;
 }
 
+/*
 .itineraire_flex_container_travel_details_hours {
     width: 40px;
 }
+*/
 
 .itineraire_flex_container_travel_details_start {
     height: 45%;
@@ -828,7 +830,11 @@ footer {
   right: 90px;
   */
 
+  /*
   bottom: 20%;
+  right: 45%;
+  */
+  bottom: 13px;
   right: 45%;
 }
 
