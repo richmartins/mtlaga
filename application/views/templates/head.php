@@ -11,6 +11,9 @@
     <link href="https://fonts.googleapis.com/css?family=Didact+Gothic" rel="stylesheet">
     <script src='https://api.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.css' rel='stylesheet' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
     <script src="<?= base_url();?>public/scripts/scripts.js"></script>
     <link rel="stylesheet" type="text/css" href="<?= base_url();?>public/css/style.css">
 </head>

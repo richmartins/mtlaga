@@ -5,6 +5,7 @@ class Itinerary extends CI_Controller {
 
     var $header_nav;
     var $meta_data;
+    var $result;
 
     public function __construct() {
         parent::__construct();
@@ -32,9 +33,9 @@ class Itinerary extends CI_Controller {
     public function itinerary_process() {
         $departure = $this->input->post("departure_city");
         $arrival = $this->input->post("arrival_city");
-        $result = $this->itinerary_model->get_data_api($departure, $arrival);
+        $this->result = $this->itinerary_model->get_data_api($departure, $arrival);
 
-        var_dump($result->connections);
+        redirect('itinerary');
     }
 
     /**
@@ -49,6 +50,13 @@ class Itinerary extends CI_Controller {
             "meta_data" => $this->meta_data
         ];
 
+        $departure = $this->input->post("departure_city");
+        $arrival = $this->input->post("arrival_city");
+        $this->result = $this->itinerary_model->get_data_api($departure, $arrival);
+
         $this->load->view("templates/head", $data);
+        $this->load->view('templates/header', $data);
+        $this->load->view("itinerary_view", $this->result);
+        $this->load->view('templates/footer');
     }
 }

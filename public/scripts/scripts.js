@@ -31,5 +31,30 @@ document.addEventListener("DOMContentLoaded", function(){
         }
     }, false );
     */
+});
 
+$( document ).ready(function() {
+    var acc = document.getElementsByClassName("itineraire_flex_container_travel_accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].onclick = function(){
+            this.closest('.itineraire_flex_container_travel_bck').classList.toggle("active");
+            this.closest('.itineraire_flex_container_travel_bck').nextElementSibling.classList.toggle("show");
+            //this.classList.toggle("active");
+            //this.nextElementSibling.classList.toggle("show");
+        };
+    }
+    $(".itineraire_flex_container_travel_rotate").click(function(){
+        $(this).toggleClass("down");
+    });
+
+    $(".itineraire_flex_container_travel_action_outils_icon").mouseover(function() {
+        $(this).children(":nth-child(2)").hide()
+        $(this).children(":nth-child(3)").show()
+    });
+    $(".itineraire_flex_container_travel_action_outils_icon").mouseleave(function() {
+        $(this).children(":nth-child(2)").show()
+        $(this).children(":nth-child(3)").hide()
+    });
 });
