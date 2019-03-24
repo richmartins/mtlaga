@@ -521,7 +521,7 @@ footer {
 }
 
 #itineraire_flex_Header_direction {
-  width: 70%;
+  width: 100%;
   font-size: 24px;
   display: flex;
   flex-direction: column;
@@ -529,7 +529,7 @@ footer {
 }
 
 #itineraire_flex_header_time {
-  width: 30%;
+  width: 150px;
   justify-content: center;
   padding-left: 15px;
   flex-direction: column;
@@ -541,8 +541,15 @@ footer {
   padding-right: 5px;
 }
 
-#itineraire_flex_header_title img {
+#itineraire_flex_header_time_container {
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 0px;
+  display: flex;
+}
 
+#itineraire_flex_header_time_container > form {
+  margin-bottom: 0;
 }
 
 #itineraire_flex_header_logo {
@@ -926,10 +933,63 @@ footer {
   top: 5px !important;
 }
 
+.flatpickr_selector {
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 14px;
+  width: auto;
+  text-align: right;
+  margin-right: 10px;
+}
+
+.flatpickr_selector:hover {
+  color: #c9c9c9;
+}
+
 
 /* RESPONSIVE */
 @media screen and (max-width: 1450px) {
   #home_container {
     width: 840px;
+  }
+}
+
+/* RESPONSIVE */
+@media screen and (max-width: 1000px) {
+  .home_style_responsive_flexbox_head {
+    flex-direction: column;
+    width: 50%;
+  }
+
+  #home_style_flexbox {
+    flex-wrap: wrap;
+    height: auto;
+  }
+
+  #home_container {
+    width: 98%;
+  }
+
+  #header_style_container {
+    width: 98%;
+  }
+
+  #footer_container {
+    width: 98%;
+  }
+
+  #footer_image {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  #footer_text_contact {
+    width: 50%
+  }
+
+  #footer_text {
+    margin: 0 auto;
   }
 }

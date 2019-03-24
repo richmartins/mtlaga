@@ -69,9 +69,15 @@ class Itinerary extends CI_Controller {
 
         $this->result = $this->itinerary_model->get_data_api($departure, $arrival, $date, $time);
 
+        $search_result = [
+            "api" => $this->result,
+            "date" => $date,
+            "time" => $time
+        ];
+
         $this->load->view("templates/head", $data);
         $this->load->view('templates/header', $data);
-        $this->load->view("itinerary_view", $this->result);
+        $this->load->view("itinerary_view", $search_result);
         $this->load->view('templates/footer');
     }
 }

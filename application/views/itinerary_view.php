@@ -7,11 +7,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <div id="itineraire_flex_Header_direction">
         <p>Résultats</p>
       </div>
-      <div class="flex_container" id="itineraire_flex_header_time">
-          <input class="flatpickr_selector">
-      </div>
-        <div id="itineraire_flex_header_logo">
-            <i class="fas fa-calendar-alt fa-lg"></i>
+        <div id="itineraire_flex_header_time_container">
+            <form method="post" action="<?= base_url();?>Itinerary">
+                <input type="hidden" value="<?= $api->from->name ?>" name="departure_city">
+                <input type="hidden" value="<?= $api->to->name ?>" name="arrival_city">
+                <input type="hidden" value="<?= date("d-m-Y", strtotime($date)) ?>" name="departure_date" id="departure_date">
+                <input type="hidden" value="<?= $time ?>" name="departure_time" id="departure_time">
+                <div class="flex_container">
+                    <div class="flex_container" id="itineraire_flex_header_time">
+                        <input class="flatpickr_selector" value="<?= date("d-m-Y", strtotime($date))?> | <?= $time ?>">
+                    </div>
+                    <div id="itineraire_flex_header_logo">
+                        <i class="fas fa-calendar-alt fa-lg"></i>
+                    </div>
+                </div>
+            </form>
         </div>
 
     </div>
@@ -19,8 +29,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <div id="itineraire_flex_container_bck" >
     <div id="itineraire_flex_container">
       <?php
-      if(!empty($connections)) {
-          foreach ($connections as $connection_key => $connection) {
+      if(!empty($api->connections)) {
+          foreach ($api->connections as $connection_key => $connection) {
               // Départ du train
               $train_departure = date('H:i', $connection->from->departureTimestamp);
               // Arrivée du train
@@ -216,7 +226,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                           <?php
                           if ($section->arrival->station->name != end($connection->sections)->arrival->station->name) {
-                              if (empty($connections[$connection_key]->sections[$section_key + 1]->walk)) {
+                              if (empty($api->connections[$connection_key]->sections[$section_key + 1]->walk)) {
                                   ?>
                                   <!--Bloc changement-->
                                   <div class="itineraire_flex_container_travel_details_walk">

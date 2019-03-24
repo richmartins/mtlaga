@@ -65,8 +65,29 @@ $( document ).ready(function() {
         enableTime: true,
         dateFormat: "d.m.Y | H:i",
         time_24hr: true,
-        locale: "fr"
+        locale: "fr",
+        onValueUpdate: function(selectedDates, dateStr, instance) {
+            console.log(dateStr)
+            var date = dateStr.split("|")
+            $("#departure_date").val(date[0].trim());
+            $("#departure_time").val(date[1].trim());
+        },
     });
+
+    /*
+    $(".flatpickr-hour").keyup(function() {
+        if($(this).val() < 24) {
+            $("#departure_date").val($(this).val() + ":" + $(".flatpickr-minute").val())
+        }
+    })
+
+
+    $(".flatpickr-minute").keyup(function() {
+        if($(this).val() < 60) {
+            $("#departure_date").val($(".flatpickr-hour").val() + ":" + $(this).val())
+        }
+    })
+    */
 
 
 });
