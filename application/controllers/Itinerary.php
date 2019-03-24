@@ -30,13 +30,18 @@ class Itinerary extends CI_Controller {
     }
 
 
+    /*
     public function itinerary_process() {
         $departure = $this->input->post("departure_city");
         $arrival = $this->input->post("arrival_city");
-        $this->result = $this->itinerary_model->get_data_api($departure, $arrival);
+        $date = $this->input->post("departure_date");
+        $time = $this->input->post("departure_time");
+
+        $this->result = $this->itinerary_model->get_data_api($departure, $arrival, $date, $time);
 
         redirect('itinerary');
     }
+    */
 
     /**
      * Render page
@@ -52,7 +57,17 @@ class Itinerary extends CI_Controller {
 
         $departure = $this->input->post("departure_city");
         $arrival = $this->input->post("arrival_city");
-        $this->result = $this->itinerary_model->get_data_api($departure, $arrival);
+        $date = $this->input->post("departure_date");
+        $time = $this->input->post("departure_time");
+
+        if(empty($date)) {
+            $date = date("Y-m-d");
+        }
+        if(empty($time)) {
+            $time = date("H:i");
+        }
+
+        $this->result = $this->itinerary_model->get_data_api($departure, $arrival, $date, $time);
 
         $this->load->view("templates/head", $data);
         $this->load->view('templates/header', $data);

@@ -28,6 +28,8 @@
                     <input type="submit" class="home_style_flexbox_input" value="Rechercher" class="" type="text">
                 </div>
             </div>
+            <input type="hidden" name="departure_date" >
+            <input type="hidden" name="departure_time" >
         </form>
     </div>
     <div class="flex_container home_style_flexbox_head" >
@@ -63,6 +65,7 @@
       </div>
   </div>
 </div>
+
 <script>
     // affichage map
     mapboxgl.accessToken = 'pk.eyJ1IjoiaGFkcnlsb3VpcyIsImEiOiJjanIzYTl2Nzcwc3dqNDNxbXNkeWZuZmZhIn0.XyRFNfYowoHigvnxT6-0fA';
