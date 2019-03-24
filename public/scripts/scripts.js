@@ -34,6 +34,8 @@ document.addEventListener("DOMContentLoaded", function(){
 });
 
 $( document ).ready(function() {
+
+    // itinéraire show more
     var acc = document.getElementsByClassName("itineraire_flex_container_travel_accordion");
     var i;
 
@@ -57,4 +59,14 @@ $( document ).ready(function() {
         $(this).children(":nth-child(2)").show()
         $(this).children(":nth-child(3)").hide()
     });
+
+    // init flartpickr sur classe flatpickr_selector
+    flatpickr(".flatpickr_selector", {
+        enableTime: true,
+        dateFormat: "d.m.Y | H:i",
+        time_24hr: true,
+        locale: "fr"
+    });
+
+
 });
