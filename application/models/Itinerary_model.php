@@ -10,11 +10,14 @@ class Itinerary_model extends CI_Model {
      * get itinerary data form opendata API
      * return formated json
      */
-    public function get_data_api($departure, $arrival) {
+    public function get_data_api($departure, $arrival, $date, $time) {
+
       $params = [
         "from" => $departure,
         "to" => $arrival,
-        "limit" => 15
+        "limit" => 15,
+        "date" => $date,
+        "time" => $time
       ];
 
       $url = "http://transport.opendata.ch/v1/connections?" . http_build_query($params);
