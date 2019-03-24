@@ -8,7 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <p>Résultats</p>
       </div>
       <div class="flex_container" id="itineraire_flex_header_time">
-          <p>15:56 | 02.02.2019</p>
+          <input class="flatpickr_selector">
       </div>
         <div id="itineraire_flex_header_logo">
             <i class="fas fa-calendar-alt fa-lg"></i>
