@@ -48,6 +48,7 @@ class Home extends CI_Controller {
             'meta_data' => $this->meta_data
           ];
 
+
           $this->load->view('templates/head', $data);
           $this->load->view('templates/header', $data);
           $this->load->view('about_view', $data);

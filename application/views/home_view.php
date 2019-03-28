@@ -12,18 +12,24 @@
           <img class="home_style_flexbox_title_img" src="<?= base_url(); ?>public/img/mtlaga_home_clock.png" alt="">
         </div>
       </div>
-        <form>
+        <form method="post" action="<?= base_url();?>Itinerary">
             <div id="home_style_flexbox_container" class="flex_container">
-                <div class="flex_container" >
-                    <input class="home_style_flexbox_fields" type="text" placeholder="Départ">
+                <div class="flex_container home_style_flexbox_fields_box" >
+                    <select class="home_style_flexbox_fields js-data-example-ajax typeahead" name="departure_city" data-placeholder="Ville de départ" >
+                        <option></option>
+                    </select>
                 </div>
                 <div class="flex_container" >
-                    <input class="home_style_flexbox_fields" type="text" placeholder="Arrivée">
+                    <select class="home_style_flexbox_fields js-data-example-ajax typeahead" name="arrival_city" data-placeholder="Ville d'arrivée" >
+                        <option></option>
+                    </select>
                 </div>
                 <div class="flex_container form_style_submit" >
                     <input type="submit" class="home_style_flexbox_input" value="Rechercher" class="" type="text">
                 </div>
             </div>
+            <input type="hidden" name="departure_date" >
+            <input type="hidden" name="departure_time" >
         </form>
     </div>
     <div class="flex_container home_style_flexbox_head" >
@@ -59,6 +65,7 @@
       </div>
   </div>
 </div>
+
 <script>
     // affichage map
     mapboxgl.accessToken = 'pk.eyJ1IjoiaGFkcnlsb3VpcyIsImEiOiJjanIzYTl2Nzcwc3dqNDNxbXNkeWZuZmZhIn0.XyRFNfYowoHigvnxT6-0fA';
@@ -68,5 +75,34 @@
         center: [6.6327025, 46.5218269],
         zoom: 12.0,
         boxZoom: false,
+    });
+
+    // Init Select2 sur classe "typeahead"
+    $( document ).ready(function() {
+        $('.typeahead').select2({
+            ajax: {
+                url: "http://transport.opendata.ch/v1/locations?",
+                dataType: 'json',
+                delay: 250,
+                language: "fr",
+                placeholder: function(){
+                    $(this).data('placeholder');
+                },
+                method:'get',
+                data: function (params) {
+                    var query = {
+                        query: params.term,
+                    }
+                    return query;
+                },
+                processResults: function (data) {
+                    return {
+                        results: $.map(data.stations, function(obj) {
+                            return { id: obj.name, text: obj.name };
+                        })
+                    };
+                },
+            }
+        });
     });
 </script>
