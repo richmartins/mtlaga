@@ -41,9 +41,22 @@
                 <img class="home_style_flexbox_title_img" src="<?= base_url(); ?>public/img/mtlaga_home_bell.png" alt="">
             </div>
         </div>
-        <div class="flex_container home_style_flexbox_sub_text" >
+        <?php if ($meta_data['connected']): ?>
+          <div class="flex_container home_style_flexbox_sub_text" >
+              <?php if (empty($meta_data['rss'])): ?>
+                <p style="text-align: center">Aucun dérangement à signaler</p>
+              <?php else: ?>
+                <?php foreach ($meta_data['rss'] as $v): ?>
+                <?= var_dump($meta_data['rss']); ?>
+                <!-- <p style="text-align"></p> -->
+                <?php endforeach; ?>
+              <?php endif; ?>
+          </div>
+        <?php else: ?>
+          <div class="flex_container home_style_flexbox_sub_text" >
             <p style="text-align: center">Pour afficher ce contenu, vous devez être connecté</p>
-        </div>
+          </div>
+        <?php endif; ?>
     </div>
     <div class="flex_container home_style_flexbox_head" >
         <div class="flex_container home_style_flexbox_title_container" >
