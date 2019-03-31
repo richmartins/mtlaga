@@ -9,7 +9,10 @@ class Itinerary extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
+        $this->load->database();
         $this->load->model("itinerary_model");
+        $this->load->model('users_model');
+        $this->load->model('favorites_model');
 
         $this->load->helper('url');
         $this->header_nav = [
@@ -42,6 +45,30 @@ class Itinerary extends CI_Controller {
         redirect('itinerary');
     }
     */
+
+    /**
+     * Add journey to user's favourite
+     */
+    public function add_favorites() {
+
+        $id_user = $this->users_model->get_user_id($this->session->userdata['email']);
+        $query_add_favorite = $this->favorites_model->add_favorites($_POST['departure'], $_POST['arrival']);
+
+        if(!$query_add_favorite) {
+            echo "Error";
+        } else {
+            $id_favorite = $query_add_favorite;
+            $query_add_user_favorite = $this->favorites_model->add_user_favorite($id_user, $id_favorite);
+            if($query_add_user_favorite) {
+                echo "OK";
+            } else {
+                echo "Error";
+            }
+        }
+
+
+        //echo json_encode($id_favourite);
+    }
 
     /**
      * Render page
