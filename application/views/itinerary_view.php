@@ -202,6 +202,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                       <p><b>Cette relation</b></p>
                                       <ul>
                                           <div class="flex_container itineraire_flex_container_travel_action_outils_icon icon_add_favorite">
+                                              <?php
+                                              // change design cause favorite
+                                              ?>
                                               <li> Ajouter au favoris</li>
                                               <i class="fas fa-star"></i>
                                               <i class="fas fa-long-arrow-alt-right animated fadeInLeft"
@@ -281,17 +284,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 {
                     type:"post",
                     url: "<?php echo base_url(); ?>/itinerary/add_favorites",
-                    dataType: "json",
+                    //dataType: "json",
                     data:{
                         departure:departure_city,
                         arrival:arrival_city
                     },
                     success:function(response)
                     {
-                        console.log(response);
+                        console.log("OK");
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         console.log("Erreur");
+                        console.log(jqXHR);
                     }
                 }
             );
