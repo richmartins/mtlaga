@@ -8,6 +8,10 @@ class Home extends CI_Controller {
         parent::__construct();
         $this->load->database();
         $this->load->helper('url');
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07d1e3cd701b6205b1e1da673f510d9cc95ee241
         $this->load->model('favorites_model');
         $this->header_nav = [
           'home' => 'Home',
