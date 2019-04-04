@@ -422,10 +422,6 @@ footer {
 }
 
 .home_style_flexbox_sub_text {
-<<<<<<< HEAD
-  padding: 10px;
-  justify-content: center;
-=======
   justify-content: center;
   height: 100%;
 }
@@ -435,7 +431,6 @@ footer {
   overflow-y: scroll;
   height: 90%;
   margin: 0;
->>>>>>> c0b88f79c886d1d0920c16c03c223c7cf8fc1be6
 }
 
 #home_style_flexbox_map_container {
@@ -931,16 +926,16 @@ footer {
 .home_style_flexbox_fields_box {
   padding-bottom: 30px;
 }
- 
+
 .select2-container--default .select2-selection--single {
   background-color: transparent !important;
   height: 35px;
 }
- 
+
 .select2-container {
   width: 100% !important;
 }
- 
+
 .select2-container--default .select2-selection--single .select2-selection__arrow {
   top: 5px !important;
 }

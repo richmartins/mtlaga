@@ -6,12 +6,6 @@ class Itinerary extends CI_Controller {
     var $header_nav;
     var $meta_data;
     var $result;
-<<<<<<< HEAD
-
-    public function __construct() {
-        parent::__construct();
-        $this->load->model("itinerary_model");
-=======
     var $favorites;
 
     public function __construct() {
@@ -20,7 +14,6 @@ class Itinerary extends CI_Controller {
         $this->load->model("itinerary_model");
         $this->load->model('users_model');
         $this->load->model('favorites_model');
->>>>>>> c0b88f79c886d1d0920c16c03c223c7cf8fc1be6
 
         $this->load->helper('url');
         $this->header_nav = [
@@ -55,8 +48,6 @@ class Itinerary extends CI_Controller {
     */
 
     /**
-<<<<<<< HEAD
-=======
      * Add journey to user's favourite
      */
     public function add_favorites() {
@@ -104,7 +95,6 @@ class Itinerary extends CI_Controller {
     }
 
     /**
->>>>>>> c0b88f79c886d1d0920c16c03c223c7cf8fc1be6
      * Render page
      */
     public function index() {
@@ -129,11 +119,6 @@ class Itinerary extends CI_Controller {
         }
 
         $this->result = $this->itinerary_model->get_data_api($departure, $arrival, $date, $time);
-<<<<<<< HEAD
-
-        $search_result = [
-            "api" => $this->result,
-=======
         $this->favorites = [];
         if($this->meta_data['connected']) {
             $this->favorites = $this->favorites_model->get_user_favorite($this->session->userdata['email']);
@@ -143,7 +128,6 @@ class Itinerary extends CI_Controller {
         $search_result = [
             "api" => $this->result,
             "favorites" => $this->favorites,
->>>>>>> c0b88f79c886d1d0920c16c03c223c7cf8fc1be6
             "date" => $date,
             "time" => $time
         ];

@@ -8,10 +8,8 @@ class Home extends CI_Controller {
         parent::__construct();
         $this->load->database();
         $this->load->helper('url');
-<<<<<<< HEAD
-=======
+
         $this->load->model('favorites_model');
->>>>>>> c0b88f79c886d1d0920c16c03c223c7cf8fc1be6
         $this->header_nav = [
           'home' => 'Home',
           'info' => 'Info',
@@ -32,11 +30,6 @@ class Home extends CI_Controller {
           $this->meta_data['title'] = 'Home | MTLAGA';
           $this->meta_data['active'] = 'Home';
 
-<<<<<<< HEAD
-          $data = [
-            'header_nav_meta_data' => $this->header_nav,
-            'meta_data' => $this->meta_data
-=======
           $user_favorites = "";
           if(isset($this->session->userdata['email'])) {
               $user_favorites = $this->favorites_model->get_user_favorite($this->session->userdata['email']);
@@ -46,7 +39,6 @@ class Home extends CI_Controller {
             'header_nav_meta_data' => $this->header_nav,
             'meta_data' => $this->meta_data,
             'user_favorites' => $user_favorites
->>>>>>> c0b88f79c886d1d0920c16c03c223c7cf8fc1be6
           ];
 
           $this->load->view('templates/head', $data);
