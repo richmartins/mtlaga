@@ -1,20 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Users_model extends CI_Model {
-<<<<<<< HEAD
-  public function __construct()
-   {
-       parent::__construct();
-       $this->load->database('default');
-   }
-=======
 
     public function __construct()
     {
        parent::__construct();
        $this->load->database('default');
     }
->>>>>>> c0b88f79c886d1d0920c16c03c223c7cf8fc1be6
 
     public function add_user($data){
       $query =  $this->db->insert('users', $data);
@@ -22,8 +14,6 @@ class Users_model extends CI_Model {
       if($query) { return true; } else { return false; }
     }
 
-<<<<<<< HEAD
-=======
     public function get_user_id($email) {
       $this->db->select('id_user', 'email');
       $this->db->from('users');
@@ -34,7 +24,6 @@ class Users_model extends CI_Model {
 
     }
 
->>>>>>> c0b88f79c886d1d0920c16c03c223c7cf8fc1be6
     public function reset_user_pwd($email, $new_password){
       $hashed = password_hash($new_password, PASSWORD_DEFAULT, array('cost' => 10));
 

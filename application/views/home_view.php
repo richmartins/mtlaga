@@ -1,7 +1,4 @@
 <?php
-<<<<<<< HEAD
-  defined('BASEPATH') OR exit('No direct script access allowed');
-=======
     defined('BASEPATH') OR exit('No direct script access allowed');
     if(isset($_SESSION['email'])) {
         if(empty($user_favorites)) {
@@ -11,7 +8,6 @@
         $favorite_text = "Pour afficher ce contenu, vous devez être connecté";
     }
 
->>>>>>> c0b88f79c886d1d0920c16c03c223c7cf8fc1be6
 ?>
 <div id="home_container">
   <div id="home_style_flexbox" class="flex_container">
@@ -67,9 +63,6 @@
             </div>
         </div>
         <div class="flex_container home_style_flexbox_sub_text">
-<<<<<<< HEAD
-            <p style="text-align: center">Pour afficher ce contenu, vous devez être connecté</p>
-=======
             <ul class="home_style_flexbox_sub_text_scroll">
             <?php
 
@@ -87,7 +80,6 @@
 
             ?>
             </ul>
->>>>>>> c0b88f79c886d1d0920c16c03c223c7cf8fc1be6
         </div>
     </div>
   </div>
@@ -111,10 +103,7 @@
 
     // Init Select2 sur classe "typeahead"
     $( document ).ready(function() {
-<<<<<<< HEAD
-=======
         $.fn.select2.defaults.set('language', 'fr');
->>>>>>> c0b88f79c886d1d0920c16c03c223c7cf8fc1be6
         $('.typeahead').select2({
             ajax: {
                 url: "http://transport.opendata.ch/v1/locations?",

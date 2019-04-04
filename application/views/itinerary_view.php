@@ -176,11 +176,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                   </div>
                                   <div class="itineraire_flex_container_travel_details_box">
                                       <div class="flex_container itineraire_flex_container_travel_details_start">
-<<<<<<< HEAD
-                                          <p><b><?= $departure_station_section ?></b><?= $train_departure_platform ?>
-=======
                                           <p class="departure_station_section"><b><?= $departure_station_section ?></b><?= $train_departure_platform ?>
->>>>>>> c0b88f79c886d1d0920c16c03c223c7cf8fc1be6
                                           </p>
                                       </div>
                                       <div class="flex_container itineraire_flex_container_travel_details_infos">
@@ -205,37 +201,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                   <div class="itineraire_flex_container_travel_action_outils">
                                       <p><b>Cette relation</b></p>
                                       <ul>
-<<<<<<< HEAD
-                                          <div class="flex_container itineraire_flex_container_travel_action_outils_icon">
-=======
                                           <div class="flex_container itineraire_flex_container_travel_action_outils_icon icon_add_favorite">
                                               <?php
                                               // change design cause favorite
                                               ?>
->>>>>>> c0b88f79c886d1d0920c16c03c223c7cf8fc1be6
                                               <li> Ajouter au favoris</li>
                                               <i class="fas fa-star"></i>
                                               <i class="fas fa-long-arrow-alt-right animated fadeInLeft"
                                                  style="display: none; padding-right: 5px"></i>
-<<<<<<< HEAD
-                                          </div>
-                                          <div class="flex_container itineraire_flex_container_travel_action_outils_icon">
-=======
                                               <input type="hidden" value="<?= $departure_station_section ?>">
                                               <input type="hidden" value="<?= $arrival_station_section ?>">
                                           </div>
                                           <div class="flex_container itineraire_flex_container_travel_action_outils_icon icon_show_map">
->>>>>>> c0b88f79c886d1d0920c16c03c223c7cf8fc1be6
                                               <li> Afficher sur la carte</li>
                                               <i class="fas fa-map-marked-alt"></i>
                                               <i class="fas fa-long-arrow-alt-right animated fadeInLeft"
                                                  style="display: none; padding-right: 5px"></i>
                                           </div>
-<<<<<<< HEAD
-                                          <div class="flex_container itineraire_flex_container_travel_action_outils_icon">
-=======
                                           <div class="flex_container itineraire_flex_container_travel_action_outils_icon icon_add_calendar">
->>>>>>> c0b88f79c886d1d0920c16c03c223c7cf8fc1be6
                                               <li> Ajouter au calendrier</li>
                                               <i class="fas fa-calendar-alt"></i>
                                               <i class="fas fa-long-arrow-alt-right animated fadeInLeft"
@@ -284,9 +267,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     </div>
   </div>
-<<<<<<< HEAD
-</div>
-=======
 </div>
 
 
@@ -323,4 +303,3 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     });
 
 </script>
->>>>>>> c0b88f79c886d1d0920c16c03c223c7cf8fc1be6

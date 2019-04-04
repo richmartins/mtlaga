@@ -4,14 +4,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Favorites_model extends CI_Model {
 
-<<<<<<< HEAD
-    public $itineraire;
-
-    public function add_favorites(){
-      $this->itineraire = $_POST['itinaire'];
-
-      $this->db->insert('entries', $this);
-=======
     public function __construct()
     {
         parent::__construct();
@@ -113,7 +105,6 @@ class Favorites_model extends CI_Model {
             // user a le fav
             return false;
         }
->>>>>>> c0b88f79c886d1d0920c16c03c223c7cf8fc1be6
     }
 
 }
