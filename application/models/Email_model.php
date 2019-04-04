@@ -11,7 +11,7 @@ class Email extends CI_Model {
             'smtp_host' => 'mail.infomaniak.com',
           'smtp_port' => 587,
           'smtp_user' => 'no-reply@hadrien-louis.ch',
-          'smtp_pass' => 'gmail_password',
+          'smtp_pass' => 'some_password',
           'mailtype'  => 'html',
           'charset'   => 'utf-8'
       );

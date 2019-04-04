@@ -1,4 +1,4 @@
 .DS_Store
 user_guide/
 .idea
-.secret
+.env
