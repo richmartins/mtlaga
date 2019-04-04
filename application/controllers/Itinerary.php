@@ -6,6 +6,7 @@ class Itinerary extends CI_Controller {
     var $header_nav;
     var $meta_data;
     var $result;
+    var $favorites;
 
     public function __construct() {
         parent::__construct();
@@ -52,22 +53,45 @@ class Itinerary extends CI_Controller {
     public function add_favorites() {
 
         $id_user = $this->users_model->get_user_id($this->session->userdata['email']);
-        $query_add_favorite = $this->favorites_model->add_favorites($_POST['departure'], $_POST['arrival']);
 
-        if(!$query_add_favorite) {
-            echo "Error";
+        //check if favorite exist
+        /*
+        if(!empty($exist)) {
+            $id_favorite = $exist;
         } else {
-            $id_favorite = $query_add_favorite;
+            $id_favorite = $this->favorites_model->add_favorites($_POST['departure'], $_POST['arrival']);
+        }
+        if($id_favorite) {
             $query_add_user_favorite = $this->favorites_model->add_user_favorite($id_user, $id_favorite);
             if($query_add_user_favorite) {
-                echo "OK";
+                return true;
             } else {
-                echo "Error";
+                return "Error";
             }
+        } else {
+            return "Error";
+        }
+        */
+
+        $id_favorite = $this->favorites_model->favorite_exist($_POST['departure'], $_POST['arrival']);
+        $id_link_favorite = $this->favorites_model->user_has_favorite($id_user, $id_favorite);
+        if(empty($id_favorite)) {
+            $id_favorite = $this->favorites_model->add_favorites($_POST['departure'], $_POST['arrival']);
+        }
+        if($id_link_favorite) {
+            $query_add_user_favorite = $this->favorites_model->add_user_favorite($id_user, $id_favorite);
+            if($query_add_user_favorite) {
+                return true;
+            } else {
+                return "Error";
+            }
+        } else {
+            // user has already fav
+            return true;
         }
 
 
-        //echo json_encode($id_favourite);
+
     }
 
     /**
@@ -95,9 +119,15 @@ class Itinerary extends CI_Controller {
         }
 
         $this->result = $this->itinerary_model->get_data_api($departure, $arrival, $date, $time);
+        $this->favorites = [];
+        if($this->meta_data['connected']) {
+            $this->favorites = $this->favorites_model->get_user_favorite($this->session->userdata['email']);
+        }
+
 
         $search_result = [
             "api" => $this->result,
+            "favorites" => $this->favorites,
             "date" => $date,
             "time" => $time
         ];

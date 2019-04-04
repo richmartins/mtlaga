@@ -53,6 +53,11 @@ class Favorites_model extends CI_Model {
         }
     }
 
+    /**
+     * Get all users favorites
+     * @param $email
+     * @return mixed
+     */
     public function get_user_favorite($email) {
         $id_user = $this->users_model->get_user_id($email);
 
@@ -63,6 +68,43 @@ class Favorites_model extends CI_Model {
         $res = $this->db->get()->result();
 
         return $res;
+    }
+
+    /**
+     * Check if favorite already exist
+     * @param $departure
+     * @param $arrival
+     * @return bool
+     */
+    public function favorite_exist($departure, $arrival) {
+        $this->db->select('id_favorites, departure, arrival');
+        $this->db->from('favorites');
+        $this->db->where('departure', $departure);
+        $this->db->where('arrival', $arrival);
+        $res = $this->db->get()->result();
+
+        if(empty($res)) {
+            return false;
+        } else {
+            return $res[0]->id_favorites;
+        }
+    }
+
+
+    public function user_has_favorite($id_user, $id_favorite) {
+        $this->db->select('users_id_user, favorites_id_favorites');
+        $this->db->from('users_has_favorites');
+        $this->db->where('users_id_user', $id_user);
+        $this->db->where('favorites_id_favorites', $id_favorite);
+        $res = $this->db->get()->result();
+
+        if(empty($res)) {
+            // user n'a pas le fav
+            return true;
+        } else {
+            // user a le fav
+            return false;
+        }
     }
 
 }
