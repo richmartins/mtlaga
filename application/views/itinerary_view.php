@@ -176,7 +176,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                   </div>
                                   <div class="itineraire_flex_container_travel_details_box">
                                       <div class="flex_container itineraire_flex_container_travel_details_start">
+<<<<<<< HEAD
                                           <p><b><?= $departure_station_section ?></b><?= $train_departure_platform ?>
+=======
+                                          <p class="departure_station_section"><b><?= $departure_station_section ?></b><?= $train_departure_platform ?>
+>>>>>>> c0b88f79c886d1d0920c16c03c223c7cf8fc1be6
                                           </p>
                                       </div>
                                       <div class="flex_container itineraire_flex_container_travel_details_infos">
@@ -201,19 +205,37 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                   <div class="itineraire_flex_container_travel_action_outils">
                                       <p><b>Cette relation</b></p>
                                       <ul>
+<<<<<<< HEAD
                                           <div class="flex_container itineraire_flex_container_travel_action_outils_icon">
+=======
+                                          <div class="flex_container itineraire_flex_container_travel_action_outils_icon icon_add_favorite">
+                                              <?php
+                                              // change design cause favorite
+                                              ?>
+>>>>>>> c0b88f79c886d1d0920c16c03c223c7cf8fc1be6
                                               <li> Ajouter au favoris</li>
                                               <i class="fas fa-star"></i>
                                               <i class="fas fa-long-arrow-alt-right animated fadeInLeft"
                                                  style="display: none; padding-right: 5px"></i>
+<<<<<<< HEAD
                                           </div>
                                           <div class="flex_container itineraire_flex_container_travel_action_outils_icon">
+=======
+                                              <input type="hidden" value="<?= $departure_station_section ?>">
+                                              <input type="hidden" value="<?= $arrival_station_section ?>">
+                                          </div>
+                                          <div class="flex_container itineraire_flex_container_travel_action_outils_icon icon_show_map">
+>>>>>>> c0b88f79c886d1d0920c16c03c223c7cf8fc1be6
                                               <li> Afficher sur la carte</li>
                                               <i class="fas fa-map-marked-alt"></i>
                                               <i class="fas fa-long-arrow-alt-right animated fadeInLeft"
                                                  style="display: none; padding-right: 5px"></i>
                                           </div>
+<<<<<<< HEAD
                                           <div class="flex_container itineraire_flex_container_travel_action_outils_icon">
+=======
+                                          <div class="flex_container itineraire_flex_container_travel_action_outils_icon icon_add_calendar">
+>>>>>>> c0b88f79c886d1d0920c16c03c223c7cf8fc1be6
                                               <li> Ajouter au calendrier</li>
                                               <i class="fas fa-calendar-alt"></i>
                                               <i class="fas fa-long-arrow-alt-right animated fadeInLeft"
@@ -262,4 +284,43 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     </div>
   </div>
+<<<<<<< HEAD
 </div>
+=======
+</div>
+
+
+<script>
+    // Ajax request to add journey to user's favourite
+    $( document ).ready(function() {
+        $(".icon_add_favorite").click(function(){
+            //var departure_city = $("[name=departure_city]").val()
+            //var arrival_city = $("[name=arrival_city]").val()
+
+            var departure_city = $(this).children().eq(3).val()
+            var arrival_city = $(this).children().eq(4).val()
+
+            $.ajax(
+                {
+                    type:"post",
+                    url: "<?php echo base_url(); ?>/itinerary/add_favorites",
+                    //dataType: "json",
+                    data:{
+                        departure:departure_city,
+                        arrival:arrival_city
+                    },
+                    success:function(response)
+                    {
+                        console.log("OK");
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log("Erreur");
+                        console.log(jqXHR);
+                    }
+                }
+            );
+        })
+    });
+
+</script>
+>>>>>>> c0b88f79c886d1d0920c16c03c223c7cf8fc1be6
