@@ -43,14 +43,16 @@
         </div>
         <?php if ($meta_data['connected']): ?>
           <div class="flex_container home_style_flexbox_sub_text" >
+            <div class="home_text_rss">
               <?php if (empty($meta_data['rss'])): ?>
                 <p style="text-align: center">Aucun dérangement à signaler</p>
               <?php else: ?>
-                <?php foreach ($meta_data['rss'] as $v): ?>
-                <?= var_dump($meta_data['rss']); ?>
-                <!-- <p style="text-align"></p> -->
+                <?php foreach ($meta_data['rss'] as $k => $v): ?>
+                  <p class="home_text_rss_title"><?= $k ?></p>
+                  <p><?= $v ?></p>
                 <?php endforeach; ?>
               <?php endif; ?>
+            </div>
           </div>
         <?php else: ?>
           <div class="flex_container home_style_flexbox_sub_text" >

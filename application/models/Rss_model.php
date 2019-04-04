@@ -8,7 +8,7 @@ class Rss_model extends CI_Model {
 
   public function __construct(){
     parent::__construct();
-    $this->load->database('default');
+    $this->load->database();
   }
 
   public function add_rss(){
@@ -19,15 +19,16 @@ class Rss_model extends CI_Model {
   }
 
   public function getRss(){
-    $this->db->select('title');
+    $this->db->select('title, content');
     $this->db->from('rss');
     $query = $this->db->get();
-    $titles = [];
+
+    $rss = [];
     if ($query->num_rows() >= 1){
       foreach ($query->result() as $row) {
-        $titles[] = $row->title;
+        $rss[$row->title] = $row->content;
       }
-      return $titles;
-     }
+      return $rss;
+    }
   }
 }

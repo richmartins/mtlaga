@@ -27,7 +27,6 @@ class Home extends CI_Controller {
           $this->meta_data['rss'] = $this->rss;
         }
 
-
         if(isset($_SESSION['email'])){
           $this->meta_data['connected'] = 1;
         }
