@@ -926,16 +926,16 @@ footer {
 .home_style_flexbox_fields_box {
   padding-bottom: 30px;
 }
- 
+
 .select2-container--default .select2-selection--single {
   background-color: transparent !important;
   height: 35px;
 }
- 
+
 .select2-container {
   width: 100% !important;
 }
- 
+
 .select2-container--default .select2-selection--single .select2-selection__arrow {
   top: 5px !important;
 }
