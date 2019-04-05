@@ -428,9 +428,22 @@ footer {
 
 .home_style_flexbox_sub_text_scroll {
   overflow: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
   height: 90%;
   margin: 0;
+  list-style-type: none;
+  padding: 0 0 0 10px;
+}
+
+.home_style_flexbox_sub_text_scroll li {
+  padding: 5px;
+  background: #d4d4d4;
+  margin-bottom: 5px;
+  border-radius: 5px;
+}
+
+.home_style_flexbox_sub_text_scroll li i:hover {
+  display: block;
 }
 
 #home_style_flexbox_map_container {
@@ -861,7 +874,7 @@ footer {
   left: 90px;
   */
 
-  bottom: 20%;
+  bottom: 13px;
   left: 45%;
 }
 
@@ -907,7 +920,7 @@ footer {
     opacity: 1;
     margin-top: 2px;
     flex-direction: column;
-    max-height: 100%;
+    max-height: 999em;
 }
 
 .itineraire_flex_container_travel_rotate {
@@ -921,6 +934,34 @@ footer {
     -webkit-transform:rotate(45deg);
     transform:rotate(45deg);
 }
+
+
+.home_style_flexbox_sub_text_scroll_container {
+  display: flex;
+  width: 100%;
+}
+
+.home_style_flexbox_sub_text_scroll_container > span {
+  margin: 0;
+  width: 90%;
+}
+
+.home_style_flexbox_sub_text_scroll_line {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  padding-right: 4px;
+}
+
+.home_style_flexbox_sub_text_scroll_line_default {
+  display: none;
+}
+
+.home_style_flexbox_sub_text_scroll_container:hover {
+  cursor: pointer;.dot_end
+}
+
+
 
 /* SELECT 2 - EDIT CSS */
 .home_style_flexbox_fields_box {
@@ -940,6 +981,10 @@ footer {
   top: 5px !important;
 }
 
+.select2-search__field {
+  outline: none;
+}
+
 .flatpickr_selector {
   background-color: transparent;
   border: none;
@@ -948,6 +993,7 @@ footer {
   width: auto;
   text-align: right;
   margin-right: 10px;
+  outline: none;
 }
 
 .flatpickr_selector:hover {
@@ -971,7 +1017,7 @@ footer {
 
   #home_style_flexbox {
     flex-wrap: wrap;
-    height: auto;
+    height: 350px;
   }
 
   #home_container {

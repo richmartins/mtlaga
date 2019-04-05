@@ -51,34 +51,14 @@ class Itinerary extends CI_Controller {
      * Add journey to user's favourite
      */
     public function add_favorites() {
-
         $id_user = $this->users_model->get_user_id($this->session->userdata['email']);
-
-        //check if favorite exist
-        /*
-        if(!empty($exist)) {
-            $id_favorite = $exist;
-        } else {
-            $id_favorite = $this->favorites_model->add_favorites($_POST['departure'], $_POST['arrival']);
-        }
-        if($id_favorite) {
-            $query_add_user_favorite = $this->favorites_model->add_user_favorite($id_user, $id_favorite);
-            if($query_add_user_favorite) {
-                return true;
-            } else {
-                return "Error";
-            }
-        } else {
-            return "Error";
-        }
-        */
-
         $id_favorite = $this->favorites_model->favorite_exist($_POST['departure'], $_POST['arrival']);
         $id_link_favorite = $this->favorites_model->user_has_favorite($id_user, $id_favorite);
-        if(empty($id_favorite)) {
-            $id_favorite = $this->favorites_model->add_favorites($_POST['departure'], $_POST['arrival']);
-        }
-        if($id_link_favorite) {
+
+        if(!$id_link_favorite) {
+            if(!$id_favorite) {
+                $id_favorite = $this->favorites_model->add_favorites($_POST['departure'], $_POST['arrival']);
+            }
             $query_add_user_favorite = $this->favorites_model->add_user_favorite($id_user, $id_favorite);
             if($query_add_user_favorite) {
                 return true;
@@ -89,9 +69,6 @@ class Itinerary extends CI_Controller {
             // user has already fav
             return true;
         }
-
-
-
     }
 
     /**

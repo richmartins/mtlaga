@@ -63,23 +63,37 @@
             </div>
         </div>
         <div class="flex_container home_style_flexbox_sub_text">
-            <ul class="home_style_flexbox_sub_text_scroll">
-            <?php
-
-            if(!empty($user_favorites)) {
-                foreach ($user_favorites as $user_favorite) {
-                    ?>
-                    <li><?= $user_favorite->departure ?> à <?= $user_favorite->arrival ?></li>
+            <form method="post" action="<?= base_url();?>Itinerary" id="fav_search">
+                <input type="hidden" id="fav_departure" name="departure_city" value="">
+                <input type="hidden" id="fav_arrival" name="arrival_city" value="">
+                <input type="hidden" name="departure_date" >
+                <input type="hidden" name="departure_time" >
+                <ul class="home_style_flexbox_sub_text_scroll">
                     <?php
-                }
-            } else {
-                ?>
-                <p style="text-align: center"><?= $favorite_text ?></p>
-            <?php
-            }
 
-            ?>
-            </ul>
+                    if(!empty($user_favorites)) {
+                        foreach ($user_favorites as $user_favorite) {
+                            ?>
+                            <div class="flex_container">
+                                <li class="home_style_flexbox_sub_text_scroll_container">
+                                    <span class="home_style_flexbox_sub_text_scroll_container_title"><a class="home_style_flexbox_sub_text_scroll_container_link"><span class="fav_departure"><?= $user_favorite->departure ?></span> à <span class="fav_arrival"><?= $user_favorite->arrival ?></span></a></span>
+                                    <div class="home_style_flexbox_sub_text_scroll_line">
+                                        <span class="fas fa-long-arrow-alt-right  home_style_flexbox_sub_text_scroll_line_default animated fadeInLeft"></span>
+                                        <span class="fas fa-times home_style_flexbox_sub_text_scroll_line_remove" ></span>
+                                    </div>
+                                </li>
+                            </div>
+                            <?php
+                        }
+                    } else {
+                        ?>
+                        <p style="text-align: center"><?= $favorite_text ?></p>
+                        <?php
+                    }
+
+                    ?>
+                </ul>
+            </form>
         </div>
     </div>
   </div>
@@ -129,5 +143,23 @@
                 },
             }
         });
+
+
+        // fill input for favorite and submit form -> redirect to itinerary
+        $(".home_style_flexbox_sub_text_scroll_container_link").click(function(){
+            $("#fav_departure").val($(this).children().eq(0).text())
+            $("#fav_arrival").val($(this).children().eq(1).text())
+            $("#fav_search").submit();
+        })
+
+        // remove users's favorite
+        $(".home_style_flexbox_sub_text_scroll_line_remove").click(function() {
+            console.log("OK")
+
+            $(this).parent().parent().remove()
+
+        })
+
+
     });
 </script>

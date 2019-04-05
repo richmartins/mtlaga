@@ -46,11 +46,7 @@ class Favorites_model extends CI_Model {
         ];
         $res =  $this->db->insert('users_has_favorites', $data);
 
-        if($res) {
-            return true;
-        } else {
-            return false;
-        }
+        return $res;
     }
 
     /**
@@ -90,7 +86,12 @@ class Favorites_model extends CI_Model {
         }
     }
 
-
+    /**
+     * Check if user has already favorite
+     * @param $id_user
+     * @param $id_favorite
+     * @return bool
+     */
     public function user_has_favorite($id_user, $id_favorite) {
         $this->db->select('users_id_user, favorites_id_favorites');
         $this->db->from('users_has_favorites');
@@ -100,10 +101,10 @@ class Favorites_model extends CI_Model {
 
         if(empty($res)) {
             // user n'a pas le fav
-            return true;
+            return false;
         } else {
             // user a le fav
-            return false;
+            return true;
         }
     }
 
