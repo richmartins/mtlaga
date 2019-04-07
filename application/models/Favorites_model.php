@@ -108,4 +108,16 @@ class Favorites_model extends CI_Model {
         }
     }
 
+    /**
+     * remove user favorite
+     * @param $id_user
+     * @param $id_favorite
+     * @return mixed
+     */
+    public function remove_user_favorite($id_user, $id_favorite) {
+        $this->db->where("users_id_user", $id_user);
+        $this->db->where("favorites_id_favorites", $id_favorite);
+        return $this->db->delete("users_has_favorites");
+    }
+
 }

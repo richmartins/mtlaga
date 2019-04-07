@@ -33,7 +33,6 @@ class Itinerary extends CI_Controller {
         }
     }
 
-
     /*
     public function itinerary_process() {
         $departure = $this->input->post("departure_city");
@@ -49,6 +48,7 @@ class Itinerary extends CI_Controller {
 
     /**
      * Add journey to user's favourite
+     * @return bool|string
      */
     public function add_favorites() {
         $id_user = $this->users_model->get_user_id($this->session->userdata['email']);
@@ -69,6 +69,24 @@ class Itinerary extends CI_Controller {
             // user has already fav
             return true;
         }
+    }
+
+    /**
+     * Remove user favorite link
+     * @param $departure
+     * @param $arrival
+     * @return bool
+     */
+    public function remove_favorite() {
+       $id_user = $this->users_model->get_user_id($this->session->userdata['email']);
+       $id_favorite = $this->favorites_model->favorite_exist($_POST['departure'], $_POST['arrival']);
+       $res =  $this->favorites_model->remove_user_favorite($id_user, $id_favorite);
+
+       if($res) {
+           echo "success";
+       } else {
+           echo "error";
+       }
     }
 
     /**
