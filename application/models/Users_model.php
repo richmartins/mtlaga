@@ -14,11 +14,9 @@ class Users_model extends CI_Model {
     public function update_password($email, $new_password){
       $hashed = password_hash($new_password, PASSWORD_DEFAULT, array('cost' => 10));
       $this->db->set('hash_password', $hashed);
-      $this->db->set('reset');
       $this->db->where('email', $email);
-      $sucess = $this->db->update('users');
-
-      if ($sucess) { return true; } else { return false; }
+      $this->db->update('users');
+      if ($this->db->affected_rows() > 0) { return true; } else { return false; }
     }
 
     public function check_password($email, $password){
@@ -35,12 +33,18 @@ class Users_model extends CI_Model {
       return $hashed;
     }
 
-    public function get_token($email){
-      $this->db->select('confirmation_token');
-      $this->db->from('users');
+    public function get_token_reset($email){
+      $token = bin2hex(random_bytes(20));
+      $this->db->set('reset_password_token', $token);
       $this->db->where('email', $email);
-      $res = $this->db->get()->result()[0]->confirmation_token;
-      return $res;
+      $this->db->update('users');
+      if($this->db->affected_rows() > 0){
+        $this->db->select('reset_password_token');
+        $this->db->from('users');
+        $this->db->where('email', $email);
+        $res = $this->db->get()->result()[0]->reset_password_token;
+        return $res;
+      }
     }
 
     public function check_email($email){
@@ -48,5 +52,34 @@ class Users_model extends CI_Model {
       $this->db->where('email', $email);
       $query = $this->db->get();
       if ($query->num_rows() >= 1){ return true; } else { return false; }
+    }
+
+    public function check_token($token, $email){
+      $this->db->select('reset_password_token', 'email');
+      $this->db->from('users');
+      $this->db->where('email', $email);
+      $query = $this->db->get();
+      if ($query->num_rows() >= 1){ return true; } else { return false; }
+    }
+
+    public function check_token_confirm($token, $email){
+      $check = array('email' => $email, 'confirmation_token' => $token);
+      $this->db->select('confirmation_token', 'email');
+      $this->db->from('users');
+      $this->db->where($check);
+      $query = $this->db->get();
+      if ($query->num_rows() >= 1){ return true; } else { return false; }
+    }
+
+    public function confirmed($email){
+      $this->db->set('confirmed', 1);
+      $this->db->set('confirmed_at', date('Y-m-d'));
+      $this->db->where('email', $email);
+      $this->db->update('users');
+      if($this->db->affected_rows() > 0){
+        return true;
+      } else {
+        return false;
+      }
     }
 }

@@ -2,3 +2,6 @@
 user_guide/
 .idea
 .env
+.env.development
+composer.lock
+vendor/
