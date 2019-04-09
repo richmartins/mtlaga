@@ -9,7 +9,7 @@ class Email_model extends CI_Model {
         'protocol'    => 'smtp',
           'smtp_host' => 'mail.infomaniak.com',
         'smtp_port'   => 587,
-        'smtp_user'   => 'no-reply@hadrien-louis.ch',
+        'smtp_user'   => 'no-reply@mtlaga.ch',
         'smtp_pass' => getenv('NO-REPLY_PWD'),
         'mailtype'    => 'text',
         'charset'     => 'utf-8'
@@ -20,7 +20,7 @@ class Email_model extends CI_Model {
    }
 
    public function sendEmail_confirm($to, $token){
-     $from     = 'no-reply@hadrien-louis.ch';
+     $from     = 'no-reply@mtlaga.ch';
      $subject  = 'Confirmation de compte MTLAGA';
      $message  = '';
      $message .= "<h2>Vous recevez cette email suite à votre inscription chez <a href='https://mtlaga.ch'>MTLAGA</a></h2>"
