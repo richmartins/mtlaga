@@ -1,6 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+
+foreach ($scripts_to_load as $script) {
+    ?>
+    <script type="text/javascript" src="<?= base_url(); ?>public/scripts/<?= $script; ?>.js"></script>
+<?php
+}
 ?>
+
 <div id="home_container">
   <div>
     <div class="flex_container" id="itineraire_flex_header_title" >
@@ -42,6 +49,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               $train_departure_city = $connection->from->station->name;
               // Ville départ
               $train_arrival_city = $connection->to->station->name;
+
               ?>
 
               <!-- Traject line !-->
@@ -151,6 +159,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               $section_transport_number = $section->journey->number;
                           }
 
+                          $is_favorite = false;
+                          $journey = [
+                              "departure" => $departure_station_section,
+                              "arrival" => $arrival_station_section
+                          ];
+
+                          foreach ($favorites as $favorite) {
+                              //if(array)
+                              $favorite = [
+                                  "departurea" => $favorite->departure,
+                                  "arrival" => $favorite->arrival
+                              ];
+                              if(empty(array_diff($journey, $favorite))) {
+                                  $is_favorite = true;
+                              }
+
+                          }
+
                           ?>
 
                           <!-- Bloc trajet point A vers point B -->
@@ -203,13 +229,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                           <div class="flex_container itineraire_flex_container_travel_action_outils_icon icon_add_favorite">
                                               <?php
                                               // change design cause favorite
+                                              if($is_favorite) {
+                                                  ?>
+                                                  <li>Supprimer des favoris</li>
+                                                  <i class="fas fa-star" style="color: gold"></i>
+                                                  <?php
+                                              } else {
+                                                  ?>
+                                                  <li>Ajouter au favoris</li>
+                                                  <i class="fas fa-star"></i>
+                                                  <?php
+                                              }
                                               ?>
-                                              <li> Ajouter au favoris</li>
-                                              <i class="fas fa-star"></i>
                                               <i class="fas fa-long-arrow-alt-right animated fadeInLeft"
                                                  style="display: none; padding-right: 5px"></i>
                                               <input type="hidden" value="<?= $departure_station_section ?>">
                                               <input type="hidden" value="<?= $arrival_station_section ?>">
+
                                           </div>
                                           <div class="flex_container itineraire_flex_container_travel_action_outils_icon icon_show_map">
                                               <li> Afficher sur la carte</li>
@@ -268,12 +304,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </div>
 </div>
 
-
 <script>
     // Ajax request to add journey to user's favourite
     $( document ).ready(function() {
-        $(".icon_add_favorite").click(function(){
 
+
+        /**
+         * Add a favorite to user
+         */
+        $(".icon_add_favorite").click(function(){
             var departure_city = $(this).children().eq(3).val()
             var arrival_city = $(this).children().eq(4).val()
 
@@ -286,8 +325,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         departure:departure_city,
                         arrival:arrival_city
                     },
-                    success:function(response) {},
-                    error: function(jqXHR, textStatus, errorThrown) {}
+                    success:function(response) {
+                        notif(response, "La favoris a bien été ajouté")
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        notif("error", "Erreur lors de l'ajout du favoris")
+                    }
                 }
             );
         })

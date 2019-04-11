@@ -475,6 +475,7 @@ footer {
 .home_style_flexbox_sub_text {
   justify-content: center;
   height: 100%;
+  max-height: 310px;
 }
 
 .home_style_flexbox_sub_text_scroll {

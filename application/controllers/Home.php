@@ -45,7 +45,8 @@ class Home extends CI_Controller {
           $data = [
             'header_nav_meta_data' => $this->header_nav,
             'meta_data' => $this->meta_data,
-            'user_favorites' => $user_favorites
+            'user_favorites' => $user_favorites,
+            'scripts_to_load' => ["notification"]
           ];
 
           $this->load->view('templates/head', $data);

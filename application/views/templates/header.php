@@ -7,7 +7,7 @@
               <i class="fas fa-spinner fa-pulse"></i>
           </div>
           <div class="header_notif_text">
-              <p style="margin: 0">Recherche des relations en cours ...</p>
+              <p style="margin: 0">Recherche de relations en cours ...</p>
           </div>
       </div>
       <div id="header_notif_success" class="header_notif animated fadeInDown">

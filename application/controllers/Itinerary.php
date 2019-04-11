@@ -61,11 +61,12 @@ class Itinerary extends CI_Controller {
                 $id_favorite = $this->favorites_model->add_favorites($_POST['departure'], $_POST['arrival']);
             }
             $query_add_user_favorite = $this->favorites_model->add_user_favorite($id_user, $id_favorite);
-            if($query_add_user_favorite) {
-                return true;
+            /*if($query_add_user_favorite) {
+                echo "success";
             } else {
-                return "Error";
-            }
+                echo "error";
+            }*/
+            echo "error";
         } else {
             // user has already fav
             return true;
@@ -100,7 +101,8 @@ class Itinerary extends CI_Controller {
 
         $data = [
             "header_nav_meta_data" => $this->header_nav,
-            "meta_data" => $this->meta_data
+            "meta_data" => $this->meta_data,
+            "scripts_to_load" => ["notification"]
         ];
 
         $departure = $this->input->post("departure_city");

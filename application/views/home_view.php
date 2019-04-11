@@ -8,6 +8,12 @@
         $favorite_text = "Pour afficher ce contenu, vous devez être connecté";
     }
 
+    foreach ($scripts_to_load as $script) {
+        ?>
+        <script type="text/javascript" src="<?= base_url(); ?>public/scripts/<?= $script; ?>.js"></script>
+        <?php
+    }
+
 ?>
 <div id="home_container">
   <div id="home_style_flexbox" class="flex_container">
@@ -120,7 +126,9 @@
 </div>
 
 <script>
-    // affichage map
+    /**
+     * initialize Mapbox
+     */
     mapboxgl.accessToken = 'pk.eyJ1IjoiaGFkcnlsb3VpcyIsImEiOiJjanIzYTl2Nzcwc3dqNDNxbXNkeWZuZmZhIn0.XyRFNfYowoHigvnxT6-0fA';
     const map = new mapboxgl.Map({
         container: 'home_style_flexbox_map',
@@ -131,6 +139,8 @@
         boxZoom         : false,
         doubleClickZoom : false
     });
+
+    // add map navigation control
     map.addControl(new mapboxgl.NavigationControl());
 
     // Mapbox draw line
@@ -164,8 +174,17 @@
         });
     });
 
-    // Init Select2 sur classe "typeahead"
     $( document ).ready(function() {
+
+        // initilize variables
+        var departure_coordinates = []
+        var arrival_coordinates = []
+        var departure_marker = new mapboxgl.Marker();
+        var arrival_marker = new mapboxgl.Marker();
+
+        /**
+         * initialize select2 on fields with typeahead class
+         */
         $.fn.select2.defaults.set('language', 'fr');
         $('.typeahead').select2({
             ajax: {
@@ -198,12 +217,9 @@
             }
         });
 
-        var departure_coordinates = []
-        var arrival_coordinates = []
-        var departure_marker = new mapboxgl.Marker();
-        var arrival_marker = new mapboxgl.Marker();
-
-        // Fire when user select departure
+        /**
+         * Triggered when user select departure
+         */
         $('.typeahead-departure').on('select2:select', function (e) {
             var data = e.params.data;
 
@@ -237,7 +253,9 @@
 
         });
 
-        // Fire when user select arrival
+        /**
+         * Triggered when user select arrival
+         */
         $('.typeahead-arrival').on('select2:select', function (e) {
             var data = e.params.data;
             arrival_coordinates = [data.y, data.x];
@@ -261,7 +279,9 @@
 
         });
 
-        // bounds map to fit departure and arrival
+        /**
+         * Bounds map to fit departure and arrival
+         */
         function mapBounds(departure_coordinates, arrival_coordinates) {
             map.fitBounds([[
                 departure_coordinates[0],
@@ -272,15 +292,20 @@
             ]], {padding: 50});
         }
 
-
-        // fill input for favorite and submit form -> redirect to itinerary
+        /**
+         * Favorite search itinerary
+         * fill input for favorite and submit form -> redirect to itinerary
+         */
         $(".home_style_flexbox_sub_text_scroll_container_link").click(function(){
+            $("#header_notif_load").css('display', 'flex');
             $("#fav_departure").val($(this).children().eq(0).text())
             $("#fav_arrival").val($(this).children().eq(1).text())
             $("#fav_search").submit();
         })
 
-        // remove users's favorite
+        /**
+         * Remove a user favorite -> call remove_favorite
+         */
         $(".home_style_flexbox_sub_text_scroll_line_remove").click(function() {
             $("#header_notif_sucess").css('display', 'flex');
 
@@ -319,21 +344,9 @@
             );
         });
 
-        // send user notif
-        function notif (type, message) {
-            $("#header_notif_load").css('display', 'none');
-
-            var responsediv = "#header_notif_" + type
-            $(responsediv).css('display', 'flex');
-            $(responsediv).addClass("fadeInDown")
-            $(responsediv).children().next().text(message)
-            setTimeout(function(){
-                $(responsediv).addClass("fadeOutUp")
-            }, 1500)
-            $(responsediv).removeClass("fadeOutUp")
-        }
-
-        // search itinerary
+        /**
+         * Check if fields are not empty and sumbit form -> search itinerary
+         */
         $(".home_style_flexbox_input").click(function() {
             $("#header_notif_load").css('display', 'flex');
 
@@ -347,7 +360,5 @@
                 $("#searchItineraryForm").submit();
             }
         })
-
-        
     });
 </script>
