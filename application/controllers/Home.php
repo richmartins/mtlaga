@@ -12,7 +12,6 @@ class Home extends CI_Controller {
         $this->header_nav = [
           'home' => 'Home',
           'info' => 'Info',
-          'plan' => 'Plan'
         ];
         $this->meta_data = [
           'title' => '',

@@ -567,7 +567,7 @@ footer {
 #info_style_sign {
   padding-top: 20px;
   border-bottom: 7px solid #0083B3;
-  width: 35%;
+  width: 30%;
 }
 
 #info_style_sign p {
@@ -1103,4 +1103,23 @@ footer {
   #footer_text {
     margin: 0 auto;
   }
+}
+.info_flex_container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.info_style_card {
+  text-align: center;
+  margin: auto;  /* Magic! */
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.2);
+}
+
+.info_style_card_text {
+  text-align: center !important;
+}
+
+.info_img_card{
+  border-radius: 10px 10px 0 0;
 }

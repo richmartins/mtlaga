@@ -33,8 +33,6 @@ class Email_model extends CI_Model {
      $this->email->subject($subject);
      $this->email->message($message);
      $res = $this->email->send();
-     var_dump($res);
-     var_dump($this->email);
      if($res) { return true; } else { return false; }
    }
 
@@ -52,8 +50,6 @@ class Email_model extends CI_Model {
      $this->email->subject($subject);
      $this->email->message($message);
      $res = $this->email->send();
-     var_dump($res);
-     var_dump($this->email);
      if($res) { return true; } else { return false; }
    }
  }
