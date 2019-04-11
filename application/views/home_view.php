@@ -200,21 +200,29 @@
 
         var departure_coordinates = []
         var arrival_coordinates = []
+        var departure_marker = new mapboxgl.Marker();
+        var arrival_marker = new mapboxgl.Marker();
 
         // Fire when user select destination
         $('.typeahead-departure').on('select2:select', function (e) {
             var data = e.params.data;
             departure_coordinates = [data.y, data.x];
 
-            // create a HTML element for each feature
+            // Create HTMl Marker for departure and it place into map
             var el = document.createElement('div');
-            el.className = 'marker';
+            el.className = 'marker'
+            departure_marker.remove();
+            departure_marker.setLngLat(departure_coordinates)
+                .setPopup(new mapboxgl.Popup({ offset: 25 })
+                    .setHTML('<h3>Départ</h3><p>Test2</p>'));
+            departure_marker.addTo(map);
 
-            new mapboxgl.Marker()
-                .setLngLat(departure_coordinates)
-                .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
-                .setHTML('<h3>Départ</h3><p>Test2</p>'))
-                .addTo(map);;
+            if(arrival_coordinates.length == 0) {
+                //map.setView(departure_coordinates, 12);
+                //imap.flyTo({center: departure_coordinates});
+                console.log(map.getCenter())
+            }
+
         });
 
         // Fire when user select destination
@@ -222,15 +230,15 @@
             var data = e.params.data;
             arrival_coordinates = [data.y, data.x];
 
-            // create a HTML element for each feature
+            // Create HTMl Marker for arrival and place it into map
             var el = document.createElement('div');
-            el.className = 'marker';
+            el.className = 'marker'
+            arrival_marker.remove();
+            arrival_marker.setLngLat(arrival_coordinates)
+                .setPopup(new mapboxgl.Popup({ offset: 25 })
+                .setHTML('<h3>Départ</h3><p>Test2</p>'));
+            arrival_marker.addTo(map);
 
-            new mapboxgl.Marker()
-                .setLngLat(arrival_coordinates)
-                .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
-                .setHTML('<h3>Arrivée</h3><p>Test2</p>'))
-                .addTo(map);
 
             map.fitBounds([[
                 departure_coordinates[0],
@@ -239,6 +247,8 @@
                 arrival_coordinates[0],
                 arrival_coordinates[1]
             ]], {padding: 30});
+
+
         });
 
 
