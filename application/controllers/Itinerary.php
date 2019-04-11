@@ -88,6 +88,7 @@ class Itinerary extends CI_Controller {
        } else {
            echo "error";
        }
+
     }
 
     /**
@@ -119,7 +120,6 @@ class Itinerary extends CI_Controller {
         if($this->meta_data['connected']) {
             $this->favorites = $this->favorites_model->get_user_favorite($this->session->userdata['email']);
         }
-
 
         $search_result = [
             "api" => $this->result,

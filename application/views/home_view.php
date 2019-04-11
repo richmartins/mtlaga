@@ -20,7 +20,7 @@
           <img class="home_style_flexbox_title_img" src="<?= base_url(); ?>public/img/mtlaga_home_clock.png" alt="">
         </div>
       </div>
-        <form method="post" action="<?= base_url();?>Itinerary">
+       <form method="post" action="<?=base_url()?>/Itinerary" id="searchItineraryForm">
             <div id="home_style_flexbox_container" class="flex_container">
                 <div class="flex_container home_style_flexbox_fields_box" >
                     <select class="home_style_flexbox_fields js-data-example-ajax typeahead typeahead-departure" name="departure_city" data-placeholder="Ville de départ" >
@@ -33,7 +33,7 @@
                     </select>
                 </div>
                 <div class="flex_container form_style_submit" >
-                    <input type="submit" class="home_style_flexbox_input" value="Rechercher" class="" type="text" >
+                    <input type="button" class="home_style_flexbox_input" value="Rechercher" class="" type="text" >
                 </div>
             </div>
             <input type="hidden" name="departure_date" >
@@ -203,9 +203,18 @@
         var departure_marker = new mapboxgl.Marker();
         var arrival_marker = new mapboxgl.Marker();
 
-        // Fire when user select destination
+        // Fire when user select departure
         $('.typeahead-departure').on('select2:select', function (e) {
             var data = e.params.data;
+
+            /*
+            if(data.x == null && data.y == null) {
+                console.log("empty")
+                data.x = map.getCenter().lat
+                data.y = map.getCenter().lng
+            }
+            */
+
             departure_coordinates = [data.y, data.x];
 
             // Create HTMl Marker for departure and it place into map
@@ -214,18 +223,21 @@
             departure_marker.remove();
             departure_marker.setLngLat(departure_coordinates)
                 .setPopup(new mapboxgl.Popup({ offset: 25 })
-                    .setHTML('<h3>Départ</h3><p>Test2</p>'));
+                .setHTML('<h3>Départ</h3><p>' + data.text + '</p>'));
             departure_marker.addTo(map);
 
+            // test if arrival is already set
             if(arrival_coordinates.length == 0) {
-                //map.setView(departure_coordinates, 12);
-                //imap.flyTo({center: departure_coordinates});
-                console.log(map.getCenter())
+                arrival_coordinates[0] = map.getCenter().lng
+                arrival_coordinates[1] = map.getCenter().lat
             }
+
+            mapBounds(departure_coordinates, arrival_coordinates)
+
 
         });
 
-        // Fire when user select destination
+        // Fire when user select arrival
         $('.typeahead-arrival').on('select2:select', function (e) {
             var data = e.params.data;
             arrival_coordinates = [data.y, data.x];
@@ -236,20 +248,29 @@
             arrival_marker.remove();
             arrival_marker.setLngLat(arrival_coordinates)
                 .setPopup(new mapboxgl.Popup({ offset: 25 })
-                .setHTML('<h3>Départ</h3><p>Test2</p>'));
+                .setHTML('<h3>Arrivée</h3><p>' + data.text + '</p>'));
             arrival_marker.addTo(map);
 
+            // test if arrival is already set
+            if(departure_coordinates.length == 0) {
+                departure_coordinates[0] = map.getCenter().lng
+                departure_coordinates[1] = map.getCenter().lat
+            }
 
+            mapBounds(departure_coordinates, arrival_coordinates)
+
+        });
+
+        // bounds map to fit departure and arrival
+        function mapBounds(departure_coordinates, arrival_coordinates) {
             map.fitBounds([[
                 departure_coordinates[0],
                 departure_coordinates[1]
             ], [
                 arrival_coordinates[0],
                 arrival_coordinates[1]
-            ]], {padding: 30});
-
-
-        });
+            ]], {padding: 50});
+        }
 
 
         // fill input for favorite and submit form -> redirect to itinerary
@@ -264,7 +285,6 @@
             $("#header_notif_sucess").css('display', 'flex');
 
             var current = $(this)
-
             var fav_departure = $(this).parent().parent().parent().attr("data-fav-departure")
             var fav_arrival = $(this).parent().parent().parent().attr("data-fav-arrival")
 
@@ -281,27 +301,53 @@
                     {
                         $("#header_notif_load").css('display', 'none');
 
-                        var responsediv = "#header_notif_" + response
+                        // if success : remove fav and send notif to user
+                        // if error : send notif to user
                         if(response == "success") {
+                            notif(response, "Favoris supprimé")
                             current.parent().parent().parent().remove()
                             if($(".home_style_flexbox_sub_text_scroll div").length == 0) {
-                                //$("#home_style_flexbox_sub_text_field").text
                                 $(".home_style_flexbox_sub_text_scroll").append('<p id="home_style_flexbox_sub_text_field">Vous n\'avez auncun favoris</p>')
                             }
+
+                        } else if(response == "error") {
+                            notif(response, "Erreur lors de la suppression")
                         }
 
-                        $(responsediv).css('display', 'flex');
-                        $(responsediv).addClass("fadeInDown")
-                        setTimeout(function(){
-                            $(responsediv).addClass("fadeOutUp")
-                        }, 1500)
-                        $(responsediv).removeClass("fadeOutUp")
-
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
                     }
                 }
             );
+        });
+
+        // send user notif
+        function notif (type, message) {
+            $("#header_notif_load").css('display', 'none');
+
+            var responsediv = "#header_notif_" + type
+            $(responsediv).css('display', 'flex');
+            $(responsediv).addClass("fadeInDown")
+            $(responsediv).children().next().text(message)
+            setTimeout(function(){
+                $(responsediv).addClass("fadeOutUp")
+            }, 1500)
+            $(responsediv).removeClass("fadeOutUp")
+        }
+
+        // search itinerary
+        $(".home_style_flexbox_input").click(function() {
+            $("#header_notif_load").css('display', 'flex');
+
+            var departure_city = $("select[name='departure_city']").text().trim().replace(/ /g, '%20')
+            var arrival_city = $("select[name='arrival_city']").text().trim().replace(/ /g, '%20')
+
+            // if fields empty : send error notif
+            if(departure_city == "" || arrival_city == "") {
+                notif("error", "Veuillez remplir les champs")
+            } else {
+                $("#searchItineraryForm").submit();
+            }
         })
+
+        
     });
 </script>

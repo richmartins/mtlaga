@@ -23,7 +23,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
             </form>
         </div>
-
     </div>
   </div>
   <div id="itineraire_flex_container_bck" >
@@ -274,8 +273,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     // Ajax request to add journey to user's favourite
     $( document ).ready(function() {
         $(".icon_add_favorite").click(function(){
-            //var departure_city = $("[name=departure_city]").val()
-            //var arrival_city = $("[name=arrival_city]").val()
 
             var departure_city = $(this).children().eq(3).val()
             var arrival_city = $(this).children().eq(4).val()

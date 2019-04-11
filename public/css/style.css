@@ -38,7 +38,7 @@ header {
 }
 
 #header_notif_load {
-  background-color: #ddd;
+  background-color: #818181;
 }
 
 #header_notif_success {
@@ -504,7 +504,7 @@ footer {
 }
 
 #home_style_flexbox_map_container {
-  height: 350px;
+  height: 450px;
   width: 100%;
   background-color: #EBEBEB;
   border-radius: 25px;
