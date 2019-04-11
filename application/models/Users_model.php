@@ -4,11 +4,21 @@ class Users_model extends CI_Model {
   public function __construct(){
        parent::__construct();
        $this->load->database('default');
-   }
+    }
 
     public function add_user($data){
       $query =  $this->db->insert('users', $data);
       if($query) { return true; } else { return false; }
+    }
+
+    public function get_user_id($email) {
+      $this->db->select('id_user', 'email');
+      $this->db->from('users');
+      $this->db->where('email', $email);
+      $query = $this->db->get()->result();
+
+      return $query[0]->id_user;
+
     }
 
     public function update_password($email, $new_password){

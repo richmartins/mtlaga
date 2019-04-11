@@ -1,5 +1,13 @@
 <?php
-  defined('BASEPATH') OR exit('No direct script access allowed');
+    defined('BASEPATH') OR exit('No direct script access allowed');
+    if(isset($_SESSION['email'])) {
+        if(empty($user_favorites)) {
+            $favorite_text = "Vous n'avez auncun favoris";
+        }
+    } else {
+        $favorite_text = "Pour afficher ce contenu, vous devez être connecté";
+    }
+
 ?>
 <div id="home_container">
   <div id="home_style_flexbox" class="flex_container">
@@ -70,7 +78,23 @@
             </div>
         </div>
         <div class="flex_container home_style_flexbox_sub_text">
-            <p style="text-align: center">Pour afficher ce contenu, vous devez être connecté</p>
+            <ul class="home_style_flexbox_sub_text_scroll">
+            <?php
+
+            if(!empty($user_favorites)) {
+                foreach ($user_favorites as $user_favorite) {
+                    ?>
+                    <li><?= $user_favorite->departure ?> à <?= $user_favorite->arrival ?></li>
+                    <?php
+                }
+            } else {
+                ?>
+                <p style="text-align: center"><?= $favorite_text ?></p>
+            <?php
+            }
+
+            ?>
+            </ul>
         </div>
     </div>
   </div>
@@ -94,6 +118,7 @@
 
     // Init Select2 sur classe "typeahead"
     $( document ).ready(function() {
+        $.fn.select2.defaults.set('language', 'fr');
         $('.typeahead').select2({
             ajax: {
                 url: "http://transport.opendata.ch/v1/locations?",
