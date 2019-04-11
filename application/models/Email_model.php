@@ -39,7 +39,7 @@ class Email_model extends CI_Model {
    }
 
    public function sendEmail_reset_pwd($to, $token){
-     $from     = 'no-reply@hadrien-louis.ch';
+     $from     = 'no-reply@mtlaga.ch';
      $subject  = 'Réinitialisation de votre mot de passe MTLAGA';
      $message  = '';
      $message .= "<h2>Vous recevez cette email suite à votre demande de réinitialisation de votre mot de passe</h2>"
