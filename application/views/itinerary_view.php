@@ -289,14 +289,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         departure:departure_city,
                         arrival:arrival_city
                     },
-                    success:function(response)
-                    {
-                        console.log("OK");
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.log("Erreur");
-                        console.log(jqXHR);
-                    }
+                    success:function(response) {},
+                    error: function(jqXHR, textStatus, errorThrown) {}
                 }
             );
         })
