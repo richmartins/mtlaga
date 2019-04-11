@@ -1,3 +1,7 @@
 .DS_Store
 user_guide/
-.idea 
+.idea
+.env
+.env.development
+composer.lock
+vendor/

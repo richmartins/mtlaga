@@ -34,4 +34,8 @@ and add the fellowing lines in it
 
     sudo systemctl restart apache2
 
+**4.** Install composer dep
+    
+    composer update
+
 more details will be coming soon
