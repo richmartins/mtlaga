@@ -296,10 +296,10 @@
          * Favorite search itinerary
          * fill input for favorite and submit form -> redirect to itinerary
          */
-        $(".home_style_flexbox_sub_text_scroll_container_link").click(function(){
+        $(".home_style_flexbox_sub_text_scroll_container_title").click(function(){
             $("#header_notif_load").css('display', 'flex');
-            $("#fav_departure").val($(this).children().eq(0).text())
-            $("#fav_arrival").val($(this).children().eq(1).text())
+            $("#fav_departure").val($(this).children().children().eq(0).text())
+            $("#fav_arrival").val($(this).children().children().eq(1).text())
             $("#fav_search").submit();
         })
 
