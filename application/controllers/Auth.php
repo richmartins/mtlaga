@@ -14,7 +14,6 @@ class Auth extends CI_Controller {
       $this->header_nav = [
         'home' => 'Home',
         'info' => 'Info',
-        'plan' => 'Plan'
       ];
 
       $this->meta_data = [
@@ -39,9 +38,7 @@ class Auth extends CI_Controller {
         $res = $this->users_model->check_email($email);
         if($res){
           $token = $this->users_model->get_token_reset($email);
-          var_dump($token);
           $res_mail = $this->email_model->sendEmail_reset_pwd($email, $token);
-          var_dump($res_mail);
           if ($res_mail){
             $info = 'Veuillez consulter votre adresse mail pour réinitialiser votre mot de passe';
             $this->session->set_flashdata('info', $info);
@@ -79,7 +76,7 @@ class Auth extends CI_Controller {
 
         if ($pwd == $pwd_confirm){
           $res = $this->users_model->update_password($email, $pwd);
-          if ($res) { redirect('auth/login'); } else { var_dump('<pre>' . $res); $this->session->set_flashdata('error', 'somehting went wrong'); }
+          if ($res) { redirect('auth/login'); } else { $this->session->set_flashdata('error', 'somehting went wrong'); }
         }
       }
 

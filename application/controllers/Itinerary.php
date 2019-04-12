@@ -1,6 +1,6 @@
 <?php
-
 defined('BASEPATH') OR exit('No direct script access allowed');
+
 class Itinerary extends CI_Controller {
 
     var $header_nav;
@@ -19,7 +19,6 @@ class Itinerary extends CI_Controller {
         $this->header_nav = [
             'home' => 'Home',
             'info' => 'Info',
-            'plan' => 'Plan'
         ];
         $this->meta_data = [
             'title' => '',
