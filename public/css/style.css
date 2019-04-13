@@ -607,11 +607,12 @@ footer {
 }
 
 #itineraire_flex_header_time {
-  width: 150px;
+  width: 100%;
   justify-content: center;
   padding-left: 15px;
   flex-direction: column;
   text-align: right;
+  padding-top: 5px;
 }
 
 #itineraire_flex_header_time p {
@@ -1048,7 +1049,7 @@ footer {
   background-color: transparent;
   border: none;
   color: white;
-  font-size: 14px;
+  font-size: 16px;
   width: auto;
   text-align: right;
   margin-right: 10px;

@@ -6,6 +6,12 @@ foreach ($scripts_to_load as $script) {
     <script type="text/javascript" src="<?= base_url(); ?>public/scripts/<?= $script; ?>.js"></script>
 <?php
 }
+
+// check if user is connected
+$connected = false;
+if($this->meta_data['connected'] == 1) {
+    $connected = true;
+}
 ?>
 
 <div id="home_container">
@@ -15,7 +21,7 @@ foreach ($scripts_to_load as $script) {
         <p>Résultats</p>
       </div>
         <div id="itineraire_flex_header_time_container">
-            <form method="post" action="<?= base_url();?>Itinerary">
+            <form method="post" action="<?= base_url();?>Itinerary" id="searchItinerary">
                 <input type="hidden" value="<?= $api->from->name ?>" name="departure_city">
                 <input type="hidden" value="<?= $api->to->name ?>" name="arrival_city">
                 <input type="hidden" value="<?= date("d-m-Y", strtotime($date)) ?>" name="departure_date" id="departure_date">
@@ -223,29 +229,35 @@ foreach ($scripts_to_load as $script) {
                                           <p>Aucun dérangement n'est signalé</p>
                                       </div>
                                   </div>
-                                  <div class="itineraire_flex_container_travel_action_outils">
+                                  <?php
+
+                                  $style = "";
+                                  if(!$connected) {
+                                      $style = "opacity: 0.5; pointer-events: none;";
+                                  }
+                                  ?>
+                                  <div class="itineraire_flex_container_travel_action_outils" style="<?= $style ?>">
                                       <p><b>Cette relation</b></p>
                                       <ul>
-                                          <div class="flex_container itineraire_flex_container_travel_action_outils_icon icon_add_favorite">
+                                          <div class="flex_container itineraire_flex_container_travel_action_outils_icon icon_toggle_favorite">
                                               <?php
                                               // change design cause favorite
-                                              if($is_favorite) {
+                                              if ($is_favorite) {
                                                   ?>
                                                   <li>Supprimer des favoris</li>
                                                   <i class="fas fa-star" style="color: gold"></i>
                                                   <?php
                                               } else {
                                                   ?>
-                                                  <li>Ajouter au favoris</li>
+                                                  <li>Ajouter aux favoris</li>
                                                   <i class="fas fa-star"></i>
                                                   <?php
                                               }
                                               ?>
                                               <i class="fas fa-long-arrow-alt-right animated fadeInLeft"
                                                  style="display: none; padding-right: 5px"></i>
-                                              <input type="hidden" value="<?= $departure_station_section ?>">
-                                              <input type="hidden" value="<?= $arrival_station_section ?>">
-
+                                              <input type="hidden" data-journey="<?= $departure_station_section ?>" value="<?= $departure_station_section ?>">
+                                              <input type="hidden" data-journey="<?= $arrival_station_section ?>" value="<?= $arrival_station_section ?>">
                                           </div>
                                           <div class="flex_container itineraire_flex_container_travel_action_outils_icon icon_show_map">
                                               <li> Afficher sur la carte</li>
@@ -308,32 +320,67 @@ foreach ($scripts_to_load as $script) {
     // Ajax request to add journey to user's favourite
     $( document ).ready(function() {
 
-
         /**
-         * Add a favorite to user
+         * Toggle favorite to user
          */
-        $(".icon_add_favorite").click(function(){
+        $(".icon_toggle_favorite").click(function(){
             var departure_city = $(this).children().eq(3).val()
             var arrival_city = $(this).children().eq(4).val()
+            var current = $(this)
 
             $.ajax(
                 {
                     type:"post",
-                    url: "<?php echo base_url(); ?>/itinerary/add_favorites",
-                    //dataType: "json",
+                    url: "<?php echo base_url(); ?>/itinerary/toggle_favorite",
                     data:{
                         departure:departure_city,
                         arrival:arrival_city
                     },
                     success:function(response) {
-                        notif(response, "La favoris a bien été ajouté")
+                        var notif_text = "";
+                        var notif_state = "";
+                        switch(response) {
+                            case "remove-success":
+                                notif_text = "Le favori a bien été supprimé"
+                                notif_state = "success"
+                                current.children().eq(1).css("color", "black");
+
+
+                                $('input[data-journey]').each(function(){
+                                })
+
+                                console.log("OK");
+
+                                break;
+                            case "remove-error":
+                                notif_text = "Erreur lors de la suppression du favori"
+                                notif_state = "error"
+                                break;
+                            case "add-success":
+                                notif_text = "Le favori a bien été ajouté"
+                                notif_state = "success"
+                                current.children().eq(1).css("color", "gold");
+                                break;
+                            case "add-error":
+                                notif_text = "Erreur lors de l'ajout du favori"
+                                notif_state = "error"
+                                break;
+                        }
+                        notif(notif_state, notif_text)
+
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
-                        notif("error", "Erreur lors de l'ajout du favoris")
+
+                        notif("error", "Erreur lors de l'ajout du favori")
+
                     }
                 }
             );
         })
+
+
+
+
     });
 
 </script>
