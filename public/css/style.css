@@ -38,7 +38,7 @@ header {
 }
 
 #header_notif_load {
-  background-color: #ddd;
+  background-color: #818181;
 }
 
 #header_notif_success {
@@ -475,6 +475,7 @@ footer {
 .home_style_flexbox_sub_text {
   justify-content: center;
   height: 100%;
+  max-height: 310px;
 }
 
 .home_style_flexbox_sub_text_scroll {
@@ -504,7 +505,7 @@ footer {
 }
 
 #home_style_flexbox_map_container {
-  height: 350px;
+  height: 450px;
   width: 100%;
   background-color: #EBEBEB;
   border-radius: 25px;
@@ -597,11 +598,12 @@ footer {
 }
 
 #itineraire_flex_header_time {
-  width: 150px;
+  width: 100%;
   justify-content: center;
   padding-left: 15px;
   flex-direction: column;
   text-align: right;
+  padding-top: 5px;
 }
 
 #itineraire_flex_header_time p {
@@ -1038,7 +1040,7 @@ footer {
   background-color: transparent;
   border: none;
   color: white;
-  font-size: 14px;
+  font-size: 16px;
   width: auto;
   text-align: right;
   margin-right: 10px;

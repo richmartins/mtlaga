@@ -2,12 +2,12 @@
   <div id="header_style">
 
       <!--  notif bar -->
-      <div id="header_notif_load" class="header_notif animated">
-          <div id="header_notif_spin">
+      <div id="header_notif_load" class="header_notif animated fadeInDown">
+          <div class="header_notif_spin">
               <i class="fas fa-spinner fa-pulse"></i>
           </div>
-          <div id="header_notif_text">
-              <p style="margin: 0">Modificaton en cours ...</p>
+          <div class="header_notif_text">
+              <p style="margin: 0">Recherche de relations en cours ...</p>
           </div>
       </div>
       <div id="header_notif_success" class="header_notif animated fadeInDown">

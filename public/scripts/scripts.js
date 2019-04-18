@@ -44,12 +44,20 @@ $( document ).ready(function() {
         dateFormat: "d.m.Y | H:i",
         time_24hr: true,
         locale: "fr",
+        plugins: [new confirmDatePlugin()],
         onValueUpdate: function(selectedDates, dateStr, instance) {
-            console.log(dateStr)
             var date = dateStr.split("|")
             $("#departure_date").val(date[0].trim());
             $("#departure_time").val(date[1].trim());
         },
+    });
+
+    // force show confirm button flatpickr caldendar
+    $(".flatpickr-confirm").addClass("visible");
+
+
+    $(".flatpickr-confirm").click(function() {
+        $("#searchItinerary").submit()
     });
 
     /*

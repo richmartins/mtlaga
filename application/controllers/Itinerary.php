@@ -32,7 +32,6 @@ class Itinerary extends CI_Controller {
         }
     }
 
-
     /*
     public function itinerary_process() {
         $departure = $this->input->post("departure_city");
@@ -47,7 +46,41 @@ class Itinerary extends CI_Controller {
     */
 
     /**
-     * Add journey to user's favourite
+     * Toggle user favorite
+     * If user has it : remove
+     * IF user hasn't it : add
+     * @return string - state for notif
+     */
+    public function toggle_favorite() {
+        $id_user = $this->users_model->get_user_id($this->session->userdata['email']);
+        $id_favorite = $this->favorites_model->favorite_exist($_POST['departure'], $_POST['arrival']);
+
+        if(!$id_favorite) {
+            $id_favorite = $this->favorites_model->add_favorites($_POST['departure'], $_POST['arrival']);
+        }
+
+        $user_has_fav = $this->favorites_model->user_has_favorite($id_user, $id_favorite);
+
+        if($user_has_fav) {
+            // already has favorite -> remove fav
+            $res = $this->favorites_model->remove_user_favorite($id_user, $id_favorite);
+            $return = "remove-success";
+            if(!$res) {
+                $return = "remove-error";
+            }
+        } else {
+            // user hasn't fav -> add favorite
+            $res = $this->favorites_model->add_user_favorite($id_user, $id_favorite);
+            $return = "add-success";
+            if(!$res) {
+                $return = "add-error";
+            }
+        }
+        echo $return;
+    }
+
+    /**
+     * Add journey to user's favorite
      * @return bool|string
      */
     public function add_favorites() {
@@ -59,12 +92,11 @@ class Itinerary extends CI_Controller {
             if(!$id_favorite) {
                 $id_favorite = $this->favorites_model->add_favorites($_POST['departure'], $_POST['arrival']);
             }
+            /*
             $query_add_user_favorite = $this->favorites_model->add_user_favorite($id_user, $id_favorite);
-            if($query_add_user_favorite) {
-                return true;
-            } else {
-                return "Error";
-            }
+            echo "error";
+            */
+            $this->favorites_model->add_user_favorite($id_user, $id_favorite);
         } else {
             // user has already fav
             return true;
@@ -87,6 +119,7 @@ class Itinerary extends CI_Controller {
        } else {
            echo "error";
        }
+
     }
 
     /**
@@ -98,7 +131,8 @@ class Itinerary extends CI_Controller {
 
         $data = [
             "header_nav_meta_data" => $this->header_nav,
-            "meta_data" => $this->meta_data
+            "meta_data" => $this->meta_data,
+            "scripts_to_load" => ["notification"]
         ];
 
         $departure = $this->input->post("departure_city");
@@ -118,7 +152,6 @@ class Itinerary extends CI_Controller {
         if($this->meta_data['connected']) {
             $this->favorites = $this->favorites_model->get_user_favorite($this->session->userdata['email']);
         }
-
 
         $search_result = [
             "api" => $this->result,
