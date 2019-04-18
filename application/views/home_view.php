@@ -20,7 +20,7 @@
           <img class="home_style_flexbox_title_img" src="<?= base_url(); ?>public/img/mtlaga_home_clock.png" alt="">
         </div>
       </div>
-        <form method="post" action="<?= base_url();?>Itinerary">
+        <form method="post" action="<?= base_url();?>itinerary">
             <div id="home_style_flexbox_container" class="flex_container">
                 <div class="flex_container home_style_flexbox_fields_box" >
                     <select class="home_style_flexbox_fields js-data-example-ajax typeahead typeahead-departure" name="departure_city" data-placeholder="Ville de départ" >
