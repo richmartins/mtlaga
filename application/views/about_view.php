@@ -9,7 +9,7 @@
             Etant très passionné par l'informatique. Nous nous sommes donné à coeur joie pour mener à bien ce projet. De plus étant nous même étant utilisateur des applications déjà créer en suisse pour consultation d'horaire. Nous n'appreciant pas le fait de devoir passer par plusieurs pour trouver l'information que nous cherchons.
           </p>
           <div id="info_style_sign">
-              <p> Notre equipe</p>
+              <p> Notre équipe</p>
           </div><br /><br />
           <div class="info_flex_container">
             <div class="info_style_card">

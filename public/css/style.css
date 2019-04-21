@@ -710,6 +710,8 @@ footer {
   text-align: center;
   border-right: 2px solid #b9b7b7;
   padding-right: 20px;
+  /* en test */
+  width: 40%;
 }
 
 .itineraire_flex_container_travel_line {
@@ -754,7 +756,8 @@ footer {
 }
 
 .itineraire_flex_container_travel_more {
-  width: 10%;
+  /*width: 10%;*/
+  width: 20%;
   justify-content: center;
 }
 
@@ -876,6 +879,11 @@ footer {
   padding-left: 5px;
 }
 
+.itineraire_flex_container_travel_action_outils_icon a {
+  text-decoration: none;
+  color: black;
+}
+
 .itineraire_flex_container_travel_action_outils ul {
   padding: 0;
   margin-top: 8px;
@@ -887,7 +895,8 @@ footer {
   padding-bottom: 5px;
 }
 
-.itineraire_flex_container_travel_action_outils ul li:hover {
+.itineraire_flex_container_travel_action_outils ul li:hover,
+.itineraire_flex_container_travel_action_outils ul li a:hover {
   color: red;
   cursor: pointer;
 }
@@ -994,6 +1003,51 @@ footer {
     transform:rotate(45deg);
 }
 
+.itineraire_header_action {
+  width: 100%;
+  padding: 10px
+}
+
+.itineraire_header_action_search {
+  width: 50%
+}
+
+.itineraire_header_action_search p {
+  margin: 0;
+}
+
+.itineraire_header_action_favorite {
+  width: 50%;
+  text-align: right
+}
+
+.itineraire_header_action_hover:hover {
+  padding: 3px;
+  border-radius: 7px;
+  background-color: #d3d3d35c;
+  cursor: pointer;
+}
+
+.itineraire_header_action_favorite p {
+  margin: 0;
+  text-align: right;
+  width: 100%;
+}
+
+.itineraire_header_action_favorite_icon {
+  padding-top: 3px;
+  padding-left: 5px;
+}
+
+.itineraire_header_action_search_icon {
+  padding-top: 3px;
+  padding-right: 5px;
+}
+
+.itineraire_header_action_search a {
+  text-decoration: none;
+  color: black;
+}
 
 .home_style_flexbox_sub_text_scroll_container {
   display: flex;
@@ -1066,6 +1120,10 @@ footer {
   #home_container {
     width: 840px;
   }
+
+  #info_sytle_bck {
+    width: 840px;
+  }
 }
 
 /* RESPONSIVE */
@@ -1076,8 +1134,8 @@ footer {
   }
 
   #home_style_flexbox {
-    flex-wrap: wrap;
     height: 350px;
+    flex-wrap: wrap;
   }
 
   #home_container {
@@ -1095,15 +1153,27 @@ footer {
   #footer_image {
     display: none;
   }
+
+  #info_sytle_bck {
+    width: 98%;
+  }
+
+  #home_style_flexbox_map_container {
+    margin-top: 50px;
+  }
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 660px) {
   #footer_text_contact {
     width: 50%
   }
 
   #footer_text {
     margin: 0 auto;
+  }
+
+  #home_style_flexbox_map_container {
+    margin-top: 420px;
   }
 }
 .info_flex_container{
