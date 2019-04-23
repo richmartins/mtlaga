@@ -48,9 +48,6 @@
 
           <!-- Action Bar -->
           <div id="header_style_actions" class="flex_container header_style_items">
-            <div class="flex_container">
-              <input id="header_style_menu_search" type="search" placeholder="Recherche">
-            </div>
              <?php
              if($meta_data['connected']) {
                  ?>

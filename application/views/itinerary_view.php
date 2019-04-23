@@ -12,9 +12,60 @@ $connected = false;
 if($this->meta_data['connected'] == 1) {
     $connected = true;
 }
+
+$is_favorite = false;
+$journey = [
+    "departure" => $api->from->name,
+    "arrival" => $api->to->name
+];
+
+// check if journey is favorite
+foreach ($favorites as $favorite) {
+    //if(array)
+    $favorite = [
+        "departure" => $favorite->departure,
+        "arrival" => $favorite->arrival
+    ];
+    if(empty(array_diff($journey, $favorite))) {
+        $is_favorite = true;
+    }
+}
 ?>
 
 <div id="home_container">
+
+    <!-- Action block -->
+    <div style="background-color: white; box-shadow: 0 2px 6px rgba(0,0,0,.2); margin-bottom: 20px" class="flex_container">
+        <div class="flex_container itineraire_header_action" >
+            <div class="flex_container itineraire_header_action_search" >
+                <i class="fas fa-arrow-left itineraire_header_action_search_icon"></i>
+                <p>
+                    <span >
+                        <a class="itineraire_header_action_hover" href="<?= base_url();?>">Nouvelle recherche</a>
+                    </span>
+                </p>
+            </div>
+            <?php
+            if($is_favorite) {
+                ?>
+                <div class="flex_container itineraire_header_action_favorite" >
+                    <p><span id="itineraire_toggle_fav" class="itineraire_header_action_hover">Supprimer cette relation des favoris</span></p>
+                    <i class="fas fa-star itineraire_header_action_favorite_icon" style="color: gold" ></i>
+                </div>
+            <?php
+            } else {
+                ?>
+                <div class="flex_container itineraire_header_action_favorite" >
+                    <p><span id="itineraire_toggle_fav" class="itineraire_header_action_hover">Ajouter cette relation aux favoris</span></p>
+                    <i class="fas fa-star itineraire_header_action_favorite_icon" ></i>
+                </div>
+            <?php
+            }
+            ?>
+
+        </div>
+    </div>
+
   <div>
     <div class="flex_container" id="itineraire_flex_header_title" >
       <div id="itineraire_flex_Header_direction">
@@ -101,6 +152,7 @@ if($this->meta_data['connected'] == 1) {
               <!-- Details trajet -->
               <div class="itineraire_flex_container_travel_panel flex_container">
                   <?php
+                  $section_loop = 0;
                   foreach ($connection->sections as $section_key => $section) {
                       // Heures départ/arrivée de la section
                       $departure_time_section = date('H:i', $section->departure->departureTimestamp);
@@ -129,6 +181,8 @@ if($this->meta_data['connected'] == 1) {
                           $section_transport_direction = $section->journey->to;
                           $train_departure_platform = "";
                           $train_arrival_platform = "";
+
+                          $section_loop += 1;
 
                           // Quai de départ
                           if (!empty($section->departure->platform)) {
@@ -163,24 +217,6 @@ if($this->meta_data['connected'] == 1) {
                               $section_transport_number = $section->journey->name;
                           } else if ($section->journey->category == "M") {
                               $section_transport_number = $section->journey->number;
-                          }
-
-                          $is_favorite = false;
-                          $journey = [
-                              "departure" => $departure_station_section,
-                              "arrival" => $arrival_station_section
-                          ];
-
-                          foreach ($favorites as $favorite) {
-                              //if(array)
-                              $favorite = [
-                                  "departurea" => $favorite->departure,
-                                  "arrival" => $favorite->arrival
-                              ];
-                              if(empty(array_diff($journey, $favorite))) {
-                                  $is_favorite = true;
-                              }
-
                           }
 
                           ?>
@@ -222,6 +258,10 @@ if($this->meta_data['connected'] == 1) {
                                   </div>
                               </div>
 
+                              <?php
+
+                              if($section_loop == 1) {
+                              ?>
                               <div class="flex_container itineraire_flex_container_travel_action">
                                   <div class="itineraire_flex_container_travel_action_perturbations">
                                       <p><b>Info trafic</b></p>
@@ -232,7 +272,7 @@ if($this->meta_data['connected'] == 1) {
                                   <?php
 
                                   $style = "";
-                                  if(!$connected) {
+                                  if (!$connected) {
                                       $style = "opacity: 0.5; pointer-events: none;";
                                   }
                                   ?>
@@ -240,24 +280,12 @@ if($this->meta_data['connected'] == 1) {
                                       <p><b>Cette relation</b></p>
                                       <ul>
                                           <div class="flex_container itineraire_flex_container_travel_action_outils_icon icon_toggle_favorite">
-                                              <?php
-                                              // change design cause favorite
-                                              if ($is_favorite) {
-                                                  ?>
-                                                  <li>Supprimer des favoris</li>
-                                                  <i class="fas fa-star" style="color: gold"></i>
-                                                  <?php
-                                              } else {
-                                                  ?>
-                                                  <li>Ajouter aux favoris</li>
-                                                  <i class="fas fa-star"></i>
-                                                  <?php
-                                              }
-                                              ?>
                                               <i class="fas fa-long-arrow-alt-right animated fadeInLeft"
                                                  style="display: none; padding-right: 5px"></i>
-                                              <input type="hidden" data-journey="<?= $departure_station_section ?>" value="<?= $departure_station_section ?>">
-                                              <input type="hidden" data-journey="<?= $arrival_station_section ?>" value="<?= $arrival_station_section ?>">
+                                              <input type="hidden" data-journey="<?= $departure_station_section ?>"
+                                                     value="<?= $departure_station_section ?>">
+                                              <input type="hidden" data-journey="<?= $arrival_station_section ?>"
+                                                     value="<?= $arrival_station_section ?>">
                                           </div>
                                           <div class="flex_container itineraire_flex_container_travel_action_outils_icon icon_show_map">
                                               <li> Afficher sur la carte</li>
@@ -271,9 +299,27 @@ if($this->meta_data['connected'] == 1) {
                                               <i class="fas fa-long-arrow-alt-right animated fadeInLeft"
                                                  style="display: none; padding-right: 5px"></i>
                                           </div>
-                                      </ul>
+                                          <div class="flex_container itineraire_flex_container_travel_action_outils_icon">
+                                              <?php
+                                              if (is_null($train_departure_platform)) {
+                                                  $train_arrival_platform = "";
+                                              }
+                                              $arrival_platform = ", Voie " . end($connection->sections)->arrival->platform;
+                                              if(is_null(end($connection->sections)->arrival->platform)) {
+                                                  $arrival_platform = "";
+                                              }
+                                              ?>
+                                              <li><a href="mailto:?subject=Voyage%20de%20<?= $api->from->name ?>%20%C3%A0%20<?= $api->to->name ?>&amp;body=D%C3%A9tails%20de%20votre%20voyage%20du%20<?= date('d.m.Y', strtotime($date)) ?>%20%3A%20%0A%0AD%C3%A9part%20%3A%20<?= $departure_time_section ?>%20de%20<?= $api->from->name ?>%20<?= $train_departure_platform ?>%20%0AArriv%C3%A9e%20%3A%20<?= date('H:i', $connection->to->arrivalTimestamp) ?>%A0%20%C3%A0%20<?= $api->to->name ?>%20<?= $arrival_platform ?>%0A%0APour%20plus%20de%20d%C3%A9tails%20%3A%20http://www.mtlaga.ch">Envoyer par mail</a></li>
+                                              <i class="fas fa-envelope"></i>
+                                              <i class="fas fa-long-arrow-alt-right animated fadeInLeft" style="display: none; padding-right: 5px"></i>
+                                              </div>
+                                          </ul>
+                                      </div>
                                   </div>
-                              </div>
+                                  <?php
+                              }
+                                  ?>
+
                           </div>
 
                           <?php
@@ -323,9 +369,9 @@ if($this->meta_data['connected'] == 1) {
         /**
          * Toggle favorite to user
          */
-        $(".icon_toggle_favorite").click(function(){
-            var departure_city = $(this).children().eq(3).val()
-            var arrival_city = $(this).children().eq(4).val()
+        $("#itineraire_toggle_fav").click(function(){
+            var departure_city = $('input[name=departure_city]').val()
+            var arrival_city = $('input[name=arrival_city]').val()
             var current = $(this)
 
             $.ajax(
@@ -343,14 +389,7 @@ if($this->meta_data['connected'] == 1) {
                             case "remove-success":
                                 notif_text = "Le favori a bien été supprimé"
                                 notif_state = "success"
-                                current.children().eq(1).css("color", "black");
-
-
-                                $('input[data-journey]').each(function(){
-                                })
-
-                                console.log("OK");
-
+                                current.parent().next().css('color', 'black')
                                 break;
                             case "remove-error":
                                 notif_text = "Erreur lors de la suppression du favori"
@@ -359,7 +398,7 @@ if($this->meta_data['connected'] == 1) {
                             case "add-success":
                                 notif_text = "Le favori a bien été ajouté"
                                 notif_state = "success"
-                                current.children().eq(1).css("color", "gold");
+                                current.parent().next().css('color', 'gold')
                                 break;
                             case "add-error":
                                 notif_text = "Erreur lors de l'ajout du favori"
