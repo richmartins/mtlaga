@@ -189,18 +189,22 @@ class Auth extends CI_Controller {
 
     //step 2
     public function newpassword(){
-      $this->meta_data['title'] = 'réinitialiser mot de passe | MTLAGA';
-      $this->meta_data['active'] = 'Home';
+      if($this->session->flashdata('token') !== null){
+        $this->meta_data['title'] = 'réinitialiser mot de passe | MTLAGA';
+        $this->meta_data['active'] = 'Home';
 
-      $data = [
-        'header_nav_meta_data' => $this->header_nav,
-        'meta_data' => $this->meta_data
-      ];
+        $data = [
+          'header_nav_meta_data' => $this->header_nav,
+          'meta_data' => $this->meta_data
+        ];
 
-      $this->load->view('templates/head', $data);
-      $this->load->view('templates/header', $data);
-      $this->load->view('resetpwd_step_two_view', $data);
-      $this->load->view('templates/footer');
+        $this->load->view('templates/head', $data);
+        $this->load->view('templates/header', $data);
+        $this->load->view('resetpwd_step_two_view', $data);
+        $this->load->view('templates/footer');
+      } else {
+        show_404();
+      }
     }
 
 
