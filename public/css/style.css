@@ -1219,7 +1219,7 @@ footer {
 }
 
 .home_text_rss_title {
-  font-weight: bold;
+  font-weight: bolder;
   font-size: 1.2em ;
 }
 
@@ -1228,12 +1228,6 @@ footer {
   padding: .2em;
   box-shadow: 0 2px 6px rgba(0,0,0,.2);
   border-radius: .7em;
-  margin-bottom: .4em;
+  margin-bottom: .3em;
 
 }
-
-/* .home_text_rss {
-  padding: .2em;
-  background-color: #B3B3B3;
-  border-radius: .7em;
-} */

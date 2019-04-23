@@ -1,3 +1,5 @@
+<?= defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+
 <div class="auth_flex_container">
   <?php  if (null !== $this->session->flashdata('error')): ?>
       <p class="auth_error"><?= $this->session->flashdata('error') ?></p>

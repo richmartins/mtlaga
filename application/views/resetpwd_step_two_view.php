@@ -1,3 +1,5 @@
+<?= defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+
 <div class="form_style_bck" class="">
   <p>réinitialiser votre mot de passe</p>
   <form method="post" action="<?php echo site_url('auth/change_db_pwd'); ?>">
