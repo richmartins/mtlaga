@@ -62,8 +62,10 @@
                 <p style="text-align: center">Aucun dérangement à signaler</p>
               <?php else: ?>
                 <?php foreach ($meta_data['rss'] as $k => $v): ?>
-                  <p class="home_text_rss_title"><?= $k ?></p>
-                  <p><?= $v ?></p>
+                  <div class="home_text_rss_container">
+                    <span class="home_text_rss_title"><?= $k ?></span><br>
+                    <span class="home_text_rss_description"><?= $v ?></span>
+                  </div>
                 <?php endforeach; ?>
               <?php endif; ?>
             </div>
