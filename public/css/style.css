@@ -250,8 +250,7 @@ header {
   font-size: 28px;
   width: 25%;
   height: auto;
-  margin: 0 auto;
-  margin-top: 150px !important;
+  margin: 1.7em auto auto auto;
   background-color: #EBEBEB;
   border-radius: 25px;
 }
@@ -1208,4 +1207,13 @@ footer {
 #info_style_realisation > div > ul > li > a:hover {
   color: #303030;
   font-weight: bold;
+}
+
+.auth_flex_container {
+  display: flex;
+  justify-content: center;
+}
+
+.auth_error {
+  color: red;
 }

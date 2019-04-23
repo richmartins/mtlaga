@@ -18,7 +18,6 @@ class Users_model extends CI_Model {
       $query = $this->db->get()->result();
 
       return $query[0]->id_user;
-
     }
 
     public function update_password($email, $new_password){

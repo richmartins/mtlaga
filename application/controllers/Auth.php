@@ -42,11 +42,11 @@ class Auth extends CI_Controller {
           if ($res_mail){
             $info = 'Veuillez consulter votre adresse mail pour réinitialiser votre mot de passe';
             $this->session->set_flashdata('info', $info);
-            // redirect('auth/login');
+            redirect('auth/login');
           } else{
             $error = 'Une erreur c\'est produite, veuillez recommencer ou contacter l\'équipe MTLAGA';
             $this->session->set_flashdata('error', $error);
-            // redirect('auth/reset');
+            redirect('auth/reset');
           }
         }else{
           $error = 'Cette adresse mail n\'existe pas !';
@@ -126,7 +126,7 @@ class Auth extends CI_Controller {
       if($this->users_model->check_token_confirm($token, $email)){
         $res = $this->users_model->confirmed($email);
         if($res){
-          $info = 'Votre compte à été confirmer avec succès !';
+          $info = 'Votre compte a été confirmer avec succès !';
           $this->session->set_flashdata('info', $info);
           redirect('auth/login');
         } else {
