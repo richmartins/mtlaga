@@ -216,23 +216,10 @@ class Auth extends CI_Controller {
         'meta_data' => $this->meta_data
       ];
 
-      $this->form_validation->set_rules('mail', 'E-mail', 'required');
-      $this->form_validation->set_rules('password', 'Mot de passe', 'required',
-              array('required' => 'You must provide a %s.')
-      );
-      $this->form_validation->set_rules('password_confirm', 'Confirmation', 'required');
-
-      if ($this->form_validation->run() == FALSE) {
-        $this->load->view('templates/head', $data);
-        $this->load->view('templates/header', $data);
-        $this->load->view('signup_view', $data);
-        $this->load->view('templates/footer');
-      } else {
-        $this->load->view('templates/head', $data);
-        $this->load->view('templates/header', $data);
-        $this->load->view('login_view', $data);
-        $this->load->view('templates/footer');
-      }
+      $this->load->view('templates/head', $data);
+      $this->load->view('templates/header', $data);
+      $this->load->view('signup_view', $data);
+      $this->load->view('templates/footer');
     }
 
     public function login() {
