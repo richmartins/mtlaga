@@ -34,8 +34,14 @@ and add the fellowing lines in it
 
     sudo systemctl restart apache2
 
-**4.** Install composer dep
+**4.** Install composer depths
+
+    curl -s https://getcomposer.org/installer | php
     
-    composer update
+    sudo mv composer.phar /usr/local/bin/composer
+    
+    composer -v
+
+    composer install
 
 more details will be coming soon
