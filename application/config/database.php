@@ -74,11 +74,10 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
-	'dsn'	=> 'pgsql:host=127.0.0.1;port=3306;dbname=mtlaga',
-	'hostname' => '127.0.0.1',
-	'username' => 'root',
-	'password' => 'ww-Admin-9',
-	'database' => 'mtlaga_db',
+	'hostname' => getenv('DB_HOSTNAME'),
+	'username' => getenv('DB_USER'),
+	'password' => getenv('DB_PWD'),
+	'database' => getenv('DB_NAME'),
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
