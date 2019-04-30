@@ -1,4 +1,5 @@
-<?= defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+
 <div id="info_sytle_bck">
     <div id="info_sytle_bck_border">
         <p>Information</p>
