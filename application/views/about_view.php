@@ -15,7 +15,7 @@
           </div><br /><br />
           <div class="info_flex_container">
             <div class="info_style_card">
-              <img class="info_img_card" src="http://fpoimg.com/200x200?text=Preview"  width="200" height="200"/>
+              <img class="info_img_card" src="<?= base_url(); ?>public/img/avatars/hadry.png"  width="200" height="200"/>
               <div class="info_style_card_content">
                 <h5 class="info_style_card_title">Hadrien Louis</h5>
                 <p class="info_style_card_text">
@@ -28,7 +28,7 @@
               </div>
             </div>
             <div class="info_style_card">
-              <img class="info_img_card" src="http://fpoimg.com/200x200?text=Preview"  width="200" height="200"/>
+              <img class="info_img_card" src="<?= base_url(); ?>public/img/avatars/rich.png"  width="200" height="200"/>
               <div class="info_style_card_content">
                 <h5 class="info_style_card_title">Richard V. Martins Tenorio</h5>
                 <p class="info_style_card_text">
@@ -41,7 +41,7 @@
               </div>
             </div>
             <div class="info_style_card">
-              <img class="info_img_card" src="http://fpoimg.com/200x200?text=Preview"  width="200" height="200"/>
+              <img class="info_img_card" src="<?= base_url(); ?>public/img/avatars/stoll.png"  width="200" height="200"/>
               <div class="info_style_card_content">
                 <h5 class="info_style_card_title">Alexandre Stoll</h5>
                 <p class="info_style_card_text">
