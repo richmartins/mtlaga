@@ -1159,6 +1159,10 @@ footer {
     flex-wrap: wrap;
   }
 
+  .form_style_bck {
+    width: 80%;
+  }
+
   .itineraire_flex_container_travel_now {
     width: 90%;
     border: none;
