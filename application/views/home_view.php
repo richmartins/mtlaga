@@ -146,35 +146,35 @@
     map.addControl(new mapboxgl.NavigationControl());
 
     // Mapbox draw line
-    map.on('load', function () {
-        map.addLayer({
-            "id": "route",
-            "type": "line",
-            "source": {
-                "type": "geojson",
-                "data": {
-                    "type": "Feature",
-                    "properties": {},
-                    "geometry": {
-                        "type": "LineString",
-                        "coordinates": [
-                            [6.631553682295134, 46.52056592321506],
-                            [6.8422812934361446, 46.4613733860472],
-                            [6.912896906372225, 46.43019320379772]
-                        ]
-                    }
-                }
-            },
-            "layout": {
-                "line-join": "round",
-                "line-cap": "round"
-            },
-            "paint": {
-                "line-color": "#f74242",
-                "line-width": 3
-            }
-        });
-    });
+    // map.on('load', function () {
+    //     map.addLayer({
+    //         "id": "route",
+    //         "type": "line",
+    //         "source": {
+    //             "type": "geojson",
+    //             "data": {
+    //                 "type": "Feature",
+    //                 "properties": {},
+    //                 "geometry": {
+    //                     "type": "LineString",
+    //                     "coordinates": [
+    //                         [6.631553682295134, 46.52056592321506],
+    //                         [6.8422812934361446, 46.4613733860472],
+    //                         [6.912896906372225, 46.43019320379772]
+    //                     ]
+    //                 }
+    //             }
+    //         },
+    //         "layout": {
+    //             "line-join": "round",
+    //             "line-cap": "round"
+    //         },
+    //         "paint": {
+    //             "line-color": "#f74242",
+    //             "line-width": 3
+    //         }
+    //     });
+    // });
 
     $( document ).ready(function() {
 
