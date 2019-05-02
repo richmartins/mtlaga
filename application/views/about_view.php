@@ -5,13 +5,10 @@
         <p>Information</p>
         <div id="info_style_container">
           <p>
-            MTLAGA est un projet informatique developpé en vue de la validation des modules <b>ICT 120/151</b> de la formation d'informaticien-ne-s CFC. Notre but principal est d'améliorer l'applicatons de consultation d'horaire fournis par les transports lausannois. Car nous même vivons à Lausanne, nous savons l'importance qu'est de pouvoir consulter les horaires des transports publique afin de mieux s'organiser. Nous sommes mis comme objectif la <b>simplicité</b>, pour nous il faut absolument trouver l'information que l'on cherche le plus rapidement possible.
-            <br />
-            <br />
-            Etant très passionné par l'informatique. Nous nous sommes donné à coeur joie pour mener à bien ce projet. De plus étant nous même étant utilisateur des applications déjà créer en suisse pour consultation d'horaire pour transport public. Nous n'appreciant pas le fait de devoir passer par plusieurs pour trouver l'information que nous cherchons.
+            MTLAGA est un projet informatique developpé en vue de la validation des modules <b>ICT 120/151</b> de la formation d'informaticien-ne-s CFC. Notre but principal est de créer une plateforme indépendante qui regroupe tous les horaires des transports publics <b>Suisse</b>. Vivant à Lausanne, nous savons l'importance qu'est de pouvoir consulter les horaires en tout temps afin de mieux s'organiser. Nous nous sommes mis comme objectif la <b>simplicité</b>. Pour nous, il est primordial de trouver l'information que l'on recherche le plus rapidement possible.
           </p>
-          <div id="info_style_sign">
-              <p> Notre équipe</p>
+          <div class="info_style_sign">
+              <h4> Notre équipe</h4>
           </div><br /><br />
           <div class="info_flex_container">
             <div class="info_style_card">
@@ -23,7 +20,7 @@
                 </p>
                 <p class="info_style_card_text">
                   <a href="https://github.com/hadrylouis"><i class="fab fa-github"></i></a>
-                  <i class="fas fa-envelope"></i>
+                  <a href="mailto:hadry@protonmail.com?subject=MTLAGA"><i class="fas fa-envelope"></i></a>
                 </p>
               </div>
             </div>
@@ -51,11 +48,11 @@
             </div>
           </div>
           <div class="info_style_sign">
-              <p>Réalisation</p>
+              <h4>Réalisation</h4>
           </div><br /><br />
           <div id="info_style_realisation">
             <p>
-              Nous sommes fière de vous partager les outils utiliser pour la conecption de ce site !
+              Nous sommes fièrs de vous partager les outils utilisés pour la conecption de ce site:
             </p>
             <div>
               <ul>

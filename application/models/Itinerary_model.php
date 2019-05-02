@@ -20,7 +20,7 @@ class Itinerary_model extends CI_Model {
         "time" => $time
       ];
 
-      $url = "http://transport.opendata.ch/v1/connections?" . http_build_query($params);
+      $url = "https://transport.opendata.ch/v1/connections?" . http_build_query($params);
 
       $options= [
             CURLOPT_URL => $url,

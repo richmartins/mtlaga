@@ -190,7 +190,7 @@
         $.fn.select2.defaults.set('language', 'fr');
         $('.typeahead').select2({
             ajax: {
-                url: "http://transport.opendata.ch/v1/locations?",
+                url: "https://transport.opendata.ch/v1/locations?",
                 dataType: 'json',
                 delay: 250,
                 language: "fr",

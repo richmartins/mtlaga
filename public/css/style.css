@@ -569,10 +569,11 @@ footer {
   width: 30%;
 }
 
-.info_style_sign p {
-  font-size: 22px;
+.info_style_sign h4 {
+  font-size: 1.4em;
   color: #0083B3;
   font-weight: bold;
+  margin: inherit;
 }
 
 
