@@ -6,3 +6,4 @@ user_guide/
 .env.prod
 composer.lock
 vendor/
+.htaccess
