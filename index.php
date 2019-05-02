@@ -316,7 +316,7 @@ switch (ENVIRONMENT)
  */
  require_once BASEPATH . 'dotenv/autoloader.php';
 
- $dotenv = new Dotenv\Dotenv(__DIR__);
+ $dotenv = new Dotenv\Dotenv(__DIR__, '.env.prod');
  $dotenv->load();
 
  /*
