@@ -1,5 +1,9 @@
 <header>
-  <div id="header_style">
+  <div class="header_beta">
+    <i class="fas fa-exclamation-triangle"></i>
+    <span>Ce site est actuellement en version Beta.</span>
+  </div>
+  <div id="header_style" style="top: 40px">
 
       <!--  notif bar -->
       <div id="header_notif_load" class="header_notif animated fadeInDown">

@@ -11,8 +11,21 @@ body, html {
 }
 
 header {
-  margin-bottom: 70px;
+  margin-bottom: 30px;
+  height: 100px;
 }
+
+.header_beta {
+  width: 100%;
+  height: 40px;
+  position: fixed;
+  background-color: #D7072D;
+  color: white;
+  text-align: center;
+  z-index: 10;
+  padding-top: 7px;
+}
+
 
 #header_style {
   height: 60px;
@@ -399,7 +412,6 @@ footer {
   height: auto;
   width: 60%;
   margin: 0 auto;
-  margin-top: 100px;
 }
 
 #home_style_flexbox {
