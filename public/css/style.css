@@ -1153,6 +1153,37 @@ footer {
   }
 }
 
+@media screen and (max-width: 750px) {
+  .itineraire_flex_container_travel_container {
+    flex-wrap: wrap;
+  }
+
+  .itineraire_flex_container_travel_now {
+    width: 90%;
+    border: none;
+  }
+
+  .itineraire_flex_container_travel_more {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    position: absolute;
+    left: 86%;
+    width: 10%;
+  }
+
+  .itineraire_flex_container_travel_line {
+    width: 70%;
+  }
+
+  .dot_end {
+    left: 48%;
+  }
+
+  .dot_start {
+    right: 48%;
+  }
+}
+
 @media screen and (max-width: 660px) {
   #footer_text_contact {
     width: 50%
