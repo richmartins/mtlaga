@@ -49,14 +49,14 @@ foreach ($favorites as $favorite) {
             if($is_favorite) {
                 ?>
                 <div class="flex_container itineraire_header_action_favorite" >
-                    <p><span id="itineraire_toggle_fav" class="itineraire_header_action_hover">Supprimer cette relation des favoris</span></p>
+                    <p><span id="itineraire_toggle_fav" class="itineraire_header_action_hover">Supprimer ce trajet des favoris</span></p>
                     <i class="fas fa-star itineraire_header_action_favorite_icon" style="color: gold" ></i>
                 </div>
             <?php
             } else {
                 ?>
                 <div class="flex_container itineraire_header_action_favorite" >
-                    <p><span id="itineraire_toggle_fav" class="itineraire_header_action_hover">Ajouter cette relation aux favoris</span></p>
+                    <p><span id="itineraire_toggle_fav" class="itineraire_header_action_hover">Ajouter ce trajet aux favoris</span></p>
                     <i class="fas fa-star itineraire_header_action_favorite_icon" ></i>
                 </div>
             <?php
@@ -134,11 +134,13 @@ foreach ($favorites as $favorite) {
                                   <div><p><b><?= $train_arrival_city ?></b></p></div>
                               </div>
                           </div>
-                          <div class="flex_container itineraire_flex_container_travel_time">
-                              <p><?= $train_traject_length ?></p>
-                          </div>
-                          <div class="flex_container itineraire_flex_container_travel_change">
-                              <p><?= $train_change ?></p>
+                          <div style="display: flex; width: 100%; padding-top: 7px; padding-bottom: 7px;">
+                              <div class="flex_container itineraire_flex_container_travel_time" style="width: 50%">
+                                  <p><?= $train_traject_length ?></p>
+                              </div>
+                              <div class="flex_container itineraire_flex_container_travel_change" style="width: 50%">
+                                  <p><?= $train_change ?></p>
+                              </div>
                           </div>
                           <div class="flex_container itineraire_flex_container_travel_more">
                               <a>
@@ -390,6 +392,7 @@ foreach ($favorites as $favorite) {
                                 notif_text = "Le favori a bien été supprimé"
                                 notif_state = "success"
                                 current.parent().next().css('color', 'black')
+                                current.text("Ajouter ce trajet aux favoris")
                                 break;
                             case "remove-error":
                                 notif_text = "Erreur lors de la suppression du favori"
@@ -399,6 +402,7 @@ foreach ($favorites as $favorite) {
                                 notif_text = "Le favori a bien été ajouté"
                                 notif_state = "success"
                                 current.parent().next().css('color', 'gold')
+                                current.text("Supprimer ce trajet des favoris")
                                 break;
                             case "add-error":
                                 notif_text = "Erreur lors de l'ajout du favori"
