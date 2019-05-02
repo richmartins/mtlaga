@@ -7,8 +7,7 @@ class Auth extends CI_Controller {
 
     public function __construct() {
       parent::__construct();
-      $this->load->helper(array('form', 'url'));
-      $this->load->library('form_validation');
+      $this->load->helper('url');
       $this->load->model('email_model');
 
       $this->header_nav = [
@@ -42,11 +41,11 @@ class Auth extends CI_Controller {
           if ($res_mail){
             $info = 'Veuillez consulter votre adresse mail pour réinitialiser votre mot de passe';
             $this->session->set_flashdata('info', $info);
-            // redirect('auth/login');
+            redirect('auth/login');
           } else{
             $error = 'Une erreur c\'est produite, veuillez recommencer ou contacter l\'équipe MTLAGA';
             $this->session->set_flashdata('error', $error);
-            // redirect('auth/reset');
+            redirect('auth/reset');
           }
         }else{
           $error = 'Cette adresse mail n\'existe pas !';
@@ -126,7 +125,7 @@ class Auth extends CI_Controller {
       if($this->users_model->check_token_confirm($token, $email)){
         $res = $this->users_model->confirmed($email);
         if($res){
-          $info = 'Votre compte à été confirmer avec succès !';
+          $info = 'Votre compte a été confirmer avec succès !';
           $this->session->set_flashdata('info', $info);
           redirect('auth/login');
         } else {
@@ -189,18 +188,22 @@ class Auth extends CI_Controller {
 
     //step 2
     public function newpassword(){
-      $this->meta_data['title'] = 'réinitialiser mot de passe | MTLAGA';
-      $this->meta_data['active'] = 'Home';
+      if($this->session->flashdata('token') !== null){
+        $this->meta_data['title'] = 'réinitialiser mot de passe | MTLAGA';
+        $this->meta_data['active'] = 'Home';
 
-      $data = [
-        'header_nav_meta_data' => $this->header_nav,
-        'meta_data' => $this->meta_data
-      ];
+        $data = [
+          'header_nav_meta_data' => $this->header_nav,
+          'meta_data' => $this->meta_data
+        ];
 
-      $this->load->view('templates/head', $data);
-      $this->load->view('templates/header', $data);
-      $this->load->view('resetpwd_step_two_view', $data);
-      $this->load->view('templates/footer');
+        $this->load->view('templates/head', $data);
+        $this->load->view('templates/header', $data);
+        $this->load->view('resetpwd_step_two_view', $data);
+        $this->load->view('templates/footer');
+      } else {
+        show_404();
+      }
     }
 
 
@@ -213,23 +216,10 @@ class Auth extends CI_Controller {
         'meta_data' => $this->meta_data
       ];
 
-      $this->form_validation->set_rules('mail', 'E-mail', 'required');
-      $this->form_validation->set_rules('password', 'Mot de passe', 'required',
-              array('required' => 'You must provide a %s.')
-      );
-      $this->form_validation->set_rules('password_confirm', 'Confirmation', 'required');
-
-      if ($this->form_validation->run() == FALSE) {
-        $this->load->view('templates/head', $data);
-        $this->load->view('templates/header', $data);
-        $this->load->view('signup_view', $data);
-        $this->load->view('templates/footer');
-      } else {
-        $this->load->view('templates/head', $data);
-        $this->load->view('templates/header', $data);
-        $this->load->view('login_view', $data);
-        $this->load->view('templates/footer');
-      }
+      $this->load->view('templates/head', $data);
+      $this->load->view('templates/header', $data);
+      $this->load->view('signup_view', $data);
+      $this->load->view('templates/footer');
     }
 
     public function login() {

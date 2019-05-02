@@ -26,7 +26,7 @@
           <img class="home_style_flexbox_title_img" src="<?= base_url(); ?>public/img/mtlaga_home_clock.png" alt="">
         </div>
       </div>
-       <form method="post" action="<?=base_url()?>/Itinerary" id="searchItineraryForm">
+       <form method="post" action="<?=base_url()?>itinerary/" id="searchItineraryForm">
             <div id="home_style_flexbox_container" class="flex_container">
                 <div class="flex_container home_style_flexbox_fields_box" >
                     <select class="home_style_flexbox_fields js-data-example-ajax typeahead typeahead-departure" name="departure_city" data-placeholder="Ville de départ" >
@@ -57,13 +57,15 @@
         </div>
         <?php if ($meta_data['connected']): ?>
           <div class="flex_container home_style_flexbox_sub_text" >
-            <div class="home_text_rss">
+            <div class="home_style_flexbox_sub_text_scroll">
               <?php if (empty($meta_data['rss'])): ?>
                 <p style="text-align: center">Aucun dérangement à signaler</p>
               <?php else: ?>
                 <?php foreach ($meta_data['rss'] as $k => $v): ?>
-                  <p class="home_text_rss_title"><?= $k ?></p>
-                  <p><?= $v ?></p>
+                  <div class="home_text_rss_container">
+                    <span class="home_text_rss_title"><?= $k ?></span><br>
+                    <span class="home_text_rss_description"><?= $v ?></span>
+                  </div>
                 <?php endforeach; ?>
               <?php endif; ?>
             </div>

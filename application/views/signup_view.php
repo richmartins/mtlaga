@@ -1,6 +1,13 @@
-<?php  if (null !== $this->session->flashdata('error')): ?>
-    <p class="error"><?= $this->session->flashdata('error') ?></p>
-<?php endif;?>
+<?= defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+
+<div class="auth_flex_container">
+  <?php  if (null !== $this->session->flashdata('error')): ?>
+      <p class="auth_error"><?= $this->session->flashdata('error') ?></p>
+  <?php endif;?>
+  <?php  if (null !== $this->session->flashdata('info')): ?>
+      <p class="aut_info"><?= $this->session->flashdata('info') ?></p>
+  <?php endif;?>
+</div>
 <div class="form_style_bck" >
   <p>S'inscrire</p>
   <form method="post" action="<?= site_url('auth/signup_process') ?>" >
