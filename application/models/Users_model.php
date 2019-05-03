@@ -91,4 +91,24 @@ class Users_model extends CI_Model {
         return false;
       }
     }
+
+    public function confirmed_login($email){
+      $this->db->select('confirmed', 'email');
+      $this->db->from('users');
+      $this->db->where('email', $email);
+      $query = $this->db->get();
+      if($query->result()[0]->confirmed == 1){
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    public function get_confirm_token($email){
+      $this->db->select('confirmation_token', 'email');
+      $this->db->from('users');
+      $this->db->where('email', $email);
+      $query = $this->db->get()->result()[0]->confirmation_token;
+      return $query;
+    }
 }

@@ -1,19 +1,18 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Email_model extends CI_Model {
   public function __construct(){
      parent::__construct();
-     $this->load->library('email');
-     $config = array(
-        'protocol'    => 'smtp',
-          'smtp_host' => 'mail.infomaniak.com',
-        'smtp_port'   => 587,
-        'smtp_user'   => 'no-reply@mtlaga.ch',
-        'smtp_pass' => getenv('NO-REPLY_PWD'),
-        'mailtype'    => 'text',
-        'charset'     => 'utf-8'
-      );
+      $ci = get_instance();
+      $ci->load->library('email');
+      $config['protocol']  = "smtp";
+      $config['smtp_host'] = "mail.infomaniak.com";
+      $config['smtp_port'] = "587";
+      $config['smtp_user'] = "no-reply@mtlaga.ch";
+      $config['smtp_pass'] = getenv('NO-REPLY_PWD');
+      $config['charset']   = "utf-8";
+      $config['mailtype']  = "html";
+      $this->load->library('email');
       $this->email->initialize($config);
       $this->email->set_mailtype("html");
 
@@ -33,6 +32,7 @@ class Email_model extends CI_Model {
      $this->email->subject($subject);
      $this->email->message($message);
      $res = $this->email->send();
+     var_dump($res);
      if($res) { return true; } else { return false; }
    }
 
