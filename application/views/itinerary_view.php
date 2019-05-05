@@ -31,9 +31,23 @@ foreach ($favorites as $favorite) {
     }
 }
 ?>
+<!-- map modal -->
+<div id="map" style="
+    position: fixed;
+    height: 400px;
+    background-color: white;
+    z-index: 20;
+    border: 2px solid black;
+    overflow: hidden;
+    width: 98%;
+    left: 50%;
+    margin-left: -49.5%;
+    border-radius: 10px;">
+
+
+</div>
 
 <div id="home_container">
-
     <!-- Action block -->
     <div style="background-color: white; box-shadow: 0 2px 6px rgba(0,0,0,.2); margin-bottom: 20px" class="flex_container">
         <div class="flex_container itineraire_header_action" >
@@ -290,16 +304,18 @@ foreach ($favorites as $favorite) {
                                                      value="<?= $arrival_station_section ?>">
                                           </div>
                                           <div class="flex_container itineraire_flex_container_travel_action_outils_icon icon_show_map">
-                                              <li> Afficher sur la carte</li>
+                                              <li>Afficher sur la carte</li>
+                                              <input type="hidden" value="<?= $connection_key ?>">
                                               <i class="fas fa-map-marked-alt"></i>
                                               <i class="fas fa-long-arrow-alt-right animated fadeInLeft"
                                                  style="display: none; padding-right: 5px"></i>
                                           </div>
                                           <div class="flex_container itineraire_flex_container_travel_action_outils_icon icon_add_calendar">
-                                              <li> Ajouter au calendrier</li>
+                                              <li><a href="<?= base_url()?>/Itinerary/generate_ics/toto/tata">Ajouter au calendrier</a></li>
                                               <i class="fas fa-calendar-alt"></i>
                                               <i class="fas fa-long-arrow-alt-right animated fadeInLeft"
-                                                 style="display: none; padding-right: 5px"></i>
+                                                 style="display: none; padding-right: 5px">
+                                              </i>
                                           </div>
                                           <div class="flex_container itineraire_flex_container_travel_action_outils_icon">
                                               <?php
@@ -363,10 +379,105 @@ foreach ($favorites as $favorite) {
     </div>
   </div>
 </div>
+<script type="text/javascript">
 
-<script>
+    /**
+     * initialize Mapbox
+     */
+    mapboxgl.accessToken = 'pk.eyJ1IjoiaGFkcnlsb3VpcyIsImEiOiJjanIzYTl2Nzcwc3dqNDNxbXNkeWZuZmZhIn0.XyRFNfYowoHigvnxT6-0fA';
+    const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/hadrylouis/cjrkquskq2t5c2so0ugcc6w25',
+        center: [6.6327025, 46.5218269],
+        zoom: 12.0,
+        scrollZoom      : false,
+        boxZoom         : false,
+        doubleClickZoom : false
+    });
+    map.addControl(new mapboxgl.NavigationControl());
+    map.on('load', function () {
+        map.addLayer({
+            "id": "route",
+            "type": "line",
+            "source": {
+                "type": "geojson",
+                "data": {
+                    "type": "Feature",
+                    "properties": {},
+                    "geometry": {
+                        "type": "LineString",
+                        "coordinates": [
+                            [6.631553682295134, 46.52056592321506],
+                            [6.8422812934361446, 46.4613733860472],
+                            [6.912896906372225, 46.43019320379772]
+                        ]
+                    }
+                }
+            },
+            "layout": {
+                "line-join": "round",
+                "line-cap": "round"
+            },
+            "paint": {
+                "line-color": "#f74242",
+                "line-width": 3
+            }
+        });
+    });
+
     // Ajax request to add journey to user's favourite
     $( document ).ready(function() {
+
+        var api = <?= json_encode($api); ?>
+
+        var lines = []
+        var geojson = []
+
+        $('.icon_show_map').click(function() {
+            // afficher map
+            var index = $(this).children().next().val()
+
+            var sections = api.connections[index].sections
+            sections.forEach(function(v, k) {
+                /*
+                lines[k] = {
+                    'departure' : {
+                        'coordinate' : {
+                            'x' : ,
+                            'y' : v.departure.station.coordinate.y
+                        }
+                    },
+                    'arrival' : {
+                        'coordinate' : {
+                            'x' : v.arrival.station.coordinate.x,
+                            'y' : v.arrival.station.coordinate.y
+                        }
+                    }
+                }
+                */
+                lines.push([v.departure.station.coordinate.y, v.departure.station.coordinate.x])
+
+            })
+
+
+
+
+            var geojson = {
+                "type": "FeatureCollection",
+                "features": [{
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "LineString",
+                        "coordinates": lines
+                    }
+                }]
+            };
+            map.getSource('route').setData(geojson);
+            console.log(lines)
+
+            // sortir relation courante et tous les arrêts
+        });
+
 
         /**
          * Toggle favorite to user
@@ -420,10 +531,5 @@ foreach ($favorites as $favorite) {
                 }
             );
         })
-
-
-
-
     });
-
 </script>
