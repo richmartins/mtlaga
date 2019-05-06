@@ -18,7 +18,11 @@
       </div>
       <div class="form_style_title">
         <p>Mot de passe</p>
-        <input type="password" name="password" class="form_input">
+        <input id="password_input" type="password" name="password" class="form_input">
+        <div class="form_style_signup_password_strengh">
+          <meter id="password-meter" low="4" high="4" min="0" max="10" value="0"></meter>
+          <label class='stat_pass'> </label>
+        </div>
       </div>
       <div class="form_style_title">
         <p>Confirmer le mot de passe</p>
@@ -33,3 +37,44 @@
     </div>
   </form>
 </div>
+<script>
+      $(document).ready(function() {
+        var strong = new RegExp("^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z0-9$@$!%*#?&]{8,}");
+        var medium = new RegExp('^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9]{8,}');
+        var ok = new RegExp("^.{8}");
+        var low = new RegExp("^.{2}");
+
+        $('#password_input').keyup(function() {
+          var value = $(this).val();
+          if(strong.test(value)) {
+            $('#password-meter').show();
+            $('#password-meter').val('10');
+            $('.stat_pass').empty();
+            $('.stat_pass').append('mot de passe fort');
+          } else if (medium.test(value)) {
+            $('#password-meter').show();
+            $('#password-meter').val('7');
+            $('.stat_pass').empty();
+            $('.stat_pass').append('mot de passe moyen');
+          } else if (ok.test(value)) {
+            $('#password-meter').show();
+            $('#password-meter').val('4');
+            $('.stat_pass').empty();
+            $('.stat_pass').append('mot de passe ok');
+          } else if(low.test(value)){
+            $('#password-meter').show();
+            $('#password-meter').val('1.5');
+            $('.stat_pass').empty();
+            $('.stat_pass').append('mot de passe très faible');
+          } else if(value = ''){
+            $('#password-meter').hide();
+            $('#password-meter').val('0');
+            $('.stat_pass').empty();
+          } else {
+            $('#password-meter').hide();
+            $('#password-meter').val('0');
+            $('.stat_pass').empty();
+          }
+        })
+      });
+ </script>

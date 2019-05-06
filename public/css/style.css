@@ -1274,3 +1274,18 @@ footer {
   margin-bottom: .3em;
 
 }
+
+#password-meter {
+  display: none;
+}
+
+label.stat_pass{
+  color: black;
+  font-size: .7em;
+  margin-left: .2em;
+}
+
+.form_style_signup_password_strengh {
+  display: flex;
+  flex-wrap: wrap;
+}
