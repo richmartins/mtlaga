@@ -32,9 +32,10 @@ foreach ($favorites as $favorite) {
 }
 ?>
 <!-- map modal -->
-<div id="map" style="
+<div id="map-container" style="
+    display: none;
     position: fixed;
-    height: 400px;
+    height: 50%;
     background-color: white;
     z-index: 20;
     border: 2px solid black;
@@ -43,7 +44,12 @@ foreach ($favorites as $favorite) {
     left: 50%;
     margin-left: -49.5%;
     border-radius: 10px;">
+    <div style="height: 40px; width: 100%">
 
+    </div>
+    <div id="map" style="height: 100%; width: 100%">
+
+    </div>
 
 </div>
 
@@ -435,6 +441,8 @@ foreach ($favorites as $favorite) {
 
         $('.icon_show_map').click(function() {
             // afficher map
+            $("#map-container").css('display', 'block')
+            $("#home_container")
             var index = $(this).children().next().val()
 
             var sections = api.connections[index].sections
