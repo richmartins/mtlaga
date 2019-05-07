@@ -80,7 +80,6 @@ class Auth extends CI_Controller {
 
     public function signup_process(){
       $email = $this->input->post('mail');
-      $this->session->set_flashdata('email', $email);
       $password = $this->input->post('password');
       $password_confirm = $this->input->post('password_confirm');
       if ($password === $password_confirm){
@@ -100,6 +99,8 @@ class Auth extends CI_Controller {
           $success = $this->users_model->add_user($data);
           if($success == true){
             $this->email_model->sendEmail_confirm($email, $confirm_token);
+            $this->session->set_flashdata('email', $email);
+            // redirect('auth/login');
           }else{
             $error = 'Une erreur c\'est produite, veuillez contacter admin@mtlaga.ch';
             $this->session->set_flashdata('error', $error);
@@ -255,3 +256,4 @@ class Auth extends CI_Controller {
       $this->load->view('templates/footer');
   }
 }
+?>

@@ -3,21 +3,23 @@
 class Email_model extends CI_Model {
   public function __construct(){
      parent::__construct();
-      $ci = get_instance();
-      $ci->load->library('email');
-      $config['protocol']  = "smtp";
-      $config['smtp_host'] = "mail.infomaniak.com";
-      $config['smtp_port'] = "587";
-      $config['smtp_user'] = "no-reply@mtlaga.ch";
-      $config['smtp_pass'] = getenv('NO-REPLY_PWD');
-      $config['charset']   = "utf-8";
-      $config['mailtype']  = "html";
-      // $config['smtp_timeout'] = 30;
-      $this->load->library('email');
-      $this->email->initialize($config);
-      $this->email->set_mailtype("html");
+      $this->load->helper('url');
 
-   }
+      date_default_timezone_set('Europe/Zurich');    // This was to cater for an error given to me earlier
+      $this->config->load('email', TRUE);//load email config file
+      $configuration = $this->config->item('mail', 'email'); //email configuration
+
+      $this->load->library('email');
+      $this->email->initialize($configuration);//initializes email configuration
+
+      // $this->email->from('no-reply@mtlaga.ch', "no-reply");
+      // $this->email->to('richard.tenorio@outlook.com');
+      // $this->email->subject('Test email');
+      // $this->email->message("Testing the email class");
+
+      // var_dump($this->email->send());
+      // $this->email->print_debugger();
+  }
 
    public function sendEmail_confirm($to, $token){
      $from     = 'no-reply@mtlaga.ch';
@@ -32,10 +34,9 @@ class Email_model extends CI_Model {
      $this->email->to($to);
      $this->email->subject($subject);
      $this->email->message($message);
-     echo '<pre>';
-     var_dump($this->email);
-     echo '</pre>';
+     var_dump($this->email->send());
      $res = $this->email->send();
+     $this->email->print_debugger();
      return $res;
    }
 
@@ -56,3 +57,4 @@ class Email_model extends CI_Model {
      return $res;
    }
  }
+?>
