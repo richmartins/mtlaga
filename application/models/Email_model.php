@@ -12,6 +12,7 @@ class Email_model extends CI_Model {
       $config['smtp_pass'] = getenv('NO-REPLY_PWD');
       $config['charset']   = "utf-8";
       $config['mailtype']  = "html";
+      // $config['smtp_timeout'] = 30;
       $this->load->library('email');
       $this->email->initialize($config);
       $this->email->set_mailtype("html");
@@ -31,9 +32,11 @@ class Email_model extends CI_Model {
      $this->email->to($to);
      $this->email->subject($subject);
      $this->email->message($message);
+     echo '<pre>';
+     var_dump($this->email);
+     echo '</pre>';
      $res = $this->email->send();
-     var_dump($res);
-     if($res) { return true; } else { return false; }
+     return $res;
    }
 
    public function sendEmail_reset_pwd($to, $token){
@@ -50,6 +53,6 @@ class Email_model extends CI_Model {
      $this->email->subject($subject);
      $this->email->message($message);
      $res = $this->email->send();
-     if($res) { return true; } else { return false; }
+     return $res;
    }
  }
