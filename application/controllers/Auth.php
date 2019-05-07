@@ -98,8 +98,10 @@ class Auth extends CI_Controller {
           ];
           $success = $this->users_model->add_user($data);
           if($success == true){
+            echo '1';
             $this->email_model->sendEmail_confirm($email, $confirm_token);
             $this->session->set_flashdata('email', $email);
+            echo '2';
             // redirect('auth/login');
           }else{
             $error = 'Une erreur c\'est produite, veuillez contacter admin@mtlaga.ch';
