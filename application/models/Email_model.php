@@ -34,11 +34,9 @@ class Email_model extends CI_Model {
      $this->email->to($to);
      $this->email->subject($subject);
      $this->email->message($message);
-     if (!$this->email->send())
-     {
-     echo $this->email->print_debugger();
-     }
-     // return $res;
+     $this->email->send()
+
+     return $res;
    }
 
    public function sendEmail_reset_pwd($to, $token){
