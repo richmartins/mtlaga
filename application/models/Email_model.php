@@ -34,7 +34,7 @@ class Email_model extends CI_Model {
      $this->email->to($to);
      $this->email->subject($subject);
      $this->email->message($message);
-     $this->email->send()
+     $res = $this->email->send();
 
      return $res;
    }
