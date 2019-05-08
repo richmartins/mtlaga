@@ -66,124 +66,133 @@ class Auth extends CI_Controller {
         }
       }
 
-      public function change_db_pwd(){
-        $pwd = $this->input->post('password');
-        $pwd_confirm = $this->input->post('password_confirm');
-        $email = $this->input->post('email');
-        $token = $this->input->post('token');
+  public function change_db_pwd(){
+    $pwd = $this->input->post('password');
+    $pwd_confirm = $this->input->post('password_confirm');
+    $email = $this->input->post('email');
+    $token = $this->input->post('token');
 
-        if ($pwd == $pwd_confirm){
-          $res = $this->users_model->update_password($email, $pwd);
-          if ($res) { redirect('auth/login'); } else { $this->session->set_flashdata('error', 'somehting went wrong'); }
-        }
-      }
+    if ($pwd == $pwd_confirm){
+      $res = $this->users_model->update_password($email, $pwd);
+      if ($res) { redirect('auth/login'); } else { $this->session->set_flashdata('error', 'somehting went wrong'); }
+    }
+  }
 
-    public function signup_process(){
-      $email = $this->input->post('mail');
-      $password = $this->input->post('password');
-      $password_confirm = $this->input->post('password_confirm');
-      if ($password === $password_confirm){
+  public function signup_process(){
+    $email = $this->input->post('mail');
+    $password = $this->input->post('password');
+    $password_confirm = $this->input->post('password_confirm');
+    $strong = "/^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z0-9$@$!%*#?&]{8,}/";
+    $medium = "/^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9]{8,}/";
+    $ok     = "/^.{8}/";
+    $low    = "/^.{2}/";
+
+    if ($password === $password_confirm){
+      if(preg_match($ok, $password)){
         $res = $this->users_model->check_email($email);
         if($res == false){
           $confirm_token = bin2hex(random_bytes(20));
           $data = [
-            'email' => $email,
-            'hash_password' => $this->users_model->hash_password($password),
-            'admin' => 0,
-            'created_at' => date('Y-m-d'),
-            'confirmed' => 0,
-            'confirmed_at' => null,
-            'confirmation_token' => $confirm_token,
-            'remember' => 0,
+          'email' => $email,
+          'hash_password' => $this->users_model->hash_password($password),
+          'admin' => 0,
+          'created_at' => date('Y-m-d'),
+          'confirmed' => 0,
+          'confirmed_at' => null,
+          'confirmation_token' => $confirm_token,
+          'remember' => 0,
           ];
           $success = $this->users_model->add_user($data);
           if($success == true){
-            echo '1';
             $this->email_model->sendEmail_confirm($email, $confirm_token);
             $this->session->set_flashdata('email', $email);
-            echo '2';
-            // redirect('auth/login');
-          }else{
-            $error = 'Une erreur c\'est produite, veuillez contacter admin@mtlaga.ch';
-            $this->session->set_flashdata('error', $error);
-            redirect('auth/signup', 'refresh');
+            redirect('auth/login');
+          } else {
+              $error = 'Une erreur c\'est produite, veuillez contacter admin@mtlaga.ch';
+              $this->session->set_flashdata('error', $error);
+              redirect('auth/signup', 'refresh');
           }
         } else {
           $error = 'L\'adresse mail que vous avez saisi existe déjà !';
           $this->session->set_flashdata('error', $error);
           redirect('auth/signup', 'refresh');
         }
-      }else{
-        $error = 'Veuillez saisir deux fois le même mot de passe !';
+      } else {
+        $error = 'Votre mot de passe doit au moins contenir 8 caractères !';
         $this->session->set_flashdata('error', $error);
         redirect('auth/signup', 'refresh');
       }
+    } else {
+      $error = 'Veuillez saisir deux fois le même mot de passe !';
+      $this->session->set_flashdata('error', $error);
+      redirect('auth/signup', 'refresh');
     }
+  }
 
-    public function resend_confirm(){
-      $email = $this->input->get('email');
-      $confirm_token = $this->users_model->get_confirm_token($email);
-      if($confirm_token !== null){
-        $this->session->set_flashdata('email', $email);
-        $this->email_model->sendEmail_confirm($email, $confirm_token);
-        redirect('auth/login');
-      } else {
-        $error = 'could not get users token';
-        $this->session->set_flashdata('error', $error);
-        redirect('auth/login');
-      }
+  public function resend_confirm(){
+    $email = $this->input->get('email');
+    $confirm_token = $this->users_model->get_confirm_token($email);
+    if($confirm_token !== null){
+      $this->session->set_flashdata('email', $email);
+      $this->email_model->sendEmail_confirm($email, $confirm_token);
+      redirect('auth/login');
+    } else {
+      $error = 'could not get users token';
+      $this->session->set_flashdata('error', $error);
+      redirect('auth/login');
     }
+  }
 
-    public function confirm(){
-      $email = $this->input->get('email');
-      $token = $this->input->get('token');
-      if($this->users_model->check_token_confirm($token, $email)){
-        $res = $this->users_model->confirmed($email);
-        if($res){
-          $info = 'Votre compte a été confirmer avec succès !';
-          $this->session->set_flashdata('info', $info);
-          redirect('auth/login');
-        } else {
-          $error = 'Une erreur c\'est produite, veuillez contacter admin@mtlaga.ch';
-          $this->session->set_flashdata('error', $error);
-          redirect('auth/signup', 'refresh');
-        }
+  public function confirm(){
+    $email = $this->input->get('email');
+    $token = $this->input->get('token');
+    if($this->users_model->check_token_confirm($token, $email)){
+      $res = $this->users_model->confirmed($email);
+      if($res){
+        $info = 'Votre compte a été confirmer avec succès !';
+        $this->session->set_flashdata('info', $info);
+        redirect('auth/login');
       } else {
         $error = 'Une erreur c\'est produite, veuillez contacter admin@mtlaga.ch';
         $this->session->set_flashdata('error', $error);
         redirect('auth/signup', 'refresh');
       }
+    } else {
+      $error = 'Une erreur c\'est produite, veuillez contacter admin@mtlaga.ch';
+      $this->session->set_flashdata('error', $error);
+      redirect('auth/signup', 'refresh');
     }
+  }
 
-    public function logoff(){
-      $this->session->unset_userdata('email');
-      redirect('home');
-    }
+  public function logoff(){
+    $this->session->unset_userdata('email');
+    redirect('home');
+  }
 
-    public function login_process(){
-      $email = $this->input->post('mail');
-      $password = $this->input->post('password');
-      if($this->users_model->check_email($email)){
-        if($this->users_model->check_password($email,$password)){
-          if($this->users_model->confirmed_login($email)){
-            $this->session->set_userdata(array('email'=>$email));
-            redirect('home');
-          }else {
-            $info = 'Veuillez d\'abord confirmer votre adresse avant de vous connecter';
-            $this->session->set_flashdata('info', $info);
-            redirect('auth/login');
-          }
-        }else{
-            $error = 'L\'adresse mail ou le mot de passe saisi sont incorect';
-            $this->session->set_flashdata('error', $error);
-            redirect('auth/login');
+  public function login_process(){
+    $email = $this->input->post('mail');
+    $password = $this->input->post('password');
+    if($this->users_model->check_email($email)){
+      if($this->users_model->check_password($email,$password)){
+        if($this->users_model->confirmed_login($email)){
+          $this->session->set_userdata(array('email'=>$email));
+          redirect('home');
+        }else {
+          $info = 'Veuillez d\'abord confirmer votre adresse avant de vous connecter';
+          $this->session->set_flashdata('info', $info);
+          redirect('auth/login');
         }
-      } else {
-        $error = 'L\'adresse mail ou le mot de passe saisi sont incorect';
-        $this->session->set_flashdata('error', $error);
-        redirect('auth/login');
+      }else{
+          $error = 'L\'adresse mail ou le mot de passe saisi sont incorect';
+          $this->session->set_flashdata('error', $error);
+          redirect('auth/login');
       }
+    } else {
+      $error = 'L\'adresse mail ou le mot de passe saisi sont incorect';
+      $this->session->set_flashdata('error', $error);
+      redirect('auth/login');
     }
+  }
 
   /*
    * pages render ***********************************************************

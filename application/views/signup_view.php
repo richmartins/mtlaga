@@ -46,34 +46,40 @@
 
         $('#password_input').keyup(function() {
           var value = $(this).val();
-          if(strong.test(value)) {
-            $('#password-meter').show();
-            $('#password-meter').val('10');
-            $('.stat_pass').empty();
-            $('.stat_pass').append('mot de passe fort');
-          } else if (medium.test(value)) {
-            $('#password-meter').show();
-            $('#password-meter').val('7');
-            $('.stat_pass').empty();
-            $('.stat_pass').append('mot de passe moyen');
-          } else if (ok.test(value)) {
-            $('#password-meter').show();
-            $('#password-meter').val('4');
-            $('.stat_pass').empty();
-            $('.stat_pass').append('mot de passe ok');
-          } else if(low.test(value)){
-            $('#password-meter').show();
-            $('#password-meter').val('1.5');
-            $('.stat_pass').empty();
-            $('.stat_pass').append('mot de passe très faible');
-          } else if(value = ''){
-            $('#password-meter').hide();
-            $('#password-meter').val('0');
-            $('.stat_pass').empty();
-          } else {
-            $('#password-meter').hide();
-            $('#password-meter').val('0');
-            $('.stat_pass').empty();
+          switch (true) {
+            case strong.test(value):
+              $('#password-meter').show();
+              $('#password-meter').val('10');
+              $('.stat_pass').empty();
+              $('.stat_pass').append('Mot de passe fort');
+              break;
+            case medium.test(value):
+              $('#password-meter').show();
+              $('#password-meter').val('7');
+              $('.stat_pass').empty();
+              $('.stat_pass').append('Mot de passe moyen');
+              break;
+            case ok.test(value):
+              $('#password-meter').show();
+              $('#password-meter').val('4');
+              $('.stat_pass').empty();
+              $('.stat_pass').append('Mot de passe bon');
+              break;
+            case low.test(value):
+              $('#password-meter').show();
+              $('#password-meter').val('1.5');
+              $('.stat_pass').empty();
+              $('.stat_pass').append('Mot de passe très faible');
+              break;
+            case value = '':
+              $('#password-meter').hide();
+              $('#password-meter').val('0');
+              $('.stat_pass').empty();
+              break;
+            default:
+              $('#password-meter').hide();
+              $('#password-meter').val('0');
+              $('.stat_pass').empty();
           }
         })
       });
