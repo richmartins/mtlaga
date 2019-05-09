@@ -27,6 +27,7 @@ class Email_model extends CI_Model {
      $this->email->to($to);
      $this->email->subject($subject);
      $this->email->message($message);
+     $this->email->set_mailtype("html");
      $res = $this->email->send();
 
      return $res;
@@ -45,6 +46,7 @@ class Email_model extends CI_Model {
      $this->email->to($to);
      $this->email->subject($subject);
      $this->email->message($message);
+     $this->email->set_mailtype("html");
      $res = $this->email->send();
      return $res;
    }
