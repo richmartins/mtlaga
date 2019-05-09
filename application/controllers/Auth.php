@@ -116,7 +116,7 @@ class Auth extends CI_Controller {
               redirect('auth/signup', 'refresh');
             }
           } else {
-            $error = 'L\'adresse mail que vous avez saisi existe déjà !';
+            $error = 'L\'adresse mail saisie existe déjà !';
             $this->session->set_flashdata('class','error');
             $this->session->set_flashdata('error', $error);
             redirect('auth/signup', 'refresh');
