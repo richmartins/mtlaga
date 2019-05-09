@@ -1,4 +1,5 @@
-<footer>
+</div>
+<footer class="footer">
   <div id="footer_container" class="flex_container">
     <div id="footer_text" class="flex_container">
       <div id="footer_text_owner">

@@ -1,23 +1,17 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Email_model extends CI_Model {
   public function __construct(){
      parent::__construct();
-     $this->load->library('email');
-     $config = array(
-        'protocol'    => 'smtp',
-          'smtp_host' => 'mail.infomaniak.com',
-        'smtp_port'   => 587,
-        'smtp_user'   => 'no-reply@mtlaga.ch',
-        'smtp_pass' => getenv('NO-REPLY_PWD'),
-        'mailtype'    => 'text',
-        'charset'     => 'utf-8'
-      );
-      $this->email->initialize($config);
-      $this->email->set_mailtype("html");
+      $this->load->helper('url');
 
-   }
+      date_default_timezone_set('Europe/Zurich');    // This was to cater for an error given to me earlier
+      $this->config->load('email', TRUE);//load email config file
+      $configuration = $this->config->item('mail', 'email'); //email configuration
+
+      $this->load->library('email');
+      $this->email->initialize($configuration); //initializes email configuration
+  }
 
    public function sendEmail_confirm($to, $token){
      $from     = 'no-reply@mtlaga.ch';
@@ -33,7 +27,8 @@ class Email_model extends CI_Model {
      $this->email->subject($subject);
      $this->email->message($message);
      $res = $this->email->send();
-     if($res) { return true; } else { return false; }
+
+     return $res;
    }
 
    public function sendEmail_reset_pwd($to, $token){
@@ -50,6 +45,7 @@ class Email_model extends CI_Model {
      $this->email->subject($subject);
      $this->email->message($message);
      $res = $this->email->send();
-     if($res) { return true; } else { return false; }
+     return $res;
    }
  }
+?>
