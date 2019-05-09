@@ -161,7 +161,7 @@ class Auth extends CI_Controller {
     if($this->users_model->check_token_confirm($token, $email)){
       $res = $this->users_model->confirmed($email);
       if($res){
-        $info = 'Votre compte a été confirmer avec succès !';
+        $info = 'Votre compte a été confirmé avec succès !';
         $this->session->set_flashdata('class','success');
         $this->session->set_flashdata('info', $info);
         redirect('auth/login');
@@ -199,13 +199,13 @@ class Auth extends CI_Controller {
           redirect('auth/login');
         }
       }else{
-          $error = 'L\'adresse mail ou le mot de passe saisi sont incorect';
+          $error = 'L\'adresse mail ou le mot de passe saisi est incorrect';
           $this->session->set_flashdata('class','error');
           $this->session->set_flashdata('error', $error);
           redirect('auth/login');
       }
     } else {
-      $error = 'L\'adresse mail ou le mot de passe saisi sont incorect';
+      $error = 'L\'adresse mail ou le mot de passe saisi est incorect';
       $this->session->set_flashdata('class','error');
       $this->session->set_flashdata('error', $error);
       redirect('auth/login');

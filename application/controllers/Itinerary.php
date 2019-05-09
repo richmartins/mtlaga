@@ -123,6 +123,42 @@ class Itinerary extends CI_Controller {
     }
 
     /**
+     * Download generated ics file
+     * @param $var
+     * @param $var2
+     */
+    public function generate_ics($var, $var2) {
+        $this->load->helper('download');
+
+        // initialize var
+        $event = [
+            'title' => "Voyage de Lausanne à Genève",
+            'address' => "Voie 3" . $var . $var2,
+            'description' => "Détails de votre voyage du 14.04.19 : \\n\\n Départ : 12:00 de Lausanne sur Voie 2 \\n Arrivée : 13:45  à Genève sur Voie 4\\n\\n Pour plus de détails : http://www.mtlaga.ch",
+            'datestart' => "2019-04-14 12:00:00",
+            'dateend' => "2019-04-14 13:45:00"
+        ];
+
+        // Build the ics file
+        $ical = 'BEGIN:VCALENDAR
+VERSION:2.0
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+NAME:Mon Voyage - MTLAGA
+X-WR-CALNAME:Mon Voyage - MTLAGA
+DTEND:' . date('Ymd\\THis', strtotime($event['dateend'])) . '
+SUMMARY:' . addslashes($event['title']) . '
+DESCRIPTION:' . $event['description'] . '
+LOCATION:' . addslashes($event['address']) . '
+DTSTART:' . date('Ymd\\THis', strtotime($event['datestart'])) . '
+END:VEVENT
+END:VCALENDAR';
+
+        $name = 'calendar.ics';
+        force_download($name, $ical, true);
+    }
+
+    /**
      * Render page
      */
     public function index() {

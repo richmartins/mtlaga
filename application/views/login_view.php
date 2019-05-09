@@ -1,13 +1,13 @@
 <div class="auth_flex_container">
   <div class="auth_signup_<?=$this->session->flashdata('class');?>">
     <?php  if (null !== $this->session->flashdata('error')): ?>
-        <p class="auth_signup_error"><?= $this->session->flashdata('error') ?></p>
+        <p><?= $this->session->flashdata('error') ?></p>
     <?php endif;?>
     <?php  if (null !== $this->session->flashdata('info')): ?>
-        <p class="auth_signup_info"><?= $this->session->flashdata('info') ?></p>
+        <p><?= $this->session->flashdata('info') ?></p>
     <?php endif;?>
     <?php if (null !== $this->session->flashdata('email')): ?>
-        <p class="auth_signup_info">Un courreil à été envoyer sur votre adresse mail. Si vous ne l'avez pas reçu, vous pouvez cliquer sur : <a href="<?= base_url(); ?>auth/resend_confirm/?email=<?= $this->session->flashdata('email'); ?>">renvoyer</a>
+        <p class="auth_signup_info">Un courriel a été envoyé sur votre adresse mail. Si vous ne l'avez pas reçu, vous pouvez cliquer sur : <a href="<?= base_url(); ?>auth/resend_confirm/?email=<?= $this->session->flashdata('email'); ?>">renvoyer</a>
     <?php endif; ?>
   </div>
 </div>

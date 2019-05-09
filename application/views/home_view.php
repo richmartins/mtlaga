@@ -16,114 +16,87 @@
 
 ?>
 <div id="home_container">
-  <div id="home_style_flexbox" class="flex_container">
-    <div class="flex_container home_style_flexbox_head" >
-      <div class="flex_container home_style_flexbox_title_container" >
-        <div class="flex_container home_style_flexbox_title_text" >
-          <p>Horaires</p>
-        </div>
-        <div class="flex_container" >
-          <img class="home_style_flexbox_title_img" src="<?= base_url(); ?>public/img/mtlaga_home_clock.png" alt="">
-        </div>
-      </div>
-       <form method="post" action="<?=base_url()?>itinerary/" id="searchItineraryForm">
-            <div id="home_style_flexbox_container" class="flex_container">
-                <div class="flex_container home_style_flexbox_fields_box" >
-                    <select class="home_style_flexbox_fields js-data-example-ajax typeahead typeahead-departure" name="departure_city" data-placeholder="Ville de départ" >
-                        <option></option>
-                    </select>
-                </div>
-                <div class="flex_container" >
-                    <select class="home_style_flexbox_fields js-data-example-ajax typeahead typeahead-arrival" name="arrival_city" data-placeholder="Ville d'arrivée" >
-                        <option></option>
-                    </select>
-                </div>
-                <div class="flex_container form_style_submit" >
-                    <input type="button" class="home_style_flexbox_input" value="Rechercher" class="" type="text" >
-                </div>
-            </div>
-            <input type="hidden" name="departure_date" >
-            <input type="hidden" name="departure_time" >
-        </form>
-    </div>
-    <div class="flex_container home_style_flexbox_head" >
-        <div class="flex_container home_style_flexbox_title_container" >
-            <div class="flex_container home_style_flexbox_title_text" >
-                <p>Trafic</p>
-            </div>
-            <div class="flex_container">
-                <img class="home_style_flexbox_title_img" src="<?= base_url(); ?>public/img/mtlaga_home_bell.png" alt="">
-            </div>
-        </div>
-        <?php if ($meta_data['connected']): ?>
-          <div class="flex_container home_style_flexbox_sub_text" >
-            <div class="home_style_flexbox_sub_text_scroll">
-              <?php if (empty($meta_data['rss'])): ?>
-                <p style="text-align: center">Aucun dérangement à signaler</p>
-              <?php else: ?>
-                <?php foreach ($meta_data['rss'] as $k => $v): ?>
-                  <div class="home_text_rss_container">
-                    <span class="home_text_rss_title"><?= $k ?></span><br>
-                    <span class="home_text_rss_description"><?= $v ?></span>
+  <div id="home_style_flexbox" class="">
+      <div class="flex_container home_style_flexbox_head_layer1" style="width: 100%">
+          <div class="flex_container home_style_flexbox_head home_style_flexbox_head_layer1_box" >
+              <div class="flex_container home_style_flexbox_title_container" >
+                  <div class="flex_container home_style_flexbox_title_text" >
+                      <p>Horaires</p>
                   </div>
-                <?php endforeach; ?>
-              <?php endif; ?>
-            </div>
+                  <div class="flex_container" >
+                      <img class="home_style_flexbox_title_img" src="<?= base_url(); ?>public/img/mtlaga_home_clock.png" alt="">
+                  </div>
+              </div>
+              <form method="post" action="<?=base_url()?>itinerary/" id="searchItineraryForm">
+                  <div id="home_style_flexbox_container" class="flex_container">
+                      <div class="flex_container home_style_flexbox_fields_box" >
+                          <select class="home_style_flexbox_fields js-data-example-ajax typeahead typeahead-departure" name="departure_city" data-placeholder="Ville de départ" >
+                              <option></option>
+                          </select>
+                      </div>
+                      <div class="flex_container" >
+                          <select class="home_style_flexbox_fields js-data-example-ajax typeahead typeahead-arrival" name="arrival_city" data-placeholder="Ville d'arrivée" >
+                              <option></option>
+                          </select>
+                      </div>
+                      <div class="flex_container form_style_submit" >
+                          <input type="button" class="home_style_flexbox_input" value="Rechercher" class="" type="text" >
+                      </div>
+                  </div>
+                  <input type="hidden" name="departure_date" >
+                  <input type="hidden" name="departure_time" >
+              </form>
           </div>
-        <?php else: ?>
-          <div class="flex_container home_style_flexbox_sub_text" >
-            <p style="text-align: center">Pour afficher ce contenu, vous devez être connecté</p>
+          <div class="flex_container home_style_flexbox_head home_style_flexbox_head_layer1_box" >
+              <div class="flex_container home_style_flexbox_title_container" >
+                  <div class="flex_container home_style_flexbox_title_text" >
+                      <p>Favoris</p>
+                  </div>
+                  <div class="flex_container" >
+                      <img class="home_style_flexbox_title_img" src="<?= base_url(); ?>public/img/mtlaga_home_star.png" alt="">
+                  </div>
+              </div>
+              <div class="flex_container home_style_flexbox_sub_text">
+                  <form method="post" action="<?= base_url();?>Itinerary" id="fav_search">
+                      <input type="hidden" id="fav_departure" name="departure_city" value="">
+                      <input type="hidden" id="fav_arrival" name="arrival_city" value="">
+                      <input type="hidden" name="departure_date" >
+                      <input type="hidden" name="departure_time" >
+                      <ul class="home_style_flexbox_sub_text_scroll">
+                          <?php
+
+                          if(!empty($user_favorites)) {
+                              foreach ($user_favorites as $user_favorite) {
+                                  ?>
+                                  <div class="flex_container" data-fav-departure="<?= $user_favorite->departure ?>" data-fav-arrival="<?= $user_favorite->arrival ?>">
+                                      <li class="home_style_flexbox_sub_text_scroll_container">
+                                          <span class="home_style_flexbox_sub_text_scroll_container_title"><a class="home_style_flexbox_sub_text_scroll_container_link"><span class="fav_departure"><?= $user_favorite->departure ?></span> à <span class="fav_arrival"><?= $user_favorite->arrival ?></span></a></span>
+                                          <div class="home_style_flexbox_sub_text_scroll_line">
+                                              <span class="fas fa-long-arrow-alt-right  home_style_flexbox_sub_text_scroll_line_default animated fadeInLeft"></span>
+                                              <span class="fas fa-times home_style_flexbox_sub_text_scroll_line_remove" ></span>
+                                          </div>
+                                      </li>
+                                  </div>
+                                  <?php
+                              }
+                          } else {
+                              ?>
+                              <p id="home_style_flexbox_sub_text_field"><?= $favorite_text ?></p>
+                              <?php
+                          }
+
+                          ?>
+                      </ul>
+                  </form>
+              </div>
           </div>
-        <?php endif; ?>
-    </div>
-    <div class="flex_container home_style_flexbox_head" >
-        <div class="flex_container home_style_flexbox_title_container" >
-            <div class="flex_container home_style_flexbox_title_text" >
-                <p>Favoris</p>
-            </div>
-            <div class="flex_container" >
-                <img class="home_style_flexbox_title_img" src="<?= base_url(); ?>public/img/mtlaga_home_star.png" alt="">
-            </div>
-        </div>
-        <div class="flex_container home_style_flexbox_sub_text">
-            <form method="post" action="<?= base_url();?>Itinerary" id="fav_search">
-                <input type="hidden" id="fav_departure" name="departure_city" value="">
-                <input type="hidden" id="fav_arrival" name="arrival_city" value="">
-                <input type="hidden" name="departure_date" >
-                <input type="hidden" name="departure_time" >
-                <ul class="home_style_flexbox_sub_text_scroll">
-                    <?php
-
-                    if(!empty($user_favorites)) {
-                        foreach ($user_favorites as $user_favorite) {
-                            ?>
-                            <div class="flex_container" data-fav-departure="<?= $user_favorite->departure ?>" data-fav-arrival="<?= $user_favorite->arrival ?>">
-                                <li class="home_style_flexbox_sub_text_scroll_container">
-                                    <span class="home_style_flexbox_sub_text_scroll_container_title"><a class="home_style_flexbox_sub_text_scroll_container_link"><span class="fav_departure"><?= $user_favorite->departure ?></span> à <span class="fav_arrival"><?= $user_favorite->arrival ?></span></a></span>
-                                    <div class="home_style_flexbox_sub_text_scroll_line">
-                                        <span class="fas fa-long-arrow-alt-right  home_style_flexbox_sub_text_scroll_line_default animated fadeInLeft"></span>
-                                        <span class="fas fa-times home_style_flexbox_sub_text_scroll_line_remove" ></span>
-                                    </div>
-                                </li>
-                            </div>
-                            <?php
-                        }
-                    } else {
-                        ?>
-                        <p id="home_style_flexbox_sub_text_field"><?= $favorite_text ?></p>
-                        <?php
-                    }
-
-                    ?>
-                </ul>
-            </form>
-        </div>
-    </div>
-  </div>
-  <div id="home_style_flexbox_map_container" class="flex_container ">
-      <div id="home_style_flexbox_map_border" class="flex_container">
-          <div id='home_style_flexbox_map'></div>
       </div>
+
+    <div class="home_style_flexbox_head home_style_flexbox_map home_style_flexbox_head_layer2">
+        <div id="home_style_flexbox_map_border" class="flex_container">
+          <div id='home_style_flexbox_map'></div>
+        </div>
+    </div>
   </div>
 </div>
 

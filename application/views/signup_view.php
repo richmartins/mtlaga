@@ -3,10 +3,10 @@
 <div class="auth_flex_container">
   <div class="auth_signup_<?=$this->session->flashdata('class');?>">
     <?php  if (null !== $this->session->flashdata('error')): ?>
-      <p class="auth_error"><?= $this->session->flashdata('error') ?></p>
+      <p><?= $this->session->flashdata('error') ?></p>
     <?php endif;?>
     <?php  if (null !== $this->session->flashdata('info')): ?>
-      <p class="aut_info"><?= $this->session->flashdata('info') ?></p>
+      <p><?= $this->session->flashdata('info') ?></p>
     <?php endif;?>
   </div>
 </div>
@@ -31,7 +31,7 @@
         <input type="password" name="password_confirm" class="form_input" required>
       </div>
       <div class="form_style_submit form_style_title">
-        <input id="form_signup_submit" type="submit" value="S'inscrire" class="form_input"  disabled>
+        <input id="form_signup_submit" type="submit" value="S'inscrire" class="form_input">
       </div>
       <div class="form_style_link" id="signup_submit">
         <p><a href="<?= base_url(); ?>auth/login">Retour à la page de connexion ?</a></p>
