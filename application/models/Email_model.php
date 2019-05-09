@@ -10,15 +10,7 @@ class Email_model extends CI_Model {
       $configuration = $this->config->item('mail', 'email'); //email configuration
 
       $this->load->library('email');
-      $this->email->initialize($configuration);//initializes email configuration
-
-      // $this->email->from('no-reply@mtlaga.ch', "no-reply");
-      // $this->email->to('richard.tenorio@outlook.com');
-      // $this->email->subject('Test email');
-      // $this->email->message("Testing the email class");
-
-      // var_dump($this->email->send());
-      // $this->email->print_debugger();
+      $this->email->initialize($configuration); //initializes email configuration
   }
 
    public function sendEmail_confirm($to, $token){

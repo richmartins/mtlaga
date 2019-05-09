@@ -1254,11 +1254,48 @@ footer {
 
 .auth_flex_container {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  border-radius: 5px;
+  color: white;
+
+}
+
+.auth_signup_error {
+  background-color: #D7072D;
+  border-radius: 5px;
+  padding: 5px;
+  min-height: 30px;
+  margin: .7em;
+  align-items: center;
+}
+
+.auth_signup_info {
+  background-color: #A8A8A8;
+  border-radius: 5px;
+  padding: 5px;
+  min-height: 30px;
+  align-items: center;
+  margin: .7em;
+}
+
+.auth_signup_info a{
+  text-decoration: none;
+  color: #007bff;
+}
+.auth_signup_info a:hover{
+  color: #0056b3;
+}
+.auth_signup_success {
+  background-color: #4BB543;
+  border-radius: 5px;
+  padding: 5px;
+  height: 30px;
+  margin: .7em;
+  align-items: center;
 }
 
 .auth_error {
-  color: red;
+  color: white;
 }
 
 .home_text_rss_title {
