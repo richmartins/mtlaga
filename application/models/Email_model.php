@@ -10,6 +10,7 @@ class Email_model extends CI_Model {
       $configuration = $this->config->item('mail', 'email'); //email configuration
 
       $this->load->library('email');
+      $this->email->set_mailtype("html");
       $this->email->initialize($configuration); //initializes email configuration
   }
 
