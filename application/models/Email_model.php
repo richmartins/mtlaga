@@ -19,9 +19,9 @@ class Email_model extends CI_Model {
      $subject  = 'Confirmation de compte MTLAGA';
      $message  = '';
      $message .= "<h2>Vous recevez cette email suite à votre inscription chez <a href='https://mtlaga.ch'>MTLAGA</a></h2>"
-              . "<p>Veuillez cliquer sur le lien suivant pour profiter de toutes les fonctionnalité de MTLAGA :  <a href='".site_url()."/auth/confirm/?token=$token&email=$to' >confirmation</a></p>"
-              . "<p>Si ce n'ai pas vous qui avez souhaitez cette requête, veuillez ignoré cette e-mail.</p>"
-              . "<p>Bien cordialement, votre équipe de mtlaga</p>"
+              . "<p>Veuillez cliquer sur le lien suivant pour confirmer votre inscription et profiter de toutes les fonctionnalités de MTLAGA :  <a href='".site_url()."/auth/confirm/?token=$token&email=$to' >Confirmation</a></p>"
+              . "<p>Si ce n'ai pas vous qui avez souhaité cette requête, veuillez ignoré cette e-mail.</p>"
+              . "<p>Bien cordialement,<br /> votre équipe de mtlaga</p>"
               . "";
      $this->email->from($from, 'MTLAGA');
      $this->email->to($to);
