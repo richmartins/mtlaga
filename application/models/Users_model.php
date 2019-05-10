@@ -29,12 +29,13 @@ class Users_model extends CI_Model {
     }
 
     public function check_password($email, $password){
+      $error = 'L\'adresse mail ou le mot de passe saisi est incorrect';
       $this->db->select('email, hash_password');
       $this->db->from('users');
       $this->db->where('email', $email);
 
       $query = $this->db->get()->result()[0]->hash_password;
-      if(!password_verify($password, $query)) { return false; } else { return true; }
+      if(!password_verify($password, $query)) { return $error; } else { return true; }
     }
 
     public function hash_password($password){
@@ -57,10 +58,11 @@ class Users_model extends CI_Model {
     }
 
     public function check_email($email){
+      $error = 'L\'adresse mail ou le mot de passe saisi est incorect';
       $this->db->from('users');
       $this->db->where('email', $email);
       $query = $this->db->get();
-      if ($query->num_rows() >= 1){ return true; } else { return false; }
+      if ($query->num_rows() >= 1){ return true; } else { return $error; }
     }
 
     public function check_token($token, $email){
@@ -93,6 +95,7 @@ class Users_model extends CI_Model {
     }
 
     public function confirmed_login($email){
+      $info = 'Veuillez d\'abord confirmer votre adresse avant de vous connecter';
       $this->db->select('confirmed', 'email');
       $this->db->from('users');
       $this->db->where('email', $email);
@@ -100,7 +103,7 @@ class Users_model extends CI_Model {
       if($query->result()[0]->confirmed == 1){
         return true;
       } else {
-        return false;
+        return $info;
       }
     }
 

@@ -1,74 +1,74 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Auth extends CI_Controller {
-    var $header_nav;
-    var $meta_data;
+  var $header_nav;
+  var $meta_data;
 
-    public function __construct() {
-      parent::__construct();
-      $helper = array('url', 'captcha_helper');
-      $this->load->helper($helper);
-      $this->load->model('email_model');
+  public function __construct() {
+    parent::__construct();
+    $helper = array('url', 'captcha_helper');
+    $this->load->helper($helper);
+    $this->load->model('email_model');
 
-      $this->header_nav = [
-        'home' => 'Home',
-        'info' => 'Info',
-      ];
+    $this->header_nav = [
+      'home' => 'Home',
+      'info' => 'Info',
+    ];
 
-      $this->meta_data = [
-        'title' => '',
-        'connected' => 0,
-        'active' => '',
-        'error' => null
-      ];
+    $this->meta_data = [
+      'title' => '',
+      'connected' => 0,
+      'active' => '',
+      'error' => null
+    ];
 
-      $this->load->model('users_model');
-      if(isset($_SESSION['email'])){
-        $this->meta_data['connected'] = 1;
-      }
+    $this->load->model('users_model');
+    if(isset($_SESSION['email'])){
+      $this->meta_data['connected'] = 1;
     }
+  }
 
     /*
      * process *****************************************************************
      */
 
-    public function reset_pwd_process() {
-        $email = $this->input->get('mail');
-        $res = $this->users_model->check_email($email);
-        if($res){
-          $token = $this->users_model->get_token_reset($email);
-          $res_mail = $this->email_model->sendEmail_reset_pwd($email, $token);
-          if ($res_mail){
-            $info = 'Veuillez consulter votre adresse mail pour réinitialiser votre mot de passe';
-            $this->session->set_flashdata('class','info');
-            $this->session->set_flashdata('info', $info);
-            redirect('auth/login');
-          } else{
-            $error = 'Une erreur c\'est produite, veuillez recommencer ou contacter l\'équipe MTLAGA';
-            $this->session->set_flashdata('class','error');
-            $this->session->set_flashdata('error', $error);
-            redirect('auth/reset');
-          }
-        }else{
-          $error = 'Cette adresse mail n\'existe pas !';
+  public function reset_pwd_process() {
+      $email = $this->input->get('mail');
+      $res = $this->users_model->check_email($email);
+      if($res){
+        $token = $this->users_model->get_token_reset($email);
+        $res_mail = $this->email_model->sendEmail_reset_pwd($email, $token);
+        if ($res_mail){
+          $info = 'Veuillez consulter votre adresse mail pour réinitialiser votre mot de passe';
+          $this->session->set_flashdata('class','info');
+          $this->session->set_flashdata('info', $info);
+          redirect('auth/login');
+        } else{
+          $error = 'Une erreur c\'est produite, veuillez recommencer ou contacter l\'équipe MTLAGA';
           $this->session->set_flashdata('class','error');
           $this->session->set_flashdata('error', $error);
           redirect('auth/reset');
         }
+      }else{
+        $error = 'Cette adresse mail n\'existe pas !';
+        $this->session->set_flashdata('class','error');
+        $this->session->set_flashdata('error', $error);
+        redirect('auth/reset');
       }
+    }
 
-      public function reset_tok(){
-        $token = $this->input->get('token');
-        $email = $this->input->get('email');
-        $data = array('token' => $token, 'email' => $email);
-        $res = $this->users_model->check_token($token, $email);
-        if ($res) {
-          $this->session->set_flashdata($data);
-          redirect('auth/newpassword');
-        } else {
-          show_404();
-        }
-      }
+  public function reset_tok(){
+    $token = $this->input->get('token');
+    $email = $this->input->get('email');
+    $data = array('token' => $token, 'email' => $email);
+    $res = $this->users_model->check_token($token, $email);
+    if ($res) {
+      $this->session->set_flashdata($data);
+      redirect('auth/newpassword');
+    } else {
+      show_404();
+    }
+  }
 
   public function change_db_pwd(){
     $pwd = $this->input->post('password');
@@ -92,7 +92,7 @@ class Auth extends CI_Controller {
       if(filter_var($email, FILTER_VALIDATE_EMAIL) && $email != ''){
         if(preg_match($ok, $password)){
           $res = $this->users_model->check_email($email);
-          if($res == false){
+          if($res !== true){
             $confirm_token = bin2hex(random_bytes(20));
             $data = [
               'email' => $email,
@@ -187,39 +187,49 @@ class Auth extends CI_Controller {
   public function login_process(){
     $email = $this->input->post('mail');
     $password = $this->input->post('password');
-    if($this->users_model->check_email($email)){
-      if($this->users_model->check_password($email,$password)){
-        if($this->users_model->confirmed_login($email)){
-          $this->session->set_userdata(array('email'=>$email));
-          redirect('home');
-        }else {
-          $this->session->set_flashdata('class','info');
-          $info = 'Veuillez d\'abord confirmer votre adresse avant de vous connecter';
-          $this->session->set_flashdata('info', $info);
-          redirect('auth/login');
-        }
-      }else{
-          $error = 'L\'adresse mail ou le mot de passe saisi est incorrect';
-          $this->session->set_flashdata('class','error');
-          $this->session->set_flashdata('error', $error);
-          redirect('auth/login');
+
+    $res_check_email    = $this->users_model->check_email($email);
+    $res_check_password = $this->users_model->check_password($email,$password);
+    $res_check_confirm  = $this->users_model->confirmed_login($email);
+    $res = array($res_check_email, $res_check_password, $res_check_confirm);
+
+    foreach ($res as $v) {
+      if ($v !== true) {
+        $error = $v;
+        $this->session->set_flashdata('class','error');
+        $this->session->set_flashdata('error', $error);
+        redirect('auth/login');
+        exit;
       }
-    } else {
-      $error = 'L\'adresse mail ou le mot de passe saisi est incorect';
-      $this->session->set_flashdata('class','error');
-      $this->session->set_flashdata('error', $error);
-      redirect('auth/login');
     }
+
+    $this->session->set_userdata(array('email'=>$email));
+    redirect('home');
   }
 
   /*
    * pages render ***********************************************************
    */
+  // reset password render
+  //step 1
+  public function reset(){
+    $this->meta_data['title'] = 'réinitialiser mot de passe | MTLAGA';
+    $this->meta_data['active'] = 'Home';
 
+    $data = [
+      'header_nav_meta_data' => $this->header_nav,
+      'meta_data' => $this->meta_data
+    ];
 
-    // reset password render
-    //step 1
-    public function reset(){
+    $this->load->view('templates/head', $data);
+    $this->load->view('templates/header', $data);
+    $this->load->view('resetpwd_step_one_view', $data);
+    $this->load->view('templates/footer');
+  }
+
+  //step 2
+  public function newpassword(){
+    if($this->session->flashdata('token') !== null){
       $this->meta_data['title'] = 'réinitialiser mot de passe | MTLAGA';
       $this->meta_data['active'] = 'Home';
 
@@ -230,59 +240,42 @@ class Auth extends CI_Controller {
 
       $this->load->view('templates/head', $data);
       $this->load->view('templates/header', $data);
-      $this->load->view('resetpwd_step_one_view', $data);
+      $this->load->view('resetpwd_step_two_view', $data);
       $this->load->view('templates/footer');
+    } else {
+      show_404();
     }
-
-    //step 2
-    public function newpassword(){
-      if($this->session->flashdata('token') !== null){
-        $this->meta_data['title'] = 'réinitialiser mot de passe | MTLAGA';
-        $this->meta_data['active'] = 'Home';
-
-        $data = [
-          'header_nav_meta_data' => $this->header_nav,
-          'meta_data' => $this->meta_data
-        ];
-
-        $this->load->view('templates/head', $data);
-        $this->load->view('templates/header', $data);
-        $this->load->view('resetpwd_step_two_view', $data);
-        $this->load->view('templates/footer');
-      } else {
-        show_404();
-      }
-    }
+  }
 
 
-    public function signup() {
-      $this->meta_data['title'] = 'S\'inscrire | MTLAGA';
-      $this->meta_data['active'] = 'Home';
+  public function signup() {
+    $this->meta_data['title'] = 'S\'inscrire | MTLAGA';
+    $this->meta_data['active'] = 'Home';
 
-      $data = [
-        'header_nav_meta_data' => $this->header_nav,
-        'meta_data' => $this->meta_data
-      ];
+    $data = [
+      'header_nav_meta_data' => $this->header_nav,
+      'meta_data' => $this->meta_data
+    ];
 
-      $this->load->view('templates/head', $data);
-      $this->load->view('templates/header', $data);
-      $this->load->view('signup_view', $data);
-      $this->load->view('templates/footer');
-    }
+    $this->load->view('templates/head', $data);
+    $this->load->view('templates/header', $data);
+    $this->load->view('signup_view', $data);
+    $this->load->view('templates/footer');
+  }
 
-    public function login() {
-      $this->meta_data['title'] = 'Login | MTLAGA';
-      $this->meta_data['active'] = 'Home';
+  public function login() {
+    $this->meta_data['title'] = 'Login | MTLAGA';
+    $this->meta_data['active'] = 'Home';
 
-      $data = [
-        'header_nav_meta_data' => $this->header_nav,
-        'meta_data' => $this->meta_data
-      ];
+    $data = [
+      'header_nav_meta_data' => $this->header_nav,
+      'meta_data' => $this->meta_data
+    ];
 
-      $this->load->view('templates/head', $data);
-      $this->load->view('templates/header', $data);
-      $this->load->view('login_view', $data);
-      $this->load->view('templates/footer');
+    $this->load->view('templates/head', $data);
+    $this->load->view('templates/header', $data);
+    $this->load->view('login_view', $data);
+    $this->load->view('templates/footer');
   }
 }
 ?>
