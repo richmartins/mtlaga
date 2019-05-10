@@ -344,6 +344,7 @@ header {
 /* FOOTER */
 .wrapper {
   flex: 1 0 auto;
+  margin-top: 3em;
 }
 footer {
   margin-top: 5em;
