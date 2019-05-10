@@ -65,6 +65,14 @@ class Users_model extends CI_Model {
       if ($query->num_rows() >= 1){ return true; } else { return $error; }
     }
 
+    public function exists_email($email){
+      $error = 'Cette addresse existe déjà';
+      $this->db->from('users');
+      $this->db->where('email', $email);
+      $query = $this->db->get();
+      if ($query->num_rows() >= 1){ return $error; } else { return true; }
+    }
+
     public function check_token($token, $email){
       $this->db->select('reset_password_token', 'email');
       $this->db->from('users');
@@ -113,5 +121,34 @@ class Users_model extends CI_Model {
       $this->db->where('email', $email);
       $query = $this->db->get()->result()[0]->confirmation_token;
       return $query;
+    }
+
+    public function match_password($pass_1, $pass_2){
+      $error = 'Veuillez saisir deux fois le même mot de passe !';
+      if($pass_1 === $pass_2){
+        return true;
+      } else {
+        return $error;
+      }
+    }
+
+    public function valid_email($email){
+      $error = 'Veuillez saisir une adresse email correct';
+      if(filter_var($email, FILTER_VALIDATE_EMAIL) && $email != ''){
+        return true;
+      } else {
+        return $error;
+      }
+    }
+
+    public function valid_password($password){
+      $error = 'Votre mot de passe doit au moins contenir 8 caractères !';
+      $ok_pass = "/^.{8}/";
+
+      if(preg_match($ok_pass, $password)){
+        return true;
+      } else {
+        return $error;
+      }
     }
 }

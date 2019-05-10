@@ -28,34 +28,33 @@ class Auth extends CI_Controller {
     }
   }
 
-    /*
-     * process *****************************************************************
-     */
+  /*
+   * process *****************************************************************
+   */
 
   public function reset_pwd_process() {
-      $email = $this->input->get('mail');
-      $res = $this->users_model->check_email($email);
-      if($res){
-        $token = $this->users_model->get_token_reset($email);
-        $res_mail = $this->email_model->sendEmail_reset_pwd($email, $token);
-        if ($res_mail){
-          $info = 'Veuillez consulter votre adresse mail pour réinitialiser votre mot de passe';
-          $this->session->set_flashdata('class','info');
-          $this->session->set_flashdata('info', $info);
-          redirect('auth/login');
-        } else{
-          $error = 'Une erreur c\'est produite, veuillez recommencer ou contacter l\'équipe MTLAGA';
-          $this->session->set_flashdata('class','error');
-          $this->session->set_flashdata('error', $error);
-          redirect('auth/reset');
-        }
-      }else{
-        $error = 'Cette adresse mail n\'existe pas !';
+    $email = $this->input->get('mail');
+    if($res){
+      $token = $this->users_model->get_token_reset($email);
+      $res_mail = $this->email_model->sendEmail_reset_pwd($email, $token);
+      if ($res_mail){
+        $info = 'Veuillez consulter votre adresse mail pour réinitialiser votre mot de passe';
+        $this->session->set_flashdata('class','info');
+        $this->session->set_flashdata('info', $info);
+        redirect('auth/login');
+      } else{
+        $error = 'Une erreur c\'est produite, veuillez recommencer ou contacter l\'équipe MTLAGA';
         $this->session->set_flashdata('class','error');
         $this->session->set_flashdata('error', $error);
         redirect('auth/reset');
       }
+    }else{
+      $error = 'Cette adresse mail n\'existe pas !';
+      $this->session->set_flashdata('class','error');
+      $this->session->set_flashdata('error', $error);
+      redirect('auth/reset');
     }
+  }
 
   public function reset_tok(){
     $token = $this->input->get('token');
@@ -75,10 +74,18 @@ class Auth extends CI_Controller {
     $pwd_confirm = $this->input->post('password_confirm');
     $email = $this->input->post('email');
     $token = $this->input->post('token');
+    $data = array('token' => $token, 'email' => $email);
 
-    if ($pwd == $pwd_confirm){
+    $match_pwd = $this->users_model->match_password($pwd, $pwd_confirm);
+    if ($match_pwd){
       $res = $this->users_model->update_password($email, $pwd);
       if ($res) { redirect('auth/login'); } else { $this->session->set_flashdata('error', 'somehting went wrong'); }
+    }else{
+      $error = $match_pwd;
+      $this->session->set_flashdata('class','error');
+      $this->session->set_flashdata('error', $error);
+      $this->session->set_flashdata($data);
+      redirect('auth/newpassowrd');
     }
   }
 
@@ -86,55 +93,44 @@ class Auth extends CI_Controller {
     $email = $this->input->post('mail');
     $password = $this->input->post('password');
     $password_confirm = $this->input->post('password_confirm');
-    $ok = "/^.{8}/";
 
-    if ($password === $password_confirm && $password != ''){
-      if(filter_var($email, FILTER_VALIDATE_EMAIL) && $email != ''){
-        if(preg_match($ok, $password)){
-          $res = $this->users_model->check_email($email);
-          if($res !== true){
-            $confirm_token = bin2hex(random_bytes(20));
-            $data = [
-              'email' => $email,
-              'hash_password' => $this->users_model->hash_password($password),
-              'admin' => 0,
-              'created_at' => date('Y-m-d'),
-              'confirmed' => 0,
-              'confirmed_at' => null,
-              'confirmation_token' => $confirm_token,
-              'remember' => 0,
-            ];
-            $success = $this->users_model->add_user($data);
-            if($success == true){
-              $this->email_model->sendEmail_confirm($email, $confirm_token);
-              $this->session->set_flashdata('email', $email);
-              redirect('auth/login');
-            } else {
-              $error = 'Une erreur c\'est produite, veuillez contacter admin@mtlaga.ch';
-              $this->session->set_flashdata('class','error');
-              $this->session->set_flashdata('error', $error);
-              redirect('auth/signup', 'refresh');
-            }
-          } else {
-            $error = 'L\'adresse mail saisie existe déjà !';
-            $this->session->set_flashdata('class','error');
-            $this->session->set_flashdata('error', $error);
-            redirect('auth/signup', 'refresh');
-          }
-        } else {
-          $error = 'Votre mot de passe doit au moins contenir 8 caractères !';
-          $this->session->set_flashdata('class','error');
-          $this->session->set_flashdata('error', $error);
-          redirect('auth/signup', 'refresh');
-        }
-      }else {
-        $error = 'Veuillez saisir une adresse email correct';
+    $confirm_token = bin2hex(random_bytes(20));
+
+    $res_pass_match   = $this->users_model->match_password($password, $password_confirm);
+    $res_valid_email  = $this->users_model->valid_email($email);
+    $res_valid_pass   = $this->users_model->valid_password($password);
+    $res_email_exists = $this->users_model->exists_email($email);
+
+    $res = array($res_pass_match, $res_valid_email, $res_valid_pass, $res_email_exists);
+    foreach ($res as $v) {
+      if ($v !== true) {
+        $error = $v;
         $this->session->set_flashdata('class','error');
         $this->session->set_flashdata('error', $error);
-        redirect('auth/signup', 'refresh');
+        redirect('auth/signup');
+        exit;
       }
+    }
+
+    $data = [
+      'email' => $email,
+      'hash_password' => $this->users_model->hash_password($password),
+      'admin' => 0,
+      'created_at' => date('Y-m-d'),
+      'confirmed' => 0,
+      'confirmed_at' => null,
+      'confirmation_token' => $confirm_token,
+      'remember' => 0,
+    ];
+
+    $success = $this->users_model->add_user($data);
+
+    if($success == true){
+      $this->email_model->sendEmail_confirm($email, $confirm_token);
+      $this->session->set_flashdata('email', $email);
+      redirect('auth/login');
     } else {
-      $error = 'Veuillez saisir deux fois le même mot de passe !';
+      $error = 'Une erreur c\'est produite, veuillez contacter admin@mtlaga.ch';
       $this->session->set_flashdata('class','error');
       $this->session->set_flashdata('error', $error);
       redirect('auth/signup', 'refresh');
