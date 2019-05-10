@@ -34,6 +34,7 @@ class Auth extends CI_Controller {
 
   public function reset_pwd_process() {
     $email = $this->input->get('mail');
+    $res = $this->users_model->check_email($email);
     if($res){
       $token = $this->users_model->get_token_reset($email);
       $res_mail = $this->email_model->sendEmail_reset_pwd($email, $token);
