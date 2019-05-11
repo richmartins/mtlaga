@@ -782,18 +782,18 @@ footer {
 }
 
 .itineraire_flex_container_travel_details_container {
-  width: 50%;
+  width: 100%;
 }
 
 .itineraire_flex_container_travel_details_box {
   padding-right: 20px;
+  height: 100%;
 }
 
-/*
+
 .itineraire_flex_container_travel_details_hours {
-    width: 40px;
+    height: 100%;
 }
-*/
 
 .itineraire_flex_container_travel_details_start {
     height: 45%;
@@ -855,10 +855,6 @@ footer {
 .itineraire_flex_container_travel_details_walk p {
     margin: 0;
     margin-left: 10px;
-}
-
-.itineraire_flex_container_travel_action {
-  width: 50%;
 }
 
 .itineraire_flex_container_travel_action_perturbations {
@@ -1197,7 +1193,7 @@ footer {
   cursor: pointer;
 }
 
-#map-container {
+.modal {
   display: none;
   position: fixed;
   height: 50%;
@@ -1206,24 +1202,29 @@ footer {
   overflow: hidden;
   width: 66%;
   border-radius: 10px;
-
   top: 20%;
   left: 17%;
 }
 
-#map-header {
+.modal-header {
   height: 30px;
   width: 100%;
   text-align: right;
 }
 
-#map-close {
-  padding-right: 10px;
-  padding-top: 10px;
+.map-close {
+  padding-right: 15px;
+  padding-top: 13px;
 }
 
-#map-close:hover {
+.map-close:hover {
   cursor: pointer;
+}
+
+#modal-container {
+  height: 87%;
+  border-radius: 10px;
+  margin: 10px;
 }
 
 #map {
@@ -1231,6 +1232,41 @@ footer {
   border-radius: 10px;
   margin: 10px;
 }
+
+.modal-bck {
+  width: 97%;
+  height: 87%;
+  background-color: white;
+  border-radius: 10px;
+  margin: 0 auto;
+  margin-top: 10px;
+}
+
+.modal-h2-title {
+  margin: 0;
+}
+
+.modal-h3-title {
+  margin-bottom: 5px
+}
+
+.modal-textarea {
+  width: 100%;
+  height: 80px
+}
+
+.modal-button {
+  background-color: #0083B3;
+  color: #FFFFFF;
+  font-weight: bold;
+  font-size: 15px;
+  padding: 5px;
+  border-radius: 6px;
+  border: none;
+}
+
+
+
 
 
 /**************************************************/
@@ -1285,7 +1321,7 @@ footer {
     width: 98%;
   }
 
-  #map-container {
+  .modal {
     width: 80%;
     left: 9%;
   }
@@ -1325,7 +1361,7 @@ footer {
     right: 48%;
   }
 
-  #map-container {
+  .modal {
     width: 90%;
     left: 5%;
   }
