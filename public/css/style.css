@@ -1289,6 +1289,11 @@ footer {
   #map-container {
     /*width: 840px;*/
   }
+
+  #header_style_menu_actions {
+    margin-right: 95px;
+  }
+
 }
 
 @media screen and (max-width: 1000px) {
@@ -1299,6 +1304,10 @@ footer {
 
   #home_style_flexbox {
     /*flex-wrap: wrap;*/
+  }
+
+  #header_style_menu_actions {
+    margin-right: 1%;
   }
 
   #home_container {

@@ -448,14 +448,23 @@ foreach ($favorites as $favorite) {
             console.log(api)
 
             // fill lines with journey stops
+            var departure_marker = new mapboxgl.Marker();
+            var departure_coordinates = []
             var sections = api.connections[index].sections
             sections.forEach(function(v, k) {
-                lines.push([v.departure.station.coordinate.y, v.departure.station.coordinate.x])
-                console.log(v.departure.station.coordinate.y + " - " + v.departure.station.coordinate.x)
-                console.log(api.connections[index].sections[k])
+                if(v.journey !== null) {
+                    v.journey.passList.forEach(function(v2,k2) {
+                        lines.push([v2.station.coordinate.y, v2.station.coordinate.x])
+                    })
+                } else {
+                    lines.push([v.departure.station.coordinate.y, v.departure.station.coordinate.x])
+                }
+                if(v.walk === null) {
+                    // create marker
+                }
             })
-
             lines.push([sections[sections.length-1]['arrival']['location']['coordinate']['y'], sections[sections.length-1]['arrival']['location']['coordinate']['x']])
+
 
             // add layer
             geojson = {
