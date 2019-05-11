@@ -523,7 +523,7 @@ foreach ($favorites as $favorite) {
             var recipents = $("#modal-email-tag").val()
             var message = $("#modal-email-message").val()
 
-            var me = $("#modal-email-me").val()
+            var me = $("#modal-email-me")
             if (me.is(":checked")) {
                 me = true
             } else {
