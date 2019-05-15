@@ -1292,6 +1292,12 @@ footer {
   width: 100%;
 }
 
+#footer_text_owner_list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
 /**************************************************/
 /* RESPONSIVE */
 /**************************************************/

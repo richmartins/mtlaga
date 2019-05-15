@@ -3,7 +3,11 @@
         <div id="footer_text" class="flex_container">
             <div id="footer_text_owner">
                 <p><b>MTLAGA</b></p>
-                <p>Richard Tenorio & Hadrien Louis</p>
+                <ul id="footer_text_owner_list" >
+                    <li>Hadrien Louis</li>
+                    <li>Richard Tenorio</li>
+                    <li>Alexandre Stoll</li>
+                </ul>
             </div>
             <div id="footer_text_contact" class="link">
                 <p><b><a href="#">www.mtlaga.ch</a></b></p>
