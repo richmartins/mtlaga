@@ -91,8 +91,8 @@ class Auth extends CI_Controller {
   }
 
   public function signup_process(){
-    $email = $this->input->post('mail');
-    $password = $this->input->post('password');
+    $email            = $this->input->post('mail');
+    $password         = $this->input->post('password');
     $password_confirm = $this->input->post('password_confirm');
 
     $confirm_token = bin2hex(random_bytes(20));
@@ -103,6 +103,7 @@ class Auth extends CI_Controller {
     $res_email_exists = $this->users_model->exists_email($email);
 
     $res = array($res_pass_match, $res_valid_email, $res_valid_pass, $res_email_exists);
+
     foreach ($res as $v) {
       if ($v !== true) {
         $error = $v;
