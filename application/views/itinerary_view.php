@@ -14,27 +14,35 @@ if(!isset($api) || empty($api->connections)) {
 
 // check if user is connected
 $connected = false;
+$is_favorite = false;
+$style = "opacity: 0.5; pointer-events: none;";
+
 if($this->meta_data['connected'] == 1) {
     $connected = true;
-}
+    $style = "";
 
-$is_favorite = false;
-$journey = [
-    "departure" => $api->from->name,
-    "arrival" => $api->to->name
-];
-
-// check if journey is favorite
-foreach ($favorites as $favorite) {
-    //if(array)
-    $favorite = [
-        "departure" => $favorite->departure,
-        "arrival" => $favorite->arrival
+    $journey = [
+        "departure" => $api->from->name,
+        "arrival" => $api->to->name
     ];
-    if(empty(array_diff($journey, $favorite))) {
-        $is_favorite = true;
+
+    // check if journey is favorite
+    foreach ($favorites as $favorite) {
+        //if(array)
+        $favorite = [
+            "departure" => $favorite->departure,
+            "arrival" => $favorite->arrival
+        ];
+        if(empty(array_diff($journey, $favorite))) {
+            $is_favorite = true;
+        }
     }
 }
+
+
+
+
+
 ?>
 <!-- map modal -->
 <div id="map-container" class="modal">
@@ -86,16 +94,18 @@ foreach ($favorites as $favorite) {
                 <?php
                 if($is_favorite) {
                     ?>
-                    <div class="flex_container itineraire_header_action_favorite" >
+                    <div class="flex_container itineraire_header_action_favorite" style="<?= $style ?>" >
                         <p><span id="itineraire_toggle_fav" class="itineraire_header_action_hover">Supprimer ce trajet des favoris</span></p>
                         <i class="fas fa-star itineraire_header_action_favorite_icon" style="color: gold" ></i>
                     </div>
                 <?php
                 } else {
                     ?>
-                    <div class="flex_container itineraire_header_action_favorite" >
-                        <p><span id="itineraire_toggle_fav" class="itineraire_header_action_hover">Ajouter ce trajet aux favoris</span></p>
-                        <i class="fas fa-star itineraire_header_action_favorite_icon" ></i>
+                    <div class="flex_container" id="itineraire_header_action_favorite_bck" data-user="<?= $connected ?>">
+                        <div class="flex_container itineraire_header_action_favorite" style="<?= $style ?> width: 100%;" >
+                            <p><span id="itineraire_toggle_fav" class="itineraire_header_action_hover">Ajouter ce trajet aux favoris</span></p>
+                            <i class="fas fa-star itineraire_header_action_favorite_icon" ></i>
+                        </div>
                     </div>
                 <?php
                 }
@@ -302,12 +312,15 @@ foreach ($favorites as $favorite) {
 
                                   if($section_loop == 1) {
                                   ?>
-                                  <div class="flex_container itineraire_flex_container_travel_action">
+                                  <div class="flex_container itineraire_flex_container_travel_action" data-user="<?= $connected ?>">
                                       <?php
 
                                       $style = "";
                                       if (!$connected) {
                                           $style = "opacity: 0.5; pointer-events: none;";
+                                          ?>
+                                          <div class="itineraire_flex_container_travel_login" >Veuillez vous connecter</div>
+                                          <?php
                                       }
                                       ?>
                                       <div class="itineraire_flex_container_travel_action_outils" style="<?= $style ?>">
@@ -445,7 +458,7 @@ foreach ($favorites as $favorite) {
             var index = $(this).children().next().eq(2).val()
             $("#home_container_overlay").css('display', 'block');
 
-            console.log(api)
+            //console.log(api)
 
             // fill lines with journey stops
             var departure_marker = new mapboxgl.Marker();
@@ -522,6 +535,24 @@ foreach ($favorites as $favorite) {
             tags: true,
             language: "fr",
             tokenSeparators: [',', ' ']
+        })
+
+        /**
+         * Add favorite but not connected error message
+         */
+        $("#itineraire_header_action_favorite_bck").click(function() {
+            if($(this).attr('data-user') == false){
+                notif('error', "Vous devez être connecté")
+            }
+        })
+
+        /**
+         * Itinerary click action but not connected error message
+         */
+        $(".itineraire_flex_container_travel_action").click(function() {
+            if($(this).attr('data-user') == false){
+                notif('error', "Vous devez être connecté")
+            }
         })
 
         /**

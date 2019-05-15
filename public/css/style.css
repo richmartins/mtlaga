@@ -857,6 +857,10 @@ footer {
     margin-left: 10px;
 }
 
+.itineraire_flex_container_travel_action {
+  flex-direction: column;
+}
+
 .itineraire_flex_container_travel_action_perturbations {
   height: 80%;
   width: 50%;
@@ -868,14 +872,14 @@ footer {
 
 .itineraire_flex_container_travel_action_outils {
   height: 80%;
-  width: 250px;
+  width: 180px;
   box-shadow: 0 2px 6px rgba(0,0,0,.2);
   padding: 10px;
-  border-radius: 10px;
+  /*border-radius: 10px;*/
 }
 
 .itineraire_flex_container_travel_action_outils_icon:hover {
-  padding-left: 5px;
+  /*padding-left: 5px;*/
 }
 
 .itineraire_flex_container_travel_action_outils_icon a {
@@ -902,11 +906,16 @@ footer {
 
 .itineraire_flex_container_travel_action_outils ul div {
   flex-direction: row;
+  padding-bottom: 5px;
 }
 
 .itineraire_flex_container_travel_action_outils > p, .itineraire_flex_container_travel_action_perturbations > p {
   margin: 0;
   font-size: 19px;
+}
+
+.itineraire_flex_container_travel_action_outils i {
+  font-size: 18px;
 }
 
 .itineraire_flex_container_travel_action_perturbations > div > p {
@@ -1273,6 +1282,15 @@ footer {
   min-height: 400px;
 }
 
+.itineraire_flex_container_travel_login {
+  background-color: #777777;
+  color: white;
+  padding: 3px 10px;
+}
+
+#itineraire_header_action_favorite_bck {
+  width: 100%;
+}
 
 /**************************************************/
 /* RESPONSIVE */
@@ -1390,6 +1408,10 @@ footer {
     width: 50%
   }
 
+  .itineraire_flex_container_travel_login {
+    display: none;
+  }
+
   #footer_text {
     margin: 0 auto;
   }
@@ -1408,16 +1430,17 @@ footer {
   }
 
   .itineraire_flex_container_travel_action_outils {
-    padding: 0;
+    padding: 5px;
     height: 150px;
   }
 
   .itineraire_flex_container_travel_action {
     width: 30px;
+    flex-direction: row;
+    margin-right: 15px;
   }
 
   .itineraire_flex_container_travel_action_outils_icon:hover {
-     padding: 0;
   }
 
   .itineraire_flex_container_travel_action_outils_icon i:hover {
@@ -1428,6 +1451,10 @@ footer {
   .itineraire_flex_container_travel_action_outils_icon {
     text-align: center;
     display: inherit;
+  }
+
+  .itineraire_flex_container_travel_action_outils ul li {
+    padding-bottom: 0;
   }
 
 }
@@ -1446,9 +1473,19 @@ footer {
   .itineraire_flex_container_travel_action {
     width: 30px;
   }
+
   .itineraire_flex_container_travel_details_container {
     width: 300px;
   }
+
+  .itineraire_flex_container_travel_action {
+    margin-right: 0;
+  }
+
+  #itineraire_flex_Header_direction {
+    width: 26%;
+  }
+
 }
 
 
