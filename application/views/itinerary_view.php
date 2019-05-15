@@ -311,18 +311,18 @@ foreach ($favorites as $favorite) {
                                       }
                                       ?>
                                       <div class="itineraire_flex_container_travel_action_outils" style="<?= $style ?>">
-                                          <p><b>Cette relation</b></p>
+                                          <p class="itineraire_flex_container_action_outil_text"><b>Cette relation</b></p>
                                           <ul>
                                               <div class="flex_container itineraire_flex_container_travel_action_outils_icon icon_show_map">
-                                                  <li>Afficher sur la carte</li>
-                                                  <i class="fas fa-map-marked-alt"></i>
+                                                  <li class="itineraire_flex_container_action_outil_text">Afficher sur la carte</li>
+                                                  <i class="fas fa-map-marked-alt itineraire_icon"></i>
                                                   <i class="fas fa-long-arrow-alt-right animated fadeInLeft"
                                                      style="display: none; padding-right: 5px"></i>
                                                   <input type="hidden" value="<?= $connection_key ?>">
                                               </div>
                                               <div class="flex_container itineraire_flex_container_travel_action_outils_icon icon_add_calendar">
-                                                  <li><a href="<?= base_url()?>/Itinerary/generate_ics/toto/tata">Ajouter au calendrier</a></li>
-                                                  <i class="fas fa-calendar-alt"></i>
+                                                  <li class="itineraire_flex_container_action_outil_text"><a href="<?= base_url()?>/Itinerary/generate_ics/toto/tata">Ajouter au calendrier</a></li>
+                                                  <i class="fas fa-calendar-alt itineraire_icon"></i>
                                                   <i class="fas fa-long-arrow-alt-right animated fadeInLeft"
                                                      style="display: none; padding-right: 5px">
                                                   </i>
@@ -338,8 +338,8 @@ foreach ($favorites as $favorite) {
                                                       $arrival_platform = "";
                                                   }*/
                                                   ?>
-                                                  <li><a>Envoyer par email</a></li>
-                                                  <i class="fas fa-envelope"></i>
+                                                  <li class="itineraire_flex_container_action_outil_text"><a>Envoyer par email</a></li>
+                                                  <i class="fas fa-envelope itineraire_icon"></i>
                                                   <i class="fas fa-long-arrow-alt-right animated fadeInLeft" style="display: none; padding-right: 5px"></i>
                                                   </div>
                                               </ul>

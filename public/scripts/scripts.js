@@ -19,9 +19,12 @@ $( document ).ready(function() {
     });
 
     $(".itineraire_flex_container_travel_action_outils_icon").mouseover(function() {
-        $(this).children(":nth-child(2)").hide()
-        $(this).children(":nth-child(3)").show()
+        if($(window).width() > 660) {
+            $(this).children(":nth-child(2)").hide()
+            $(this).children(":nth-child(3)").show()
+        }
     });
+
     $(".itineraire_flex_container_travel_action_outils_icon").mouseleave(function() {
         $(this).children(":nth-child(2)").show()
         $(this).children(":nth-child(3)").hide()
@@ -36,6 +39,7 @@ $( document ).ready(function() {
         $(this).next().children().hide()
         $(this).next().children(":nth-child(2)").show()
     });
+
 
 
     // init flartpickr sur classe flatpickr_selector

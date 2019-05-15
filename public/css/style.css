@@ -1071,7 +1071,7 @@ footer {
 }
 
 .home_style_flexbox_sub_text_scroll_container:hover {
-  cursor: pointer;.dot_end
+  cursor: pointer;
 }
 
 
@@ -1265,8 +1265,13 @@ footer {
   border: none;
 }
 
+#map-container {
+  min-height: 330px;
+}
 
-
+#modal-mail {
+  min-height: 400px;
+}
 
 
 /**************************************************/
@@ -1358,6 +1363,10 @@ footer {
     width: 10%;
   }
 
+  .itineraire_flex_container_travel_action {
+    width: 200px;
+  }
+
   .itineraire_flex_container_travel_line {
     width: 70%;
   }
@@ -1384,6 +1393,43 @@ footer {
   #footer_text {
     margin: 0 auto;
   }
+
+  .itineraire_flex_container_action_outil_text {
+    display: none;
+  }
+
+  .itineraire_icon {
+    padding: 10px 5px 15px;
+    font-size: 20px;
+  }
+
+  .itineraire_flex_container_travel_details_container {
+    width: 93%;
+  }
+
+  .itineraire_flex_container_travel_action_outils {
+    padding: 0;
+    height: 150px;
+  }
+
+  .itineraire_flex_container_travel_action {
+    width: 30px;
+  }
+
+  .itineraire_flex_container_travel_action_outils_icon:hover {
+     padding: 0;
+  }
+
+  .itineraire_flex_container_travel_action_outils_icon i:hover {
+    color: #a5a5a5;
+    cursor: pointer;
+  }
+
+  .itineraire_flex_container_travel_action_outils_icon {
+    text-align: center;
+    display: inherit;
+  }
+
 }
 
 @media screen and (max-width: 470px) {
@@ -1395,4 +1441,14 @@ footer {
     flex-wrap: wrap;
   }
 }
+
+@media screen and (max-width: 350px) {
+  .itineraire_flex_container_travel_action {
+    width: 30px;
+  }
+  .itineraire_flex_container_travel_details_container {
+    width: 300px;
+  }
+}
+
 
