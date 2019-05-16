@@ -34,7 +34,7 @@
       <!-- Nav Bar !-->
       <div id="header_style_container" class="flex_container">
           <div id="header_style_logo" class="header_style_items">
-            <img src="<?= base_url(); ?>public/img/mtlaga_logo_22.png" alt="MTLAGA Logo">
+              <a href="<?= base_url() ?>"><img src="<?= base_url(); ?>public/img/mtlaga_logo_22.png" alt="MTLAGA Logo"></a>
           </div>
           <div id="header_style_menu" class="flex_container">
             <?php foreach ($header_nav_meta_data as $k => $v): ?>

@@ -128,6 +128,9 @@ class Itinerary extends CI_Controller {
      * @param $var2
      */
     public function generate_ics($var, $var2) {
+        if($this->meta_data['connected'] == 0) {
+            redirect('Home');
+        }
         $this->load->helper('download');
 
         // initialize var

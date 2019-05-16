@@ -39,44 +39,52 @@ if($this->meta_data['connected'] == 1) {
     }
 }
 
-
-
-
-
 ?>
 <!-- map modal -->
 <div id="map-container" class="modal">
-    <div class="modal-header">
-        <i class="fas fa-times fa-lg map-close"></i>
-    </div>
-    <div id="map" class="modal-container">
-    </div>
+    <?php
+    if($connected) {
+        ?>
+        <div class="modal-header">
+            <i class="fas fa-times fa-lg map-close"></i>
+        </div>
+        <div id="map" class="modal-container">
+        </div>
+    <?php
+    }
+    ?>
 </div>
 
 <div id="modal-mail" class="modal">
-    <div class="modal-header">
-        <i class="fas fa-times fa-lg map-close"></i>
-    </div>
-    <div class="modal-container">
-        <div class="modal-bck">
-            <div style="padding: 10px">
-                <h2 class="modal-h2-title">Envoyer par email</h2>
-                <input type="hidden" value="" id="section-id">
-                <form method="post" id="send-mail">
-                    <h3 class="model-h3-title">Liste des destinataires</h3>
-                    <select required type="text" multiple class="form_input" id="modal-email-tag"></select>
-                    <br>
-                    <span>M'ajouter comme destinataire</span>
-                    <input type="checkbox" id="modal-email-me">
-                    <br>
-                    <h3 class="modal-h3-title">Votre message</h3>
-                    <textarea class="modal-textarea" id="modal-email-message"></textarea>
-                    <br><br>
-                    <button class="modal-button">Envoyer</button>
-                </form>
+    <?php
+    if($connected) {
+       ?>
+        <div class="modal-header">
+            <i class="fas fa-times fa-lg map-close"></i>
+        </div>
+        <div class="modal-container">
+            <div class="modal-bck">
+                <div style="padding: 10px">
+                    <h2 class="modal-h2-title">Envoyer par email</h2>
+                    <input type="hidden" value="" id="section-id">
+                    <form method="post" id="send-mail">
+                        <h3 class="model-h3-title">Liste des destinataires</h3>
+                        <select required type="text" multiple class="form_input" id="modal-email-tag"></select>
+                        <br>
+                        <span>M'ajouter comme destinataire</span>
+                        <input type="checkbox" id="modal-email-me">
+                        <br>
+                        <h3 class="modal-h3-title">Votre message</h3>
+                        <textarea class="modal-textarea" id="modal-email-message"></textarea>
+                        <br><br>
+                        <button class="modal-button">Envoyer</button>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
+    <?php
+    }
+    ?>
 </div>
 
 <div id="home_container_overlay"></div>
