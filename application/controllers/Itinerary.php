@@ -171,7 +171,7 @@ END:VCALENDAR';
 
       $recipent_type = gettype($recipent);
       $recipent_array = [];
-      if ($self_send) {
+      if ($self_send === "true") {
         array_push($recipent_array, $user);
       }
       // check $recipent type && if it's not empty
