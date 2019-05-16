@@ -7,37 +7,74 @@ foreach ($scripts_to_load as $script) {
 <?php
 }
 
+// Force redirect if no itinerary search
+if(!isset($api) || empty($api->connections)) {
+    redirect('Home');
+}
+
 // check if user is connected
 $connected = false;
+$is_favorite = false;
+$style = "opacity: 0.5; pointer-events: none;";
+
 if($this->meta_data['connected'] == 1) {
     $connected = true;
-}
+    $style = "";
 
-$is_favorite = false;
-$journey = [
-    "departure" => $api->from->name,
-    "arrival" => $api->to->name
-];
-
-// check if journey is favorite
-foreach ($favorites as $favorite) {
-    //if(array)
-    $favorite = [
-        "departure" => $favorite->departure,
-        "arrival" => $favorite->arrival
+    $journey = [
+        "departure" => $api->from->name,
+        "arrival" => $api->to->name
     ];
-    if(empty(array_diff($journey, $favorite))) {
-        $is_favorite = true;
+
+    // check if journey is favorite
+    foreach ($favorites as $favorite) {
+        //if(array)
+        $favorite = [
+            "departure" => $favorite->departure,
+            "arrival" => $favorite->arrival
+        ];
+        if(empty(array_diff($journey, $favorite))) {
+            $is_favorite = true;
+        }
     }
 }
+
+
+
+
+
 ?>
 <!-- map modal -->
-<div id="map-container">
-    <div id="map-header">
-        <span></span>
-        <i class="fas fa-times fa-lg" id="map-close"></i>
+<div id="map-container" class="modal">
+    <div class="modal-header">
+        <i class="fas fa-times fa-lg map-close"></i>
     </div>
-    <div id="map" >
+    <div id="map" class="modal-container">
+    </div>
+</div>
+
+<div id="modal-mail" class="modal">
+    <div class="modal-header">
+        <i class="fas fa-times fa-lg map-close"></i>
+    </div>
+    <div class="modal-container">
+        <div class="modal-bck">
+            <div style="padding: 10px">
+                <h2 class="modal-h2-title">Envoyer par email</h2>
+                <form method="post" id="send-mail">
+                    <h3 class="model-h3-title">Liste des destinataires</h3>
+                    <select required type="text" multiple class="form_input" id="modal-email-tag"></select>
+                    <br>
+                    <span>M'ajouter comme destinataire</span>
+                    <input type="checkbox" id="modal-email-me">
+                    <br>
+                    <h3 class="modal-h3-title">Votre message</h3>
+                    <textarea class="modal-textarea" id="modal-email-message"></textarea>
+                    <br><br>
+                    <button class="modal-button">Envoyer</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -57,16 +94,18 @@ foreach ($favorites as $favorite) {
                 <?php
                 if($is_favorite) {
                     ?>
-                    <div class="flex_container itineraire_header_action_favorite" >
+                    <div class="flex_container itineraire_header_action_favorite" style="<?= $style ?>" >
                         <p><span id="itineraire_toggle_fav" class="itineraire_header_action_hover">Supprimer ce trajet des favoris</span></p>
                         <i class="fas fa-star itineraire_header_action_favorite_icon" style="color: gold" ></i>
                     </div>
                 <?php
                 } else {
                     ?>
-                    <div class="flex_container itineraire_header_action_favorite" >
-                        <p><span id="itineraire_toggle_fav" class="itineraire_header_action_hover">Ajouter ce trajet aux favoris</span></p>
-                        <i class="fas fa-star itineraire_header_action_favorite_icon" ></i>
+                    <div class="flex_container" id="itineraire_header_action_favorite_bck" data-user="<?= $connected ?>">
+                        <div class="flex_container itineraire_header_action_favorite" style="<?= $style ?> width: 100%;" >
+                            <p><span id="itineraire_toggle_fav" class="itineraire_header_action_hover">Ajouter ce trajet aux favoris</span></p>
+                            <i class="fas fa-star itineraire_header_action_favorite_icon" ></i>
+                        </div>
                     </div>
                 <?php
                 }
@@ -119,7 +158,7 @@ foreach ($favorites as $favorite) {
                   ?>
 
                   <!-- Traject line !-->
-                  <div class="itineraire_flex_container_travel_bck" id="">
+                  <div class="itineraire_flex_container_travel_bck">
                       <div class="itineraire_flex_container_travel">
                           <div class="itineraire_flex_container_travel_text">
                               <p>
@@ -273,57 +312,47 @@ foreach ($favorites as $favorite) {
 
                                   if($section_loop == 1) {
                                   ?>
-                                  <div class="flex_container itineraire_flex_container_travel_action">
-                                      <div class="itineraire_flex_container_travel_action_perturbations">
-                                          <p><b>Info trafic</b></p>
-                                          <div>
-                                              <p>Aucun dérangement n'est signalé</p>
-                                          </div>
-                                      </div>
+                                  <div class="flex_container itineraire_flex_container_travel_action" data-user="<?= $connected ?>">
                                       <?php
 
                                       $style = "";
                                       if (!$connected) {
                                           $style = "opacity: 0.5; pointer-events: none;";
+                                          ?>
+                                          <div class="itineraire_flex_container_travel_login" >Veuillez vous connecter</div>
+                                          <?php
                                       }
                                       ?>
                                       <div class="itineraire_flex_container_travel_action_outils" style="<?= $style ?>">
-                                          <p><b>Cette relation</b></p>
+                                          <p class="itineraire_flex_container_action_outil_text"><b>Cette relation</b></p>
                                           <ul>
-                                              <div class="flex_container itineraire_flex_container_travel_action_outils_icon icon_toggle_favorite">
-                                                  <i class="fas fa-long-arrow-alt-right animated fadeInLeft"
-                                                     style="display: none; padding-right: 5px"></i>
-                                                  <input type="hidden" data-journey="<?= $departure_station_section ?>"
-                                                         value="<?= $departure_station_section ?>">
-                                                  <input type="hidden" data-journey="<?= $arrival_station_section ?>"
-                                                         value="<?= $arrival_station_section ?>">
-                                              </div>
                                               <div class="flex_container itineraire_flex_container_travel_action_outils_icon icon_show_map">
-                                                  <li>Afficher sur la carte</li>
-                                                  <input type="hidden" value="<?= $connection_key ?>">
-                                                  <i class="fas fa-map-marked-alt"></i>
+                                                  <li class="itineraire_flex_container_action_outil_text">Afficher sur la carte</li>
+                                                  <i class="fas fa-map-marked-alt itineraire_icon"></i>
                                                   <i class="fas fa-long-arrow-alt-right animated fadeInLeft"
                                                      style="display: none; padding-right: 5px"></i>
+                                                  <input type="hidden" value="<?= $connection_key ?>">
                                               </div>
                                               <div class="flex_container itineraire_flex_container_travel_action_outils_icon icon_add_calendar">
-                                                  <li><a href="<?= base_url()?>/Itinerary/generate_ics/toto/tata">Ajouter au calendrier</a></li>
-                                                  <i class="fas fa-calendar-alt"></i>
+                                                  <li class="itineraire_flex_container_action_outil_text"><a href="<?= base_url()?>/Itinerary/generate_ics/toto/tata">Ajouter au calendrier</a></li>
+                                                  <i class="fas fa-calendar-alt itineraire_icon"></i>
                                                   <i class="fas fa-long-arrow-alt-right animated fadeInLeft"
                                                      style="display: none; padding-right: 5px">
                                                   </i>
                                               </div>
-                                              <div class="flex_container itineraire_flex_container_travel_action_outils_icon">
+                                              <div class="flex_container itineraire_flex_container_travel_action_outils_icon send_email">
                                                   <?php
+                                                  /*
                                                   if (is_null($train_departure_platform)) {
                                                       $train_arrival_platform = "";
                                                   }
                                                   $arrival_platform = ", Voie " . end($connection->sections)->arrival->platform;
                                                   if(is_null(end($connection->sections)->arrival->platform)) {
                                                       $arrival_platform = "";
-                                                  }
+                                                  }*/
                                                   ?>
-                                                  <li><a href="mailto:?subject=Voyage%20de%20<?= $api->from->name ?>%20%C3%A0%20<?= $api->to->name ?>&amp;body=D%C3%A9tails%20de%20votre%20voyage%20du%20<?= date('d.m.Y', strtotime($date)) ?>%20%3A%20%0A%0AD%C3%A9part%20%3A%20<?= $departure_time_section ?>%20de%20<?= $api->from->name ?>%20<?= $train_departure_platform ?>%20%0AArriv%C3%A9e%20%3A%20<?= date('H:i', $connection->to->arrivalTimestamp) ?>%A0%20%C3%A0%20<?= $api->to->name ?>%20<?= $arrival_platform ?>%0A%0APour%20plus%20de%20d%C3%A9tails%20%3A%20http://www.mtlaga.ch">Envoyer par mail</a></li>
-                                                  <i class="fas fa-envelope"></i>
+                                                  <li class="itineraire_flex_container_action_outil_text"><a>Envoyer par email</a></li>
+                                                  <i class="fas fa-envelope itineraire_icon"></i>
                                                   <i class="fas fa-long-arrow-alt-right animated fadeInLeft" style="display: none; padding-right: 5px"></i>
                                                   </div>
                                               </ul>
@@ -426,13 +455,29 @@ foreach ($favorites as $favorite) {
         var geojson = []
 
         $('.icon_show_map').click(function() {
-            var index = $(this).children().next().val()
+            var index = $(this).children().next().eq(2).val()
             $("#home_container_overlay").css('display', 'block');
 
+            //console.log(api)
+
+            // fill lines with journey stops
+            var departure_marker = new mapboxgl.Marker();
+            var departure_coordinates = []
             var sections = api.connections[index].sections
             sections.forEach(function(v, k) {
-                lines.push([v.departure.station.coordinate.y, v.departure.station.coordinate.x])
+                if(v.journey !== null) {
+                    v.journey.passList.forEach(function(v2,k2) {
+                        lines.push([v2.station.coordinate.y, v2.station.coordinate.x])
+                    })
+                } else {
+                    lines.push([v.departure.station.coordinate.y, v.departure.station.coordinate.x])
+                }
+                if(v.walk === null) {
+                    // create marker
+                }
             })
+            lines.push([sections[sections.length-1]['arrival']['location']['coordinate']['y'], sections[sections.length-1]['arrival']['location']['coordinate']['x']])
+
 
             // add layer
             geojson = {
@@ -447,22 +492,19 @@ foreach ($favorites as $favorite) {
             };
             map.getSource('route').setData(geojson);
 
-            var last_index = api.connections[index].sections[api.connections[index].sections.length-1]
-
-
-            console.log(last_index)
-            console.log(api.connections[index].sections)
-
+            var last_index = lines[lines.length-1]
 
             // show map / resize / fit bounds
             $("#map-container").css('display', 'block')
             map.resize()
+            //map.fitBounds(lines, {padding: 50});
+
             map.fitBounds([[
-                api.connections[index].sections[0]['departure']['location']['coordinate']['y'],
-                api.connections[index].sections[0]['departure']['location']['coordinate']['x']
+                lines[0][0],
+                lines[0][1]
             ], [
-                last_index['departure']['location']['coordinate']['y'],
-                last_index['departure']['location']['coordinate']['x']
+                last_index[0],
+                last_index[1]
             ]], {padding: 50});
 
             // sortir relation courante et tous les arrêts
@@ -472,12 +514,83 @@ foreach ($favorites as $favorite) {
          * Hide itinerary map
          * Close Modal
          */
-        $("#map-close").click(function() {
-            $("#map-container").css('display', 'none');
+        $(".map-close").click(function() {
+            $(".modal").css('display', 'none');
             $("#home_container_overlay").css('display', 'none');
             lines = []
         })
 
+        /**
+         * Open send email modal
+         */
+        $(".send_email").click(function() {
+            $("#home_container_overlay").css('display', 'block');
+            $("#modal-mail").css('display', 'block')
+        })
+
+        /**
+         * Initialize select2 email modal
+         */
+        $("#modal-email-tag").select2({
+            tags: true,
+            language: "fr",
+            tokenSeparators: [',', ' ']
+        })
+
+        /**
+         * Add favorite but not connected error message
+         */
+        $("#itineraire_header_action_favorite_bck").click(function() {
+            if($(this).attr('data-user') == false){
+                notif('error', "Vous devez être connecté")
+            }
+        })
+
+        /**
+         * Itinerary click action but not connected error message
+         */
+        $(".itineraire_flex_container_travel_action").click(function() {
+            if($(this).attr('data-user') == false){
+                notif('error', "Vous devez être connecté")
+            }
+        })
+
+        /**
+         * Send Mail function - AJAX to CI
+         */
+        $("#send-mail").submit(function(e){
+            e.preventDefault();
+            var recipents = $("#modal-email-tag").val()
+            var message = $("#modal-email-message").val()
+
+            var me = $("#modal-email-me")
+            if (me.is(":checked")) {
+                me = true
+            } else {
+                me = false
+            }
+
+            /*
+            todo: terminer envoi emails
+            $.ajax(
+                {
+                    type: "post",
+                    url: "",
+                    data: {
+                        recipents: recipents,
+                        message: message,
+                        me: me
+                    },
+                    success: function (response) {
+                        $(".modal").css('display', 'none');
+                        $("#home_container_overlay").css('display', 'none');
+                    }
+                    error: function (response) {
+
+                    }
+                });
+                */
+        });
 
         /**
          * Toggle favorite to user
