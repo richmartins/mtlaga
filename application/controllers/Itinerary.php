@@ -167,13 +167,19 @@ END:VCALENDAR';
       $recipent = $_POST['recipents'];
       $message_user = $_POST['message'];
       $travel_info = $_POST['journey'];
+      $self_send = $_POST['me'];
 
       $recipent_type = gettype($recipent);
-
+      $recipent_array = [];
+      if ($self_send) {
+        array_push($recipent_array, $user);
+      }
+      // check $recipent type && if it's not empty
       if ($recipent_type === "string" && $recipent !== ''){
         if(filter_var($recipent, FILTER_VALIDATE_EMAIL)){
           //use send email
-          return $this->email_model->sendEmail_travel($recipient, $user, $message_user, $travel_info);
+          array_push($recipents_array, $recipent);
+          return $this->email_model->sendEmail_travel($recipent_array, $user, $message_user, $travel_info);
         }else{
           //error
           var_dump($recipent);
@@ -186,9 +192,10 @@ END:VCALENDAR';
             return false;
             exit;
           }
+          array_push($recipent_array, $v);
         }
         //use send model
-        return $this->email_model->sendEmail_travel($recipent, $user, $message_user, $travel_info);
+        return $this->email_model->sendEmail_travel($recipent_array, $user, $message_user, $travel_info);
       } else{
         //error
         return false;
