@@ -571,20 +571,18 @@ if($this->meta_data['connected'] == 1) {
 
             var me = $("#modal-email-me")
             if (me.is(":checked")) {
-                me = true
-            } else {
-                me = false
+                recipents += ', ' + me;
             }
 
-            /*
-            todo: terminer envoi emails
+            //todo: terminer envoi emails
             $.ajax(
                 {
                     type: "post",
-                    url: "",
+                    url: "<?= base_url(); ?>itinerary/check_sendEmail_travel",
                     data: {
                         recipents: recipents,
                         message: message,
+                        journey: journey,
                         me: me
                     },
                     success: function (response) {
@@ -595,7 +593,6 @@ if($this->meta_data['connected'] == 1) {
 
                     }
                 });
-                */
         });
 
         /**

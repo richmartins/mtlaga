@@ -159,10 +159,34 @@ END:VCALENDAR';
         force_download($name, $ical, true);
     }
 
-    public function sendEmail_travel($to, $message_user, $travel_info){
-      if($to != '' && $travel_info != null){
-        $res = $this->email_model->sendTraveil_mail($to, $message)
-        return $res;
+    public function check_sendEmail_travel(){
+      $user = $_SESSION['email'];
+      $recipent = $_POST['recipents'];
+      $message_user = $_POST['message'];
+      $travel_info = $_POST['journey'];
+
+      $recipent_type = gettype($recipent);
+
+      if ($recipent_type = "string" && $recipent != ''){
+        if(filter_var($recipent, FILTER_VALIDATE_EMAIL)){
+          //use model
+          // $this->email_model->sendEmail_travel($recipient, $user, $message_user, $travel_info);
+        }else{
+          //error
+        }
+      } elseif ($recipent_type = "array") {
+        foreach ($recipent as $v) {
+          if(!filter_var($v, FILTER_VALIDATE_EMAIL)){
+            //error
+            echo 'une des adresse mail n\'est pas valide';
+            exit;
+          }
+        }
+        // $this->email_model->sendEmail_travel($recipent, $user, $message_user, $travel_info);
+        //use model
+      } else{
+        //error
+        echo 'adresse mail n\'est pas valide';
       }
     }
 
