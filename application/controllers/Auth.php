@@ -6,7 +6,7 @@ class Auth extends CI_Controller {
 
   public function __construct() {
     parent::__construct();
-    $helper = array('url', 'captcha_helper');
+    $helper = array('url');
     $this->load->helper($helper);
     $this->load->model('email_model');
 
