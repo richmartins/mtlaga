@@ -573,13 +573,13 @@ if($this->meta_data['connected'] == 1) {
          */
         $("#send-mail").submit(function(e){
             e.preventDefault();
-            var recipents = $("#modal-email-tag").val()
-            var message = $("#modal-email-message").val()
-            var journey = api.connections[$("#section-id").val()]
+            var recipentsS = $("#modal-email-tag").val()
+            // var message = $("#modal-email-message").val()
+            // var journey = api.connections[$("#section-id").val()]
 
             var me = $("#modal-email-me")
             if (me.is(":checked")) {
-                recipents += ', ' + me;
+                recipentsS += ', ' + me;
             }
 
             //todo: terminer envoi emails
@@ -588,17 +588,18 @@ if($this->meta_data['connected'] == 1) {
                     type: "post",
                     url: "<?= base_url(); ?>itinerary/check_sendEmail_travel",
                     data: {
-                        recipents: recipents,
-                        message: message,
-                        journey: journey,
-                        me: me
+                        recipents: recipentsS,
+                        message: $("#modal-email-message").val(),
+                        journey: api.connections[$("#section-id").val()]
                     },
                     success: function (response) {
                         $(".modal").css('display', 'none');
                         $("#home_container_overlay").css('display', 'none');
-                    }
+                        console.log(api.connections[$("#section-id").val()]);
+                        console.log('success');
+                    },
                     error: function (response) {
-
+                      console.log('error');
                     }
                 });
         });

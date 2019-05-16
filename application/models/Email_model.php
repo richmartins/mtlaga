@@ -71,11 +71,36 @@ class Email_model extends CI_Model {
   * @return boolean
   */
   public function sendEmail_travel($to, $user, $user_message, $travel_info){
+    $departure_time_stamp = (int) $travel_info['from']['departureTimestamp'];
+    $arrival_timestamp    = (int) $travel_info['to']['arrivalTimestamp'];
+    $departure_platform   = '';
+    $arrival_platform     = '';
+
+    $departure_location = $travel_info['from']['location']['name'];
+    $departure_date     = date('d.m.Y', $departure_time_stamp);
+    $departure_hour     = date('H:i', $departure_time_stamp);
+
+    $arrival_location   = $travel_info['to']['location']['name'];
+    $arrival_date       = date('d.m.Y', $arrival_timestamp);
+    $arrival_hour       = date('H:i', $arrival_timestamp);
+
+    if ($travel_info['from']['platform'] != null) {
+      $departure_platform = ', sur la voie ' . $travel_info['from']['platform'];
+    }
+
+    if ($travel_info['to']['platform'] != null) {
+      $arrival_platform = ', sur la voie ' . $travel_info['to']['platform'];
+    }
+
     $from     = 'no-reply@mtlaga.ch';
-    $subject  = 'Information sur l\'itineraire';
+    $subject  = 'Informations sur votre itineraire';
     $message  = '';
     $message .= "<p>" . $user_message . "</p>";
-    $message .= "<p>" . $travail_info . "</p>";
+    $message .= "<p>Détails de votre voyage du " . $departure_date . "</p>";
+    $message .= "<p>Départ : ". $departure_hour ." de ". $departure_location . $departure_platform . "<br />"
+             . "Arrivée : " . $arrival_hour ." à ". $arrival_location . $arrival_platform . "</p>";
+
+    $message .= "<p>Pour plus de détails : <a href='https://mtlaga.ch'>https://mtlaga.ch/</p>";
 
     $this->email->from($from, $user);
     $this->email->to($to);

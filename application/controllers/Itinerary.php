@@ -170,26 +170,28 @@ END:VCALENDAR';
 
       $recipent_type = gettype($recipent);
 
-      if ($recipent_type = "string" && $recipent != ''){
+      if ($recipent_type === "string" && $recipent !== ''){
         if(filter_var($recipent, FILTER_VALIDATE_EMAIL)){
-          //use model
-          // $this->email_model->sendEmail_travel($recipient, $user, $message_user, $travel_info);
+          //use send email
+          return $this->email_model->sendEmail_travel($recipient, $user, $message_user, $travel_info);
         }else{
           //error
+          var_dump($recipent);
+          return false;
         }
-      } elseif ($recipent_type = "array") {
+      } elseif ($recipent_type === "array") {
         foreach ($recipent as $v) {
           if(!filter_var($v, FILTER_VALIDATE_EMAIL)){
             //error
-            echo 'une des adresse mail n\'est pas valide';
+            return false;
             exit;
           }
         }
-        // $this->email_model->sendEmail_travel($recipent, $user, $message_user, $travel_info);
-        //use model
+        //use send model
+        return $this->email_model->sendEmail_travel($recipent, $user, $message_user, $travel_info);
       } else{
         //error
-        echo 'adresse mail n\'est pas valide';
+        return false;
       }
     }
 
