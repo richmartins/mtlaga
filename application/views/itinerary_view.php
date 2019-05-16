@@ -61,6 +61,7 @@ if($this->meta_data['connected'] == 1) {
         <div class="modal-bck">
             <div style="padding: 10px">
                 <h2 class="modal-h2-title">Envoyer par email</h2>
+                <input type="hidden" value="" id="section-id">
                 <form method="post" id="send-mail">
                     <h3 class="model-h3-title">Liste des destinataires</h3>
                     <select required type="text" multiple class="form_input" id="modal-email-tag"></select>
@@ -340,7 +341,7 @@ if($this->meta_data['connected'] == 1) {
                                                      style="display: none; padding-right: 5px">
                                                   </i>
                                               </div>
-                                              <div class="flex_container itineraire_flex_container_travel_action_outils_icon send_email">
+                                              <div class="flex_container itineraire_flex_container_travel_action_outils_icon send_email" data-index="<?= $connection_key?>">
                                                   <?php
                                                   /*
                                                   if (is_null($train_departure_platform)) {
@@ -354,10 +355,10 @@ if($this->meta_data['connected'] == 1) {
                                                   <li class="itineraire_flex_container_action_outil_text"><a>Envoyer par email</a></li>
                                                   <i class="fas fa-envelope itineraire_icon"></i>
                                                   <i class="fas fa-long-arrow-alt-right animated fadeInLeft" style="display: none; padding-right: 5px"></i>
-                                                  </div>
-                                              </ul>
-                                          </div>
+                                              </div>
+                                          </ul>
                                       </div>
+                                  </div>
                                       <?php
                                   }
                                       ?>
@@ -526,6 +527,10 @@ if($this->meta_data['connected'] == 1) {
         $(".send_email").click(function() {
             $("#home_container_overlay").css('display', 'block');
             $("#modal-mail").css('display', 'block')
+
+            // set id to modal
+            var index = $(this).attr("data-index")
+            $("#section-id").val(index)
         })
 
         /**
@@ -562,6 +567,7 @@ if($this->meta_data['connected'] == 1) {
             e.preventDefault();
             var recipents = $("#modal-email-tag").val()
             var message = $("#modal-email-message").val()
+            var journey = api.connections[$("#section-id").val()]
 
             var me = $("#modal-email-me")
             if (me.is(":checked")) {
