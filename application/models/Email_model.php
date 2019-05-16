@@ -37,7 +37,7 @@ class Email_model extends CI_Model {
 
    return $res;
   }
-  
+
   /**
   * Default reset password email
   * @param $to => will receive the email
@@ -60,6 +60,31 @@ class Email_model extends CI_Model {
    $this->email->set_mailtype("html");
    $res = $this->email->send();
    return $res;
+  }
+
+  /**
+  * itinerary email
+  * @param $to => who will receive the email
+  * @param $user => user email
+  * @param $user_message => message from sender
+  * @param $travel_info
+  * @return boolean
+  */
+  public function sendEmail_travel($to, $user, $user_message, $travel_info){
+    $from     = 'no-reply@mtlaga.ch';
+    $subject  = 'Information sur l\'itineraire';
+    $message  = '';
+    $message .= "<p>" . $user_message . "</p>";
+    $message .= "<p>" . $travail_info . "</p>";
+
+    $this->email->from($from, $user);
+    $this->email->to($to);
+    $this->email->subject($subject);
+    $this->email->message($message);
+    $this->email->set_mailtype("html");
+    $res = $this->email->send();
+
+    return $res;
   }
 }
 ?>

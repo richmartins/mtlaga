@@ -14,6 +14,7 @@ class Itinerary extends CI_Controller {
         $this->load->model("itinerary_model");
         $this->load->model('users_model');
         $this->load->model('favorites_model');
+        $this->load->model('email_model');
 
         $this->load->helper('url');
         $this->header_nav = [
@@ -156,6 +157,13 @@ END:VCALENDAR';
 
         $name = 'calendar.ics';
         force_download($name, $ical, true);
+    }
+
+    public function sendEmail_travel($to, $message_user, $travel_info){
+      if($to != '' && $travel_info != null){
+        $res = $this->email_model->sendTraveil_mail($to, $message)
+        return $res;
+      }
     }
 
     /**
