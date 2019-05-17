@@ -573,9 +573,7 @@ if($this->meta_data['connected'] == 1) {
          */
         $("#send-mail").submit(function(e){
             e.preventDefault();
-            var recipentsS = $("#modal-email-tag").val()
-            // var message = $("#modal-email-message").val()
-            // var journey = api.connections[$("#section-id").val()]
+            var recipents = $("#modal-email-tag").val()
 
             var me = $("#modal-email-me")
             if (me.is(":checked")) {
@@ -584,13 +582,12 @@ if($this->meta_data['connected'] == 1) {
               me = false;
             }
 
-            //todo: terminer envoi emails
             $.ajax(
                 {
                     type: "post",
                     url: "<?= base_url(); ?>itinerary/check_sendEmail_travel",
                     data: {
-                        recipents: recipentsS,
+                        recipents: recipents,
                         message: $("#modal-email-message").val(),
                         journey: api.connections[$("#section-id").val()],
                         me: me
@@ -598,12 +595,9 @@ if($this->meta_data['connected'] == 1) {
                     success: function (response) {
                         $(".modal").css('display', 'none');
                         $("#home_container_overlay").css('display', 'none');
-                        console.log(api.connections[$("#section-id").val()]);
-                        console.log('success');
                         notif('success', 'Mail envoyé avec succès')
                     },
                     error: function (response) {
-                      console.log('error');
                       notif('error', 'Erreur lors de l\'envoi du mail')
                     }
                 });
