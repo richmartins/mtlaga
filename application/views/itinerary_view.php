@@ -579,7 +579,9 @@ if($this->meta_data['connected'] == 1) {
 
             var me = $("#modal-email-me")
             if (me.is(":checked")) {
-                recipentsS += ', ' + me;
+              me = true;
+            } else {
+              me = false;
             }
 
             //todo: terminer envoi emails
@@ -590,16 +592,19 @@ if($this->meta_data['connected'] == 1) {
                     data: {
                         recipents: recipentsS,
                         message: $("#modal-email-message").val(),
-                        journey: api.connections[$("#section-id").val()]
+                        journey: api.connections[$("#section-id").val()],
+                        me: me
                     },
                     success: function (response) {
                         $(".modal").css('display', 'none');
                         $("#home_container_overlay").css('display', 'none');
                         console.log(api.connections[$("#section-id").val()]);
                         console.log('success');
+                        notif('success', 'Mail envoyé avec succès')
                     },
                     error: function (response) {
                       console.log('error');
+                      notif('error', 'Erreur lors de l\'envoi du mail')
                     }
                 });
         });

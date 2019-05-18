@@ -95,8 +95,10 @@ class Email_model extends CI_Model {
     $from     = 'no-reply@mtlaga.ch';
     $subject  = 'Informations sur votre itineraire';
     $message  = '';
+    $message .= "<h3>MTLAGA</h3>";
+    $message .= "<p><b>Message de : " . $user . "</b></p>";
     $message .= "<p>" . $user_message . "</p>";
-    $message .= "<p>Détails de votre voyage du " . $departure_date . "</p>";
+    $message .= "<p><b>Détails de votre voyage du " . $departure_date . "</b></p>";
     $message .= "<p>Départ : ". $departure_hour ." de ". $departure_location . $departure_platform . "<br />"
              . "Arrivée : " . $arrival_hour ." à ". $arrival_location . $arrival_platform . "</p>";
 
