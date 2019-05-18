@@ -228,6 +228,7 @@ header {
   outline: none;
   font-size: 18px;
   padding: 5px;
+  -webkit-appearance: none;
 }
 
 
@@ -478,6 +479,7 @@ footer {
   background-color: #0083B3;
   color: #FFFFFF;
   border: none;
+  -webkit-appearance: none;
 }
 
 .home_style_flexbox_input:focus {
