@@ -343,7 +343,7 @@ if($this->meta_data['connected'] == 1) {
                                                   <input type="hidden" value="<?= $connection_key ?>">
                                               </div>
                                               <div class="flex_container itineraire_flex_container_travel_action_outils_icon icon_add_calendar">
-                                                  <li class="itineraire_flex_container_action_outil_text"><a href="<?= base_url()?>/Itinerary/generate_ics/toto/tata">Ajouter au calendrier</a></li>
+                                                  <li class="itineraire_flex_container_action_outil_text"><a href="<?= base_url()?>/Itinerary/generate_ics/<?= urldecode($train_departure_city) ?>/<?= urldecode($train_arrival_city) ?>/<?= $departure_time_section ?>">Ajouter au calendrier</a></li>
                                                   <i class="fas fa-calendar-alt itineraire_icon"></i>
                                                   <i class="fas fa-long-arrow-alt-right animated fadeInLeft"
                                                      style="display: none; padding-right: 5px">
