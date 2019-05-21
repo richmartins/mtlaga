@@ -107,7 +107,7 @@ captchaimage {
           <div class="flex-container2">
             <div class="flex-container3">
               <!--Ajout de l'image Captcha-->
-              <img src="#" alt="captcha" class="captcha-image captchaimage">
+              <img src="data:image/png;base64,<?= captcha(); ?>" alt="captcha">
             </div>
             <div class="flex-container4">
               <i class="fas fa-sync-alt refresh-captcha rotate captcha-image "></i>

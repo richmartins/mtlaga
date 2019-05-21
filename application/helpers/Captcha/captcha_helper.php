@@ -41,7 +41,7 @@ if (! function_exists('captcha')){
         $textcolors = [$black, $white];
 
         //Police d'écriture
-        $fonts = [ base_url() . 'public/css/font/VEnigma/VEnigma45.ttf'];
+        $fonts = [APPPATH . 'helpers/Captcha/fonts/VEnigma/VEnigma45.ttf'];
 
         //Longueur de la chaine caractère
         $string_length = "4";
@@ -55,9 +55,13 @@ if (! function_exists('captcha')){
          imagettftext($image, 24, rand(-15, 15), $initial + $i*$letter_space, rand(25, 45), $textcolors[rand(0, 1)], $fonts[array_rand($fonts)], $captcha_string[$i]);
         }
 
-        header('Content-type: image/png');
+        //header('Content-type: image/png');
+        ob_start();
         imagepng($image);
         imagedestroy($image);
+        $imagedata = ob_get_clean();
+
+        return base64_encode($imagedata);
     }
 
     //génération du la suite de caractères
