@@ -1,69 +1,25 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <style>
-captchaimage {
-  margin-bottom: 7px;
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-}
-
-
-.flex-container{
-    display:flex;
-    border: 2px solid red;
-    width:40%;
-}
-
-.flex-container2{
-    display:flex;
-    border: 2px solid yellow;
-    width:60%;
-}
-
-.flex-container3{
+.div_captcha_content{
   display: flex;
-  border: 2px solid yellow;
-  width: 90%;
-  margin-left: 3%;
-
-}
-
-
-.flex-container4{
-  margin-top: 13%;
-  height: 20%;
-  display: flex;
-  margin-left: 3%;
-  border: 2px solid green;
-
-
-}
-
-.flex-container-master{
-    display:flex;
-    border: 2px solid blue;
-    height: 100px;
-    width:100%;
-
-}
-
-.form_input_Cap {
+  flex-direction: column;
   width: 100%;
-  background-color: #EBEBEB;
-  height: 30px;
-  border: none;
-  outline: none;
-  font-size: 18px;
-  padding: 5px;
-  margin-top: 50%;
-  margin-botom:50%;
 }
+.captcha_style_img {
+  display: flex;
+  align-items: center;
+  align-content: space-around;
+  justify-content: space-between;
+  margin: .4em 0;
 
-
-.item {
-  flex-basis: <length> | auto; /* default auto */
 }
-
+.captcha_style_form{
+  flex-direction: row;
+  /* flex-wrap: wrap; */
+}
+i.refresh-captcha:hover{
+  cursor: pointer;
+}
 </style>
 
 <div class="auth_flex_container">
@@ -96,23 +52,19 @@ captchaimage {
         <p>Confirmer le mot de passe</p>
         <input type="password" name="password_confirm" class="form_input" required>
       </div>
+      <!--Div principal contenant les flex-box-->
+      <div class="div_captcha_content">
+        <div class="captcha_style_img">
+          <!--Ajout de l'image Captcha-->
+          <img id="captcha" src="data:image/png;base64,<?= captcha(); ?>" alt="captcha">
+          <i class="fas fa-sync-alt refresh-captcha rotate captcha-image "></i>
+        </div>
+        <div class="captcha_style_form">
+          <input class="form_input" type="text" id="captcha" name="captcha" >
+        </div>
+      </div>
       <div class="form_style_submit form_style_title">
         <input id="form_signup_submit" type="submit" value="S'inscrire" class="form_input">
-      </div>
-      <!--Div principal contenant les flex-box-->
-      <div class="div_captcha flex-container-master">
-          <div class="flex-container">
-              <input class="form_input_Cap" type="text" id="captcha" name="captcha" >
-          </div>
-          <div class="flex-container2">
-            <div class="flex-container3">
-              <!--Ajout de l'image Captcha-->
-              <img src="data:image/png;base64,<?= captcha(); ?>" alt="captcha">
-            </div>
-            <div class="flex-container4">
-              <i class="fas fa-sync-alt refresh-captcha rotate captcha-image "></i>
-            </div>
-          </div>
       </div>
       <div class="form_style_link" id="signup_submit">
         <p><a href="<?= base_url(); ?>auth/login">Retour à la page de connexion ?</a></p>
@@ -122,11 +74,16 @@ captchaimage {
 </div>
 <script>
   var refreshButton = document.querySelector(".refresh-captcha");
-  refreshButton.onclick = function(){
-    document.querySelector(".captcha-image").src = 'captcha.php?' + Date.now();
-  }
-  
+  // refreshButton.onclick = function(){
+  //  location.reload();
+  // }
+
   $(document).ready(function() {
+    d = new Date();
+
+    $('.refresh-captcha').click(function() {
+    $('#captcha').attr("src", "data:image/png;base64,<?= captcha(); ?>");
+    })
 
     var strong = new RegExp("^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z0-9$@$!%*#?&]{8,}");
     var medium = new RegExp('^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9]{8,}');
