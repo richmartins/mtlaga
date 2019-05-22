@@ -7,7 +7,7 @@ if (! function_exists('captcha')){
         $ci = get_instance();
         // Write your logic as per requirement
         //Caractère permis
-        $permitted_chars = 'ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz012345689';
+        $permitted_chars = 'ABCDEFGHJKLMNOPQRSTUVWXYZ1234567890';
 
         $image = imagecreatetruecolor(200, 50);
         imageantialias($image, true);
@@ -36,23 +36,24 @@ if (! function_exists('captcha')){
         }
 
         //Couleur du texte
-        $black = imagecolorallocate($image, 0, 0, 0);
         $white = imagecolorallocate($image, 255, 255, 255);
-        $textcolors = [$black, $white];
 
         //Police d'écriture
-        $fonts = [APPPATH . 'helpers/Captcha/fonts/VEnigma/VEnigma45.ttf'];
+        $fonts = [APPPATH . 'helpers/Captcha/fonts/VEnigma/VEnigma45.ttf',
+                  APPPATH . 'helpers/Captcha/fonts/Ubuntu/Ubuntu-Regular.ttf',
+                  APPPATH . 'helpers/Captcha/fonts/Didact_Gothic/DidactGothic-Regular.ttf'
+        ];
 
         //Longueur de la chaine caractère
         $string_length = "4";
         $captcha_string = generate_string($permitted_chars, $string_length);
 
-        // $_SESSION['captcha_text'] = $captcha_string;
+        $_SESSION['captcha_text'] = $captcha_string;
 
         for($i = 0; $i < $string_length; $i++) {
          $letter_space = 170/$string_length;
          $initial = 15;
-         imagettftext($image, 24, rand(-15, 15), $initial + $i*$letter_space, rand(25, 45), $textcolors[rand(0, 1)], $fonts[array_rand($fonts)], $captcha_string[$i]);
+         imagettftext($image, 24, rand(-15, 15), $initial + $i*$letter_space, rand(25, 45), $white, $fonts[array_rand($fonts)], $captcha_string[$i]);
         }
 
         //header('Content-type: image/png');
@@ -68,7 +69,7 @@ if (! function_exists('captcha')){
     function generate_string($input, $strength = 10) {
       //Longueur de la suite
       $input_length = strlen($input);
-      $random_string = 0;
+      $random_string = '';
       //Boucle des caratères
       for($i = 0; $i < $strength; $i++) {
         $random_character = $input[mt_rand(0, $input_length - 1)];

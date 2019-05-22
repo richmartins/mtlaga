@@ -1515,6 +1515,8 @@ label.stat_pass{
   min-height: 30px;
   margin: .7em;
   align-items: center;
+  min-width: 200px;
+  text-align: center;
 }
 
 .auth_signup_info {

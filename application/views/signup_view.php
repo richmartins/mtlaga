@@ -53,14 +53,15 @@ i.refresh-captcha:hover{
         <input type="password" name="password_confirm" class="form_input" required>
       </div>
       <!--Div principal contenant les flex-box-->
-      <div class="div_captcha_content">
+      <div class="form_style_title div_captcha_content">
+        <span>Êtes-vous humain ?</span>
         <div class="captcha_style_img">
           <!--Ajout de l'image Captcha-->
           <img id="captcha" src="data:image/png;base64,<?= captcha(); ?>" alt="captcha">
           <i class="fas fa-sync-alt refresh-captcha rotate captcha-image "></i>
         </div>
         <div class="captcha_style_form">
-          <input class="form_input" type="text" id="captcha" name="captcha" >
+          <input class="form_input" type="text" id="captcha" name="captcha" required>
         </div>
       </div>
       <div class="form_style_submit form_style_title">
@@ -73,16 +74,11 @@ i.refresh-captcha:hover{
   </form>
 </div>
 <script>
-  var refreshButton = document.querySelector(".refresh-captcha");
-  // refreshButton.onclick = function(){
-  //  location.reload();
-  // }
 
   $(document).ready(function() {
-    d = new Date();
 
     $('.refresh-captcha').click(function() {
-    $('#captcha').attr("src", "data:image/png;base64,<?= captcha(); ?>");
+      location.reload();
     })
 
     var strong = new RegExp("^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z0-9$@$!%*#?&]{8,}");
