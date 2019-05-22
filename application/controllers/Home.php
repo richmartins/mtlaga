@@ -20,13 +20,6 @@ class Home extends CI_Controller {
           'error' => null
         ];
 
-        $this->load->model('rss_model');
-
-        if(!empty($this->rss_model->getRss())) {
-          $this->rss = $this->rss_model->getRss();
-          $this->meta_data['rss'] = $this->rss;
-        }
-
         if(isset($_SESSION['email'])){
           $this->meta_data['connected'] = 1;
         }
