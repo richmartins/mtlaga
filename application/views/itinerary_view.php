@@ -354,12 +354,12 @@ if($this->meta_data['connected'] == 1) {
                                                   <i class="fas fa-envelope itineraire_icon"></i>
                                                   <i class="fas fa-long-arrow-alt-right animated fadeInLeft" style="display: none; padding-right: 5px"></i>
                                               </div>
-                                              <div class="flex_container itineraire_flex_container_travel_action_outils_icon icon_send_whatsapp" data-index="<?= $connection_key?>">
+                                              <!-- <div class="flex_container itineraire_flex_container_travel_action_outils_icon icon_send_whatsapp" data-index="">
                                                   <li class="itineraire_flex_container_action_outil_text"><a href="whatsapp://send?text=interesting-url"
                                                                                                              data-action="share/whatsapp/share">Envoyer par whatsapp</a></li>
-                                                  <i class="fab fa-whatsapp-square"></i>
+                                                  <i class="fab fa-whatsapp-square"></i>what
                                                   <i class="fas fa-long-arrow-alt-right animated fadeInLeft" style="display: none; padding-right: 5px"></i>
-                                              </div>
+                                              </div> -->
                                           </ul>
                                       </div>
                                   </div>
