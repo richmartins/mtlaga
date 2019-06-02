@@ -182,7 +182,6 @@ END:VCALENDAR';
           return $this->email_model->sendEmail_travel($recipent_array, $user, $message_user, $travel_info);
         }else{
           //error
-          var_dump($recipent);
           return false;
         }
       } elseif ($recipent_type === "array") {

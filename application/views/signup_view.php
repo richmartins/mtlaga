@@ -1,4 +1,26 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+<style>
+.div_captcha_content{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.captcha_style_img {
+  display: flex;
+  align-items: center;
+  align-content: space-around;
+  justify-content: space-between;
+  margin: .4em 0;
+
+}
+.captcha_style_form{
+  flex-direction: row;
+  /* flex-wrap: wrap; */
+}
+i.refresh-captcha:hover{
+  cursor: pointer;
+}
+</style>
 
 <div class="auth_flex_container">
   <div class="auth_signup_<?=$this->session->flashdata('class');?>">
@@ -30,6 +52,18 @@
         <p>Confirmer le mot de passe</p>
         <input type="password" name="password_confirm" class="form_input" required>
       </div>
+      <!--Div principal contenant les flex-box-->
+      <div class="form_style_title div_captcha_content">
+        <span>Êtes-vous humain ?</span>
+        <div class="captcha_style_img">
+          <!--Ajout de l'image Captcha-->
+          <img id="captcha" src="data:image/png;base64,<?= captcha(); ?>" alt="captcha">
+          <i class="fas fa-sync-alt refresh-captcha rotate captcha-image "></i>
+        </div>
+        <div class="captcha_style_form">
+          <input class="form_input" type="text" id="captcha" name="captcha" required>
+        </div>
+      </div>
       <div class="form_style_submit form_style_title">
         <input id="form_signup_submit" type="submit" value="S'inscrire" class="form_input">
       </div>
@@ -40,49 +74,55 @@
   </form>
 </div>
 <script>
-      $(document).ready(function() {
-        var strong = new RegExp("^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z0-9$@$!%*#?&]{8,}");
-        var medium = new RegExp('^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9]{8,}');
-        var ok = new RegExp("^.{8}");
-        var low = new RegExp("^.{2}");
 
-        $('#password_input').keyup(function() {
-          var value = $(this).val();
-          switch (true) {
-            case strong.test(value):
-              $('#password-meter').show();
-              $('#password-meter').val('10');
-              $('.stat_pass').empty();
-              $('.stat_pass').append('Mot de passe fort');
-              break;
-            case medium.test(value):
-              $('#password-meter').show();
-              $('#password-meter').val('7');
-              $('.stat_pass').empty();
-              $('.stat_pass').append('Mot de passe moyen');
-              break;
-            case ok.test(value):
-              $('#password-meter').show();
-              $('#password-meter').val('4');
-              $('.stat_pass').empty();
-              $('.stat_pass').append('Mot de passe bon');
-              break;
-            case low.test(value):
-              $('#password-meter').show();
-              $('#password-meter').val('1.5');
-              $('.stat_pass').empty();
-              $('.stat_pass').append('Mot de passe très faible');
-              break;
-            case value = '':
-              $('#password-meter').hide();
-              $('#password-meter').val('0');
-              $('.stat_pass').empty();
-              break;
-            default:
-              $('#password-meter').hide();
-              $('#password-meter').val('0');
-              $('.stat_pass').empty();
-          }
-        })
-      });
+  $(document).ready(function() {
+
+    $('.refresh-captcha').click(function() {
+      location.reload();
+    })
+
+    var strong = new RegExp("^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z0-9$@$!%*#?&]{8,}");
+    var medium = new RegExp('^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9]{8,}');
+    var ok = new RegExp("^.{8}");
+    var low = new RegExp("^.{2}");
+
+    $('#password_input').keyup(function() {
+      var value = $(this).val();
+      switch (true) {
+        case strong.test(value):
+          $('#password-meter').show();
+          $('#password-meter').val('10');
+          $('.stat_pass').empty();
+          $('.stat_pass').append('Mot de passe fort');
+          break;
+        case medium.test(value):
+          $('#password-meter').show();
+          $('#password-meter').val('7');
+          $('.stat_pass').empty();
+          $('.stat_pass').append('Mot de passe moyen');
+          break;
+        case ok.test(value):
+          $('#password-meter').show();
+          $('#password-meter').val('4');
+          $('.stat_pass').empty();
+          $('.stat_pass').append('Mot de passe bon');
+          break;
+        case low.test(value):
+          $('#password-meter').show();
+          $('#password-meter').val('1.5');
+          $('.stat_pass').empty();
+          $('.stat_pass').append('Mot de passe très faible');
+          break;
+        case value = '':
+          $('#password-meter').hide();
+          $('#password-meter').val('0');
+          $('.stat_pass').empty();
+          break;
+        default:
+          $('#password-meter').hide();
+          $('#password-meter').val('0');
+          $('.stat_pass').empty();
+      }
+    })
+  });
  </script>

@@ -6,7 +6,7 @@ class Auth extends CI_Controller {
 
   public function __construct() {
     parent::__construct();
-    $helper = array('url');
+    $helper = array('url', 'Captcha/captcha');
     $this->load->helper($helper);
     $this->load->model('email_model');
 
@@ -94,6 +94,7 @@ class Auth extends CI_Controller {
     $email            = $this->input->post('mail');
     $password         = $this->input->post('password');
     $password_confirm = $this->input->post('password_confirm');
+    $input_captcha    = $this->input->post('captcha');
 
     $confirm_token = bin2hex(random_bytes(20));
 
@@ -101,8 +102,9 @@ class Auth extends CI_Controller {
     $res_valid_email  = $this->users_model->valid_email($email);
     $res_valid_pass   = $this->users_model->valid_password($password);
     $res_email_exists = $this->users_model->exists_email($email);
+    $res_captcha      = $this->users_model->match_captcha($input_captcha, $_SESSION['captcha_text']);
 
-    $res = array($res_pass_match, $res_valid_email, $res_valid_pass, $res_email_exists);
+    $res = array($res_pass_match, $res_valid_email, $res_valid_pass, $res_email_exists, $res_captcha);
 
     foreach ($res as $v) {
       if ($v !== true) {

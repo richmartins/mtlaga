@@ -350,18 +350,14 @@ if($this->meta_data['connected'] == 1) {
                                                   </i>
                                               </div>
                                               <div class="flex_container itineraire_flex_container_travel_action_outils_icon send_email" data-index="<?= $connection_key?>">
-                                                  <?php
-                                                  /*
-                                                  if (is_null($train_departure_platform)) {
-                                                      $train_arrival_platform = "";
-                                                  }
-                                                  $arrival_platform = ", Voie " . end($connection->sections)->arrival->platform;
-                                                  if(is_null(end($connection->sections)->arrival->platform)) {
-                                                      $arrival_platform = "";
-                                                  }*/
-                                                  ?>
                                                   <li class="itineraire_flex_container_action_outil_text"><a>Envoyer par email</a></li>
                                                   <i class="fas fa-envelope itineraire_icon"></i>
+                                                  <i class="fas fa-long-arrow-alt-right animated fadeInLeft" style="display: none; padding-right: 5px"></i>
+                                              </div>
+                                              <div class="flex_container itineraire_flex_container_travel_action_outils_icon icon_send_whatsapp" data-index="<?= $connection_key?>">
+                                                  <li class="itineraire_flex_container_action_outil_text"><a href="whatsapp://send?text=interesting-url"
+                                                                                                             data-action="share/whatsapp/share">Envoyer par whatsapp</a></li>
+                                                  <i class="fab fa-whatsapp-square"></i>
                                                   <i class="fas fa-long-arrow-alt-right animated fadeInLeft" style="display: none; padding-right: 5px"></i>
                                               </div>
                                           </ul>
@@ -573,9 +569,7 @@ if($this->meta_data['connected'] == 1) {
          */
         $("#send-mail").submit(function(e){
             e.preventDefault();
-            var recipentsS = $("#modal-email-tag").val()
-            // var message = $("#modal-email-message").val()
-            // var journey = api.connections[$("#section-id").val()]
+            var recipents = $("#modal-email-tag").val()
 
             var me = $("#modal-email-me")
             if (me.is(":checked")) {
@@ -584,13 +578,12 @@ if($this->meta_data['connected'] == 1) {
               me = false;
             }
 
-            //todo: terminer envoi emails
             $.ajax(
                 {
                     type: "post",
                     url: "<?= base_url(); ?>itinerary/check_sendEmail_travel",
                     data: {
-                        recipents: recipentsS,
+                        recipents: recipents,
                         message: $("#modal-email-message").val(),
                         journey: api.connections[$("#section-id").val()],
                         me: me
@@ -598,12 +591,9 @@ if($this->meta_data['connected'] == 1) {
                     success: function (response) {
                         $(".modal").css('display', 'none');
                         $("#home_container_overlay").css('display', 'none');
-                        console.log(api.connections[$("#section-id").val()]);
-                        console.log('success');
                         notif('success', 'Mail envoyé avec succès')
                     },
                     error: function (response) {
-                      console.log('error');
                       notif('error', 'Erreur lors de l\'envoi du mail')
                     }
                 });

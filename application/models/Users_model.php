@@ -133,7 +133,7 @@ class Users_model extends CI_Model {
     }
 
     public function valid_email($email){
-      $error = 'Veuillez saisir une adresse email correct';
+      $error = 'Veuillez saisir une adresse email correcte';
       if(filter_var($email, FILTER_VALIDATE_EMAIL) && $email != ''){
         return true;
       } else {
@@ -148,6 +148,15 @@ class Users_model extends CI_Model {
       if(preg_match($ok_pass, $password)){
         return true;
       } else {
+        return $error;
+      }
+    }
+
+    public function match_captcha($input, $match){
+      $error = 'Captcha faux';
+      if($input === $match){
+        return true;
+      }else{
         return $error;
       }
     }
