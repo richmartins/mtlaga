@@ -1448,7 +1448,7 @@ label.stat_pass{
 
   .itineraire_flex_container_travel_action_outils {
     padding: 5px;
-    height: 150px;
+    height: auto;
   }
 
   .itineraire_flex_container_travel_action {
