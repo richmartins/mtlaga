@@ -48,10 +48,10 @@ class Email_model extends CI_Model {
    $from     = 'no-reply@mtlaga.ch';
    $subject  = 'Réinitialisation de votre mot de passe MTLAGA';
    $message  = '';
-   $message .= "<h2>Vous recevez cette email suite à votre demande de réinitialisation de votre mot de passe</h2>"
+   $message .= "<h2>Vous recevez cet email suite à votre demande de réinitialisation de mot de passe</h2>"
             . "<p>Veuillez cliquer sur le lien suivant pour saisir un nouveau mot de passe :  <a href='".site_url()."/auth/reset_tok/?token=$token&email=$to' >nouveau mot de passe</a></p>"
-            . "<p>Si ce n'ai pas vous qui avez souhaitez cette requête, veuillez ignoré cette e-mail.</p>"
-            . "<p>Bien cordialement, votre équipe de mtlaga</p>"
+            . "<p>Si vous n'avez fait aucune demande, veuillez ignorer cet e-mail.</p>"
+            . "<p>Bien cordialement, votre équipe mtlaga</p>"
             . "";
    $this->email->from($from, 'MTLAGA');
    $this->email->to($to);
