@@ -24,7 +24,7 @@
                       <p>Horaires</p>
                   </div>
                   <div class="flex_container" id="home_style_icon_clock">
-                      <i class="far fa-clock fa-2x"></i>
+                      <i class="far fa-clock fa-2x" style="color: #0083B3;"></i>
                   </div>
               </div>
               <form method="post" action="<?=base_url()?>itinerary/" id="searchItineraryForm">
@@ -53,7 +53,7 @@
                       <p>Favoris</p>
                   </div>
                   <div class="flex_container" id="home_style_icon_star">
-                      <i class="fas fa-star fa-2x"></i>
+                      <i class="fas fa-star fa-2x" style="color: gold;"></i>
                   </div>
               </div>
               <div class="flex_container home_style_flexbox_sub_text">

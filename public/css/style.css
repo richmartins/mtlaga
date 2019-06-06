@@ -540,14 +540,6 @@ footer {
   align-items: center;
 }
 
-#home_style_icon_clock i {
-  color: #0083B3;
-}
-
-#home_style_icon_star i {
-  color: gold;
-}
-
 /* INFO */
 #info_sytle_bck {
   height: auto;
