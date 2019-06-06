@@ -75,18 +75,17 @@ class Auth extends CI_Controller {
     $pwd_confirm = $this->input->post('password_confirm');
     $email = $this->input->post('email');
     $token = $this->input->post('token');
-    $data = array('token' => $token, 'email' => $email);
 
     $match_pwd = $this->users_model->match_password($pwd, $pwd_confirm);
-    if ($match_pwd){
+    if ($match_pwd === true){
       $res = $this->users_model->update_password($email, $pwd);
       if ($res) { redirect('auth/login'); } else { $this->session->set_flashdata('error', 'somehting went wrong'); }
     }else{
       $error = $match_pwd;
-      $this->session->set_flashdata('class','error');
-      $this->session->set_flashdata('error', $error);
+      $data['error'] = $error;
+      $data['class'] = 'error';
       $this->session->set_flashdata($data);
-      redirect('auth/newpassowrd');
+      redirect('auth/reset_tok?token='. $token . '&email='. $email);
     }
   }
 
