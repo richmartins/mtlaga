@@ -23,8 +23,8 @@
                   <div class="flex_container home_style_flexbox_title_text" >
                       <p>Horaires</p>
                   </div>
-                  <div class="flex_container" >
-                      <img class="home_style_flexbox_title_img" src="<?= base_url(); ?>public/img/mtlaga_home_clock.png" alt="">
+                  <div class="flex_container" id="home_style_icon_clock">
+                      <i class="far fa-clock fa-2x"></i>
                   </div>
               </div>
               <form method="post" action="<?=base_url()?>itinerary/" id="searchItineraryForm">
@@ -52,8 +52,8 @@
                   <div class="flex_container home_style_flexbox_title_text" >
                       <p>Favoris</p>
                   </div>
-                  <div class="flex_container" >
-                      <img class="home_style_flexbox_title_img" src="<?= base_url(); ?>public/img/mtlaga_home_star.png" alt="">
+                  <div class="flex_container" id="home_style_icon_star">
+                      <i class="fas fa-star fa-2x"></i>
                   </div>
               </div>
               <div class="flex_container home_style_flexbox_sub_text">
