@@ -18,7 +18,7 @@
         </div>
     </div>
     <div id="footer_copyright">
-        <span>MTLAGA v1.3</span>
+        <span>MTLAGA v1.4</span>
         <p>© 2019. Tous droits réservés. &lt;/&gt; with ♥ by <a target="_blank" href="https://github.com/richmartins">@richmartins</a> | <a target="_blank" href="https://github.com/hadrylouis/">@hadrylouis</a></p>
     </div>
 </footer>

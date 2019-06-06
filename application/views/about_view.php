@@ -5,7 +5,7 @@
         <p>Information</p>
         <div id="info_style_container">
           <p>
-            MTLAGA est un projet informatique developpé en vue de la validation des modules <b>ICT 120/151</b> de la formation d'informaticien-ne-s CFC. Notre but principal est de créer une plateforme indépendante qui regroupe tous les horaires des transports publics <b>Suisse</b>. Vivant à Lausanne, nous savons l'importance qu'est de pouvoir consulter les horaires en tout temps afin de mieux s'organiser. Nous nous sommes mis comme objectif la <b>simplicité</b>. Pour nous, il est primordial de trouver l'information que l'on recherche le plus rapidement possible.
+            MTLAGA est un projet informatique développé en vue de la validation des modules <b>ICT 120/151</b> de la formation d'informaticien-ne-s CFC. Notre but principal est de créer une plateforme indépendante qui regroupe tous les horaires des transports publics <b>suisses</b>. Vivant à Lausanne, nous savons l'importance qu'est de pouvoir consulter les horaires en tout temps afin de mieux s'organiser. Nous nous sommes mis comme objectif la <b>simplicité</b>. Pour nous, il est primordial de trouver l'information que l'on recherche le plus rapidement possible.
           </p>
           <div class="info_style_sign">
               <h4> Notre équipe</h4>
@@ -52,7 +52,7 @@
           </div><br /><br />
           <div id="info_style_realisation">
             <p>
-              Nous sommes fièrs de vous partager les outils utilisés pour la conecption de ce site:
+              Nous sommes fiers de vous partager les outils utilisés pour la conception de ce site:
             </p>
             <div>
               <ul>
