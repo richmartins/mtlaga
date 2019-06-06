@@ -7,7 +7,7 @@
         <p><?= $this->session->flashdata('info') ?></p>
     <?php endif;?>
     <?php if (null !== $this->session->flashdata('email')): ?>
-        <p class="auth_signup_info">Un courriel a été envoyé sur votre adresse mail. Si vous ne l'avez pas reçu, vous pouvez cliquer sur : <a href="<?= base_url(); ?>auth/resend_confirm/?email=<?= $this->session->flashdata('email'); ?>">renvoyer</a>
+        <p class="auth_signup_info">Un email de vérification vous a été envoyé. Si vous ne l'avez pas reçu, vous pouvez cliquer sur : <a href="<?= base_url(); ?>auth/resend_confirm/?email=<?= $this->session->flashdata('email'); ?>">renvoyer</a>
     <?php endif; ?>
   </div>
 </div>
