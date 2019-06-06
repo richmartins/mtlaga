@@ -228,6 +228,7 @@ header {
   outline: none;
   font-size: 18px;
   padding: 5px;
+  -webkit-appearance: none;
 }
 
 
@@ -478,6 +479,7 @@ footer {
   background-color: #0083B3;
   color: #FFFFFF;
   border: none;
+  -webkit-appearance: none;
 }
 
 .home_style_flexbox_input:focus {
@@ -1446,7 +1448,7 @@ label.stat_pass{
 
   .itineraire_flex_container_travel_action_outils {
     padding: 5px;
-    height: 150px;
+    height: auto;
   }
 
   .itineraire_flex_container_travel_action {

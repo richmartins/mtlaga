@@ -343,7 +343,7 @@ if($this->meta_data['connected'] == 1) {
                                                   <input type="hidden" value="<?= $connection_key ?>">
                                               </div>
                                               <div class="flex_container itineraire_flex_container_travel_action_outils_icon icon_add_calendar">
-                                                  <li class="itineraire_flex_container_action_outil_text"><a href="<?= base_url()?>/Itinerary/generate_ics/toto/tata">Ajouter au calendrier</a></li>
+                                                  <li class="itineraire_flex_container_action_outil_text"><a>Ajouter au calendrier</a></li>
                                                   <i class="fas fa-calendar-alt itineraire_icon"></i>
                                                   <i class="fas fa-long-arrow-alt-right animated fadeInLeft"
                                                      style="display: none; padding-right: 5px">
@@ -354,12 +354,18 @@ if($this->meta_data['connected'] == 1) {
                                                   <i class="fas fa-envelope itineraire_icon"></i>
                                                   <i class="fas fa-long-arrow-alt-right animated fadeInLeft" style="display: none; padding-right: 5px"></i>
                                               </div>
-                                              <!-- <div class="flex_container itineraire_flex_container_travel_action_outils_icon icon_send_whatsapp" data-index="">
-                                                  <li class="itineraire_flex_container_action_outil_text"><a href="whatsapp://send?text=interesting-url"
-                                                                                                             data-action="share/whatsapp/share">Envoyer par whatsapp</a></li>
-                                                  <i class="fab fa-whatsapp-square"></i>what
+                                              <div class="flex_container itineraire_flex_container_travel_action_outils_icon icon_send_whatsapp" data-index="<?= $connection_key?>">
+                                                  <li class="itineraire_flex_container_action_outil_text">
+                                                      <!--
+                                                      <a href="whatsapp://send?text=interesting-url" data-action="share/whatsapp/share">
+                                                          Envoyer par whatsapp
+                                                      </a>
+                                                      -->
+                                                      <a>Envoyer par WhatsApp</a>
+                                                  </li>
+                                                  <i class="fab fa-whatsapp-square"></i>
                                                   <i class="fas fa-long-arrow-alt-right animated fadeInLeft" style="display: none; padding-right: 5px"></i>
-                                              </div> -->
+                                              </div>
                                           </ul>
                                       </div>
                                   </div>
@@ -523,6 +529,16 @@ if($this->meta_data['connected'] == 1) {
             $(".modal").css('display', 'none');
             $("#home_container_overlay").css('display', 'none');
             lines = []
+        })
+
+        /**
+         * Comming soon messages
+         */
+        $(".icon_add_calendar").click(function() {
+            notif("error", "Prochainement disponible");
+        })
+        $(".icon_send_whatsapp").click(function() {
+            notif("error", "Prochainement disponible");
         })
 
         /**
