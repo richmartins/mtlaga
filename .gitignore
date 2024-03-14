@@ -1,9 +1,1 @@
-.DS_Store
-user_guide/
-.idea
 .env
-.env.development
-.env.prod
-composer.lock
-vendor/
-.htaccess

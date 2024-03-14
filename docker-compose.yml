@@ -1,0 +1,20 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    ports:
+      - '80:80'
+    depends_on:
+      - php-fpm
+    environment:
+      - PHP_CONTAINER_NAME=${PHP_CONTAINER_NAME}
+    env_file:
+      - .env
+
+  php-fpm:
+    container_name: php-fpm
+    build:
+      context: .
+      dockerfile: Dockerfile.php-fpm
+  
