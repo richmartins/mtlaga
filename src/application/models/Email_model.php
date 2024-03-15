@@ -20,10 +20,10 @@ class Email_model extends CI_Model {
   * @return boolean
   */
   public function sendEmail_confirm($to, $token){
-   $from     = 'no-reply@mtlaga.ch';
+   $from     = getenv('NO_REPLY_MAIL');
    $subject  = 'Confirmation de compte MTLAGA';
    $message  = '';
-   $message .= "<h2>Vous recevez cet email suite à votre inscription chez <a href='https://mtlaga.ch'>MTLAGA</a></h2>"
+   $message .= "<h2>Vous recevez cet email suite à votre inscription chez <a href='". site_url() . "'>MTLAGA</a></h2>"
             . "<p>Veuillez cliquer sur le lien suivant pour confirmer votre inscription et profiter de toutes les fonctionnalités de MTLAGA :  <a href='".site_url()."/auth/confirm/?token=$token&email=$to' >Confirmation</a></p>"
             . "<p>Si vous n'avez fait aucune demande, veuillez ignorer cet e-mail.</p>"
             . "<p>Bien cordialement,<br /> votre équipe mtlaga</p>"
@@ -45,7 +45,7 @@ class Email_model extends CI_Model {
   * @return boolean
   */
   public function sendEmail_reset_pwd($to, $token){
-   $from     = 'no-reply@mtlaga.ch';
+   $from     = getenv('NO_REPLY_MAIL');
    $subject  = 'Réinitialisation de votre mot de passe MTLAGA';
    $message  = '';
    $message .= "<h2>Vous recevez cet email suite à votre demande de réinitialisation de mot de passe</h2>"
@@ -92,7 +92,7 @@ class Email_model extends CI_Model {
       $arrival_platform = ', sur la voie ' . $travel_info['to']['platform'];
     }
 
-    $from     = 'no-reply@mtlaga.ch';
+    $from     = getenv('NO_REPLY_MAIL');
     $subject  = 'Informations sur votre itineraire';
     $message  = '';
     $message .= "<h3>MTLAGA</h3>";
@@ -102,7 +102,7 @@ class Email_model extends CI_Model {
     $message .= "<p>Départ : ". $departure_hour ." de ". $departure_location . $departure_platform . "<br />"
              . "Arrivée : " . $arrival_hour ." à ". $arrival_location . $arrival_platform . "</p>";
 
-    $message .= "<p>Pour plus de détails : <a href='https://mtlaga.ch'>https://mtlaga.ch/</p>";
+    $message .= "<p>Pour plus de détails : <a href='" . site_url() . "'>" . site_url() . "</p>";
 
     $this->email->from($from, $user);
     $this->email->to($to);
