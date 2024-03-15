@@ -1,0 +1,6 @@
+FROM mysql:8.3
+
+# Copy the SQL schema file into the Docker container
+COPY scripts/schema.sql /docker-entrypoint-initdb.d/
+
+EXPOSE 3306

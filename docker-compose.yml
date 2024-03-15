@@ -13,7 +13,7 @@ services:
       - .env
 
   php-fpm:
-    container_name: php-fpm
+    container_name: ${PHP_CONTAINER_NAME}
     build:
       context: .
       dockerfile: Dockerfile.php-fpm
@@ -21,7 +21,9 @@ services:
       - .env
 
   mysql:
-    image: mysql
+    build:
+      context: .
+      dockerfile: Dockerfile.mysql
     restart: always
     # Remove the following line later
     ports:
