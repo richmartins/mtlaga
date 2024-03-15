@@ -1,18 +1,14 @@
 FROM php:8.1-fpm
 
-RUN apt-get update && apt-get upgrade -y
+RUN apt-get update && apt-get install -y \
+		libfreetype-dev \
+		libjpeg62-turbo-dev \
+		libpng-dev \
+	&& docker-php-ext-configure gd --with-freetype --with-jpeg \
+	&& docker-php-ext-install -j$(nproc) gd
 
-RUN docker-php-ext-install pdo_mysql
+RUN docker-php-ext-install mysqli
 
-# Install composer && git
-RUN apt-get install -y git
-COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
-
-# Copy source code
 COPY ./src /var/www/html
 
-# Set working directory
 WORKDIR /var/www/html
-
-# Run composer install
-RUN composer install

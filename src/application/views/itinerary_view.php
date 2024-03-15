@@ -222,8 +222,8 @@ if($this->meta_data['connected'] == 1) {
                           $section_duration_formatted = date("H:i", $section_duration - 3600);
 
                           // Formatage date pour affichage humain
-                          $section_duration_hours = $section_duration / 3600 % 24;
-                          $section_duration_minutes = $section_duration / 60 % 60;
+                          $section_duration_hours = intval($section_duration / 3600) % 24;
+                          $section_duration_minutes = intval($section_duration / 60) % 60;
                           $section_duration_formatted_walk = "Marche " . $section_duration_hours . " heures " . $section_duration_minutes . " minutes";
                           $section_duration_formatted_small = "<b>" . $section_duration_hours . "</b> h <b>" . $section_duration_minutes . "</b> min";
                           if (empty($section_duration_hours)) {

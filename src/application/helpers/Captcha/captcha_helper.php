@@ -51,7 +51,7 @@ if (! function_exists('captcha')){
         $_SESSION['captcha_text'] = $captcha_string;
 
         for($i = 0; $i < $string_length; $i++) {
-         $letter_space = 170/$string_length;
+         $letter_space = intval(170 / $string_length);
          $initial = 15;
          imagettftext($image, 24, rand(-15, 15), $initial + $i*$letter_space, rand(25, 45), $white, $fonts[array_rand($fonts)], $captcha_string[$i]);
         }
