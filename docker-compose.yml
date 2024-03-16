@@ -9,8 +9,6 @@ services:
       - php-fpm
     environment:
       - PHP_CONTAINER_NAME=${PHP_CONTAINER_NAME}
-    env_file:
-      - .env
 
   php-fpm:
     container_name: ${PHP_CONTAINER_NAME}
