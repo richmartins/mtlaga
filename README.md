@@ -25,6 +25,6 @@ A CI/CD pipeline is already set up for this project. It will automatically creat
 
 - `php-fpm`
 - `nginx`
-- `mysql`
+- `mariadb`
 
 To deploy the application, you can create your own `docker-compose.yml` file and use the images from the Github Container Registry.
