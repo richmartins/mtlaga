@@ -1,0 +1,44 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    ports:
+      - '80:80'
+    depends_on:
+      - php-fpm
+    environment:
+      - PHP_CONTAINER_NAME=${PHP_CONTAINER_NAME}
+
+  php-fpm:
+    container_name: ${PHP_CONTAINER_NAME}
+    build:
+      context: .
+      dockerfile: Dockerfile.php-fpm
+    env_file:
+      - .env
+
+  mariadb:
+    build:
+      context: .
+      dockerfile: Dockerfile.mariadb
+    restart: always
+    # Remove the following line later
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PWD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PWD}
+    command: "--init-file /docker-entrypoint-initdb.d/schema.sql"
+    healthcheck:
+      test: [ "CMD", "healthcheck.sh", "--su-mysql", "--connect", "--innodb_initialized" ]
+      start_period: 1m
+      start_interval: 10s
+      interval: 1m
+      timeout: 5s
+      retries: 3
+    volumes:
+      - .mariadb-data:/var/lib/mariadb
+      - ./scripts/schema.sql:/docker-entrypoint-initdb.d/schema.sql

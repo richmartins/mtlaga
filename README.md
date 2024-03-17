@@ -1,47 +1,30 @@
 # MTLAGA
-Is a web application for consulting schedule of trains and buses in switzerland
 
-# Installation
-we are using **mod_rewrite** from apache in order to have a beautiful **url**.
+Is a web application for consulting schedule of trains and buses in Switzerland
 
-to install it on ubuntu, you must first
+## Pre-requisites
 
-**1.**  enable rewrite module
+- Docker
+- Docker-compose
 
-    sudo a2enmod rewrite
+## Usage
 
-**2.** then if it is the first time that you enable it. You will have to edit your **site.conf** file.
+### Development
 
-    sudo nano /etc/apache2/sites-available/000-default.conf
+Run the following command to start the development environment:
 
-and add the fellowing lines in it
-
-
-```apacheconf
-
-<VirtualHost *:80>
-<Directory /var/www/html>
-    Options Indexes FollowSymLinks MultiViews
-    AllowOverride All
-    Require all granted
-</Directory>
-[...]
-</VirtualHost>
-
+```bash
+docker-compose up
 ```
 
-**3.** finally you will have to restart you server.
+The application will be available at `http://localhost:80`
 
-    sudo systemctl restart apache2
+### Production
 
-**4.** Install composer && depths
+A CI/CD pipeline is already set up for this project. It will automatically create 3 Docker images and push them to the Github Container Registry. The images are:
 
-    curl -s https://getcomposer.org/installer | php
-  
-    sudo mv composer.phar /usr/local/bin/composer
+- `php-fpm`
+- `nginx`
+- `mariadb`
 
-    composer -v
-
-    composer install
-
-more details will be coming soon
+To deploy the application, you can create your own `docker-compose.yml` file and use the images from the Github Container Registry.
