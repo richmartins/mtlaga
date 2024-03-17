@@ -133,7 +133,7 @@ class Auth extends CI_Controller {
       $this->session->set_flashdata('email', $email);
       redirect('auth/login');
     } else {
-      $error = 'Une erreur c\'est produite, veuillez contacter admin@mtlaga.ch';
+      $error = 'Une erreur c\'est produite, veuillez contacter no-reply@hadrien-louis.ch';
       $this->session->set_flashdata('class','error');
       $this->session->set_flashdata('error', $error);
       redirect('auth/signup', 'refresh');
@@ -165,13 +165,13 @@ class Auth extends CI_Controller {
         $this->session->set_flashdata('info', $info);
         redirect('auth/login');
       } else {
-        $error = 'Une erreur c\'est produite, veuillez contacter admin@mtlaga.ch';
+        $error = 'Une erreur c\'est produite, veuillez contacter no-reply@hadrien-louis.ch';
         $this->session->set_flashdata('class','error');
         $this->session->set_flashdata('error', $error);
         redirect('auth/signup', 'refresh');
       }
     } else {
-      $error = 'Une erreur c\'est produite, veuillez contacter admin@mtlaga.ch';
+      $error = 'Une erreur c\'est produite, veuillez contacter ano-reply@hadrien-louis.ch';
       $this->session->set_flashdata('class','error');
       $this->session->set_flashdata('error', $error);
       redirect('auth/signup', 'refresh');
