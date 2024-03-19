@@ -37,7 +37,7 @@ class Users_model extends CI_Model {
       $query = $this->db->get();
       if ($query->num_rows() == 0) { return $error; }
 
-      $hashed_password = $this->db->get()->result()[0]->hash_password;
+      $hashed_password = $query->result()[0]->hash_password;
 
       if(!password_verify($password, $hashed_password)) { return $error; } else { return true; }
     }
