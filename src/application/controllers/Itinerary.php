@@ -138,7 +138,9 @@ class Itinerary extends CI_Controller {
         $event = [
             'title' => "Voyage de Lausanne à Genève",
             'address' => "Voie 3" . $departure . $arrival,
-            'description' => "Détails de votre voyage du 14.04.19 : \\n\\n Départ : " . $time_departure . " de " . $departure . " sur Voie 2 \\n Arrivée : " . $time_arrival . "  à " . $arrival . " sur Voie 4\\n\\n Pour plus de détails : http://www.mtlaga.ch",
+            'description' => "Détails de votre voyage du 14.04.19 : \\n\\n Départ : " . $time_departure 
+                . " de " . $departure . " sur Voie 2 \\n Arrivée : " . $time_arrival . "  à " . $arrival 
+                . " sur Voie 4\\n\\n Pour plus de détails : " . base_url(),
             'datestart' => "2019-04-14 12:00:00",
             'dateend' => "2019-04-14 13:45:00"
         ];
