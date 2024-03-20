@@ -34,8 +34,12 @@ class Users_model extends CI_Model {
       $this->db->from('users');
       $this->db->where('email', $email);
 
-      $query = $this->db->get()->result()[0]->hash_password;
-      if(!password_verify($password, $query)) { return $error; } else { return true; }
+      $query = $this->db->get();
+      if ($query->num_rows() == 0) { return $error; }
+
+      $hashed_password = $query->result()[0]->hash_password;
+
+      if(!password_verify($password, $hashed_password)) { return $error; } else { return true; }
     }
 
     public function hash_password($password){
@@ -108,6 +112,11 @@ class Users_model extends CI_Model {
       $this->db->from('users');
       $this->db->where('email', $email);
       $query = $this->db->get();
+      
+      if ($query->num_rows() == 0) { 
+        return false; 
+      }
+
       if($query->result()[0]->confirmed == 1){
         return true;
       } else {
