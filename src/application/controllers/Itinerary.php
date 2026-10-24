@@ -238,7 +238,8 @@ END:VCALENDAR';
             "api" => $this->result,
             "favorites" => $this->favorites,
             "date" => $date,
-            "time" => $time
+            "time" => $time,
+            "scripts_to_load" => $data["scripts_to_load"]
         ];
 
         $this->load->view("templates/head", $data);

@@ -15,6 +15,7 @@ if(!isset($api) || empty($api->connections)) {
 // check if user is connected
 $connected = false;
 $is_favorite = false;
+$connected = false;
 $style = "opacity: 0.5; pointer-events: none;";
 
 if($this->meta_data['connected'] == 1) {

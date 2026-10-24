@@ -57,7 +57,6 @@ if ( ! function_exists('read_file'))
 	 *
 	 * Opens the file specified in the path and returns it as a string.
 	 *
-	 * @todo	Remove in version 3.1+.
 	 * @deprecated	3.0.0	It is now just an alias for PHP's native file_get_contents().
 	 * @param	string	$file	Path to file
 	 * @return	string	File contents
@@ -220,6 +219,8 @@ if ( ! function_exists('get_dir_file_info'))
 	 *
 	 * Any sub-folders contained within the specified path are read as well.
 	 *
+	 * Keys are the file paths relative to $source_dir.
+	 *
 	 * @param	string	path to source
 	 * @param	bool	Look only at the top level directory specified?
 	 * @param	bool	internal variable to determine recursion status - do not use in calls
@@ -228,6 +229,7 @@ if ( ! function_exists('get_dir_file_info'))
 	function get_dir_file_info($source_dir, $top_level_only = TRUE, $_recursion = FALSE)
 	{
 		static $_filedata = array();
+		static $_root_dir = '';
 		$relative_path = $source_dir;
 
 		if ($fp = @opendir($source_dir))
@@ -237,6 +239,7 @@ if ( ! function_exists('get_dir_file_info'))
 			{
 				$_filedata = array();
 				$source_dir = rtrim(realpath($source_dir), DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
+				$_root_dir = $source_dir;
 			}
 
 			// Used to be foreach (scandir($source_dir, 1) as $file), but scandir() is simply not as fast
@@ -248,8 +251,13 @@ if ( ! function_exists('get_dir_file_info'))
 				}
 				elseif ($file[0] !== '.')
 				{
-					$_filedata[$file] = get_file_info($source_dir.$file);
-					$_filedata[$file]['relative_path'] = $relative_path;
+					$filedata = get_file_info($source_dir.$file);
+
+					if (is_array($filedata))
+					{
+						$filedata['relative_path'] = $relative_path;
+						$_filedata[substr($source_dir.$file, strlen($_root_dir))] = $filedata;
+					}
 				}
 			}
 

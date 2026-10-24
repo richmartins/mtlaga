@@ -170,7 +170,7 @@ class CI_Config {
 				$this->is_loaded[] = $file_path;
 				$config = NULL;
 				$loaded = TRUE;
-				log_message('debug', 'Config file loaded: '.$file_path);
+				log_message('info', 'Config file loaded: '.$file_path);
 			}
 		}
 
@@ -326,6 +326,20 @@ class CI_Config {
 	// -------------------------------------------------------------
 
 	/**
+	 * System URL
+	 *
+	 * @deprecated	3.0.0
+	 * @return	string
+	 */
+	public function system_url()
+	{
+		$x = explode('/', preg_replace('|/*(.+?)/*$|', '\\1', BASEPATH));
+		return $this->slash_item('base_url').end($x).'/';
+	}
+
+	// -------------------------------------------------------------
+
+	/**
 	 * Build URI string
 	 *
 	 * @used-by	CI_Config::site_url()
@@ -347,20 +361,6 @@ class CI_Config {
 		}
 
 		return $uri;
-	}
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * System URL
-	 *
-	 * @deprecated	3.0.0	Encourages insecure practices
-	 * @return	string
-	 */
-	public function system_url()
-	{
-		$x = explode('/', preg_replace('|/*(.+?)/*$|', '\\1', BASEPATH));
-		return $this->slash_item('base_url').end($x).'/';
 	}
 
 	// --------------------------------------------------------------------

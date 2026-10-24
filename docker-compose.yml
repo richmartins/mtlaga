@@ -23,9 +23,6 @@ services:
       context: .
       dockerfile: Dockerfile.mariadb
     restart: always
-    # Remove the following line later
-    ports:
-      - 3306:3306
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PWD}
       MYSQL_DATABASE: ${DB_NAME}

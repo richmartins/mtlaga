@@ -88,7 +88,7 @@ class CI_SessionWrapper implements SessionHandlerInterface, SessionUpdateTimesta
 		return $this->driver->gc($maxlifetime);
 	}
 
-	public function updateTimestamp(string $id, string$data): bool
+	public function updateTimestamp(string $id, string $data): bool
 	{
 		return $this->driver->updateTimestamp($id, $data);
 	}
@@ -96,5 +96,10 @@ class CI_SessionWrapper implements SessionHandlerInterface, SessionUpdateTimesta
 	public function validateId(string $id): bool
 	{
 		return $this->driver->validateId($id);
+	}
+
+	public function create_sid(): string
+	{
+		return session_create_id();
 	}
 }
