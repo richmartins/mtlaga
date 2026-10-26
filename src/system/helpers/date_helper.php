@@ -131,14 +131,10 @@ if ( ! function_exists('standard_date'))
 	 * Returns a date formatted according to the submitted standard.
 	 *
 	 * As of PHP 5.2, the DateTime extension provides constants that
-	 * serve for the exact same purpose and are used with date().
+	 * serve for the exact same purpose and are used internally by
+	 * date() as well.
 	 *
-	 * @todo	Remove in version 3.1+.
-	 * @deprecated	3.0.0	Use PHP's native date() instead.
-	 * @link	https://www.php.net/manual/en/class.datetime.php#datetime.constants.types
-	 *
-	 * @example	date(DATE_RFC822, now()); // default
-	 * @example	date(DATE_W3C, $time); // a different format and time
+	 * @deprecated	3.1.3	Use PHP's native date() with DateTime constants
 	 *
 	 * @param	string	$fmt = 'DATE_RFC822'	the chosen format
 	 * @param	int	$time = NULL		Unix timestamp
@@ -607,7 +603,7 @@ if ( ! function_exists('timezones'))
 	 * for various other ones in this library
 	 *
 	 * @param	string	timezone
-	 * @return	string
+	 * @return	string|array
 	 */
 	function timezones($tz = '')
 	{

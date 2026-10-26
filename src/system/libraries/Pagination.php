@@ -358,18 +358,16 @@ class CI_Pagination {
 	 */
 	public function initialize(array $params = array())
 	{
+		if (isset($params['anchor_class']))
+		{
+			empty($params['anchor_class']) OR $params['attributes']['class'] = $params['anchor_class'];
+			unset($params['anchor_class']);
+		}
+
 		if (isset($params['attributes']) && is_array($params['attributes']))
 		{
 			$this->_parse_attributes($params['attributes']);
 			unset($params['attributes']);
-		}
-
-		// Deprecated legacy support for the anchor_class option
-		// Should be removed in CI 3.1+
-		if (isset($params['anchor_class']))
-		{
-			empty($params['anchor_class']) OR $attributes['class'] = $params['anchor_class'];
-			unset($params['anchor_class']);
 		}
 
 		foreach ($params as $key => $val)
@@ -523,7 +521,7 @@ class CI_Pagination {
 		}
 
 		// If something isn't quite right, back to the default base page.
-		if ( ! ctype_digit($this->cur_page) OR ($this->use_page_numbers && (int) $this->cur_page === 0))
+		if ( ! ctype_digit((string) $this->cur_page) OR ($this->use_page_numbers && (int) $this->cur_page === 0))
 		{
 			$this->cur_page = $base_page;
 		}

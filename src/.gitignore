@@ -4,6 +4,4 @@ user_guide/
 .env
 .env.development
 .env.prod
-composer.lock
-vendor/
 .htaccess

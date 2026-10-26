@@ -6,6 +6,28 @@
     <title><?= $meta_data['title']; ?></title>
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <meta name="csrf-name" content="<?= html_escape($this->security->get_csrf_token_name()); ?>">
+    <meta name="csrf-hash" content="<?= html_escape($this->security->get_csrf_hash()); ?>">
+    <script>
+        // Add the CSRF token to every POST form and every jQuery AJAX POST.
+        (function () {
+            var name = $('meta[name="csrf-name"]').attr('content');
+            var hash = $('meta[name="csrf-hash"]').attr('content');
+            var param = encodeURIComponent(name) + '=' + encodeURIComponent(hash);
+
+            $.ajaxPrefilter(function (options) {
+                if ((options.type || '').toUpperCase() !== 'POST') return;
+                options.data = options.data ? options.data + '&' + param : param;
+            });
+
+            $(document).on('submit', 'form', function () {
+                var form = $(this);
+                if ((form.attr('method') || '').toLowerCase() !== 'post') return;
+                if (form.find('input[name="' + name + '"]').length) return;
+                $('<input type="hidden">').attr('name', name).val(hash).appendTo(form);
+            });
+        })();
+    </script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.full.js" charset="UTF-8"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/i18n/fr.js"></script>
